@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://qfsyklj0mtul"]
+
+[ext_resource type="Script" uid="uid://c07ragixe8gnn" path="res://Scripts/GridManager.gd" id="1_aiu8d"]
+
+[node name="PlacementGrid" type="Node2D" unique_id=838105151]
+script = ExtResource("1_aiu8d")
+
+[node name="Background" type="ColorRect" parent="." unique_id=256491045]
+offset_right = 1153.0
+offset_bottom = 654.0
+color = Color(0.19215687, 0.44313726, 0.627451, 1)
+
+[node name="Seperator Bars" type="Node2D" parent="." unique_id=1513873166]
