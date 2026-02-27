@@ -1,0 +1,9 @@
+[gd_resource type="InventoryDatabase" format=3 uid="uid://clr3lry1ugej5"]
+
+[sub_resource type="ItemDefinition" id="ItemDefinition_psps2"]
+id = "iron"
+max_stack = 16
+name = "Iron"
+
+[resource]
+items = Array[ItemDefinition]([SubResource("ItemDefinition_psps2")])
