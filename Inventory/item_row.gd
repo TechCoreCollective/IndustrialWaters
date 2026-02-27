@@ -1,7 +1,10 @@
+# ItemRow.gd
 extends Control
 
-# Setup function to populate the row
-func setup(item_name: String, icon: Texture2D, amount: int):
+var item_name: String
+
+func setup(name: String, icon: Texture2D, amount: int):
+	item_name = name
 	$HBoxContainer/Icon.texture = icon
-	$HBoxContainer/ItemName.text = item_name
+	$HBoxContainer/ItemName.text = name
 	$HBoxContainer/ItemCount.text = "x" + str(amount)
