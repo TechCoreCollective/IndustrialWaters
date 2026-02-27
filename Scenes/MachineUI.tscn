@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://oj7wyk3go63k"]
+
+[ext_resource type="Script" uid="uid://baab276g1kp5q" path="res://Scripts/MachineUI.gd" id="1_j1x4e"]
+
+[sub_resource type="Gradient" id="Gradient_j1x4e"]
+offsets = PackedFloat32Array(0, 0.252, 0.34, 0.492, 1)
+colors = PackedColorArray(0.02745098, 0.02745098, 0.02745098, 0.74509805, 0.24313726, 0.24313726, 0.24313726, 0.5411765, 0.2903285, 0.2903285, 0.2903285, 0.29058823, 0.5294118, 0.5294118, 0.5294118, 0, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ek4tp"]
+gradient = SubResource("Gradient_j1x4e")
+width = 128
+height = 128
+
+[node name="MachineUI" type="Control" unique_id=1523249431]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_j1x4e")
+
+[node name="Gradient" type="TextureRect" parent="." unique_id=1557388094]
+layout_mode = 0
+offset_top = 653.06
+offset_right = 655.1953
+offset_bottom = 1807.4558
+rotation = 4.712389
+texture = SubResource("GradientTexture2D_ek4tp")
