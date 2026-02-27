@@ -3,6 +3,7 @@ extends Node2D
 @onready var welded_line = $WeldedLine
 @onready var sparks = $Sparks
 @onready var progress_label = $UI/ProgressLabel
+@onready var tool = $WeldingTool
 
 var total_points = 0
 var welded_points = 0
@@ -15,6 +16,9 @@ func _ready():
 
 func _process(_delta):
 	var mouse_pos = get_local_mouse_position()
+	
+	tool.position = mouse_pos;
+	tool.rotation = lerp_angle(tool.rotation, (mouse_pos.x - tool.position.x) * 0.2, 0.1)
 	
 	if Input.is_action_pressed("click"):
 		is_welding = true
