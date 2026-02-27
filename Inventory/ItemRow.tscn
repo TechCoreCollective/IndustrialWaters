@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://dj5j4s7f0cs3l"]
+
+[ext_resource type="Script" uid="uid://dab5lq2e0ujpd" path="res://Inventory/item_row.gd" id="1_u5t8w"]
+
+[node name="ItemRow" type="Control" unique_id=531361307]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_u5t8w")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1002286756]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="Icon" type="TextureRect" parent="HBoxContainer" unique_id=1738218289]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+stretch_mode = 3
+
+[node name="ItemName" type="Label" parent="HBoxContainer" unique_id=1136040097]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ItemCount" type="Label" parent="HBoxContainer" unique_id=1507283693]
+layout_mode = 2
+horizontal_alignment = 2
