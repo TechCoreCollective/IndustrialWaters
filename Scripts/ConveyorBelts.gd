@@ -14,9 +14,17 @@ func place_conveyor():
 	if is_conway_placement_invalid(): return
 	MachineData.placed_machines.append(conveyor_tile)
 	conway_tiles_by_pos[place_tile] = conveyor_tile
-	conveyor_tile.conveyor_face_dir = determine_facing_direction(place_tile)
+	var direction_or_null = determine_facing_direction(place_tile)
+	if direction_or_null == null:
+		cancel_conveyor_placement(place_tile)
+		return
+	conveyor_tile.conveyor_face_dir = direction_or_null
 	grid.display_machines()
 	handle_active_conwayers(place_tile)
+
+func cancel_conveyor_placement(place_tile: Vector2):
+	conway_tiles_by_pos.erase(place_tile)
+	MachineData.placed_machines.pop_back()
 
 var conway_tiles_by_pos : Dictionary[Vector2i, Machine] = {}
 
@@ -27,7 +35,7 @@ func display_conveyor_belt(machine: Machine, sprite: Sprite2D):
 	sprite.centered = false
 	grid.update_position_of_texture(machine, sprite)
 
-func determine_facing_direction(place_tile: Vector2i, update_neighbours := true) -> Machine.ConveyorFaceDir:
+func determine_facing_direction(place_tile: Vector2i, update_neighbours := true):
 	var neighbours = get_neighbouring_tiles(place_tile)
 	if neighbours.size() == 0: return Machine.ConveyorFaceDir.Vertical
 	var abs_neighbours := []
@@ -37,16 +45,19 @@ func determine_facing_direction(place_tile: Vector2i, update_neighbours := true)
 	match abs_neighbours:
 		[Vector2i.RIGHT]: resulting_dir = Machine.ConveyorFaceDir.Horizontal
 		[Vector2i.DOWN]: resulting_dir = Machine.ConveyorFaceDir.Vertical
-	if neighbours.size() == 2:
-		resulting_dir = check_for_two_connections(neighbours, abs_neighbours)
+	if neighbours.size() >= 2:
+		var dir_or_null = check_for_multiple_connections(neighbours, abs_neighbours)
+		if dir_or_null == null: return null
+		resulting_dir = dir_or_null
 	if not update_neighbours: return resulting_dir
 	var current_abs_neigh = neighbours_absolute_pos
 	for tile_pos in current_abs_neigh:
 		var neigh_new_dir = determine_facing_direction(tile_pos, false)
+		if neigh_new_dir == null: return null
 		conway_tiles_by_pos[tile_pos].conveyor_face_dir = neigh_new_dir
 	return resulting_dir
 
-func check_for_two_connections(neighbours, abs_neighbours):
+func check_for_multiple_connections(neighbours, abs_neighbours):
 	if has_all(neighbours, [Vector2i.DOWN, Vector2i.RIGHT]):
 		return Machine.ConveyorFaceDir.UpRight
 	if has_all(neighbours, [Vector2i.DOWN, Vector2i.LEFT]):
@@ -57,6 +68,7 @@ func check_for_two_connections(neighbours, abs_neighbours):
 		return Machine.ConveyorFaceDir.DownLeft
 	if abs_neighbours == [Vector2i.RIGHT, Vector2i.RIGHT]: return Machine.ConveyorFaceDir.Horizontal
 	if abs_neighbours == [Vector2i.DOWN, Vector2i.DOWN]: return Machine.ConveyorFaceDir.Vertical
+	return null
 
 func has_all(arr: Array, compare: Array):
 	for element in arr: if not element in compare: return false
