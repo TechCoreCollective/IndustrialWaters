@@ -38,7 +38,6 @@ func handle_zoom_event(event: InputEvent):
 	if previous_zoom != grid_zoom: display_scene()
 
 func _process(_delta):
-	print(MachineData.get_clicked_machine_info())
 	update_window_size()
 	background.size = current_window_size
 	if previous_window_size != current_window_size: display_scene()
@@ -102,7 +101,10 @@ func handle_offset_event():
 
 func get_hovered() -> Vector2i:
 	var mouse_pos = get_viewport().get_mouse_position()
-	return Vector2i(mouse_pos / Vector2(space_between_bars) - grid_offset)
+	var unoffseted = mouse_pos / Vector2(space_between_bars)
+	var result = unoffseted - grid_offset
+	result = Vector2i(floor(result.x), floor(result.y))
+	return result
 
 func start_to_drag():
 	dragged_icon.update_type(MachineData.dragged_type)

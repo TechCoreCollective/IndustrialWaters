@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bs3v6oxvci46w"
-path="res://.godot/imported/DrillIcon.png-9b392c50f18a46290a6c20263c25b03b.ctex"
+uid="uid://c3q46mgoxrgmh"
+path="res://.godot/imported/OilDrillIcon.png-f2d5054edcf667fb59df62044e6d5dc7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Textures/DrillIcon.png"
-dest_files=["res://.godot/imported/DrillIcon.png-9b392c50f18a46290a6c20263c25b03b.ctex"]
+source_file="res://Textures/OilDrillIcon.png"
+dest_files=["res://.godot/imported/OilDrillIcon.png-f2d5054edcf667fb59df62044e6d5dc7.ctex"]
 
 [params]
 
