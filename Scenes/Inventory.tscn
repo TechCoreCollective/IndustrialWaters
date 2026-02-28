@@ -36,16 +36,33 @@ size_flags_horizontal = 0
 size_flags_vertical = 2
 placeholder_text = "Search..."
 
-[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer" unique_id=120811064]
-custom_minimum_size = Vector2(1000, 500)
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=1155509048]
 layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/HBoxContainer" unique_id=120811064]
+custom_minimum_size = Vector2(500, 500)
+layout_mode = 2
+size_flags_horizontal = 0
 size_flags_vertical = 3
 theme_override_constants/scrollbar_h_separation = 48
 theme_override_constants/scrollbar_v_separation = 48
 
-[node name="ItemList" type="VBoxContainer" parent="VBoxContainer/ScrollContainer" unique_id=1864370157]
+[node name="ItemList" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/ScrollContainer" unique_id=1864370157]
 layout_mode = 2
 theme_override_constants/separation = 48
+alignment = 1
+
+[node name="ScrollContainer2" type="ScrollContainer" parent="VBoxContainer/HBoxContainer" unique_id=730892607]
+custom_minimum_size = Vector2(500, 500)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 3
+theme_override_constants/scrollbar_h_separation = 48
+theme_override_constants/scrollbar_v_separation = 48
+
+[node name="ItemList" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/ScrollContainer2" unique_id=549119307]
+layout_mode = 2
+theme_override_constants/separation = 160
 alignment = 1
 
 [node name="Console" type="LineEdit" parent="VBoxContainer" unique_id=227583791]

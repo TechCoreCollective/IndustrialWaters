@@ -154,7 +154,6 @@ func create_conway_path_points():
 		var path_start = get_conway_path_start(conway_path)
 		MachineData.conway_path_points[path_index] = [path_start]
 		check_for_path_conway(path_index, path_start)
-	print(MachineData.conway_path_points)
 
 func get_conway_path_start(conway_path):
 	for conway in conway_path:
@@ -166,11 +165,14 @@ var checked_conways_for_path: Array[Vector2i]
 
 func check_for_path_conway(path_index, current_conway):
 	var neighbours = get_neighbouring_tiles(current_conway)
+	var current_path = MachineData.conway_path_points[path_index]
 	for neigh_delta in neighbours:
 		var neighbour_pos = neigh_delta + current_conway
 		if neighbour_pos in checked_conways_for_path: continue
 		checked_conways_for_path.append(neighbour_pos)
 		var neighbour_data = MachineData.get_machine_by_pos(neighbour_pos)
 		var is_edge = not neighbour_data.conveyor_face_dir in [Machine.ConveyorFaceDir.Horizontal, Machine.ConveyorFaceDir.Vertical]
-		if is_edge: MachineData.conway_path_points[path_index].append(neighbour_pos)
+		if is_edge: current_path.append(neighbour_pos)
 		check_for_path_conway(path_index, neighbour_pos)
+	if neighbours.size() == 1 and not current_conway in current_path:
+		current_path.append(current_conway)

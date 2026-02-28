@@ -1,6 +1,7 @@
 extends Node
 
 @onready var machine_status: Control = $"../MachineStatus"
+@onready var panel_2: Panel = $"../Panel2"
 
 var time = 0
 
@@ -10,10 +11,13 @@ func _ready() -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
+
+const time_to_make_resource = 1
+
 func _process(delta: float) -> void:
 	time += delta
 	
-	if time > 5:
+	if time > time_to_make_resource:
 		for machine in MachineData.placed_machines:
 			if machine == null:
 				continue
@@ -32,6 +36,9 @@ func _process(delta: float) -> void:
 	if machine_info != null and Input.is_action_just_pressed("middle clicjk") and machine_info.name != "conveyor":
 		machine_status.set_machine(machine_info)
 		machine_status.visible = true
+		
+		panel_2.visible = false
+		
 		var pos = get_viewport().get_mouse_position()
 		machine_status.set_position(pos)
 	

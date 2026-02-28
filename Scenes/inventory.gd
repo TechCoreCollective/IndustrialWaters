@@ -1,12 +1,25 @@
 extends Control
 
 @onready var search_bar: LineEdit = $VBoxContainer/SearchBar
-@onready var item_list: VBoxContainer = $VBoxContainer/ScrollContainer/ItemList
+@onready var item_list: VBoxContainer = $VBoxContainer/HBoxContainer/ScrollContainer/ItemList
 @onready var inventory: Inventory = GlobalInventory.get_node("Inventory")
+@onready var machine_list: VBoxContainer = $VBoxContainer/HBoxContainer/ScrollContainer2/ItemList
 
 var row_scene = load("res://Inventory/ItemRow.tscn")
+var row_machine = load("res://Inventory/MachineRow.tscn")
 
 @export var copper: String = "copper_ore"
+
+var working_machines : Array[MachineData.MachineType] = [MachineData.MachineType.DrillSolid, MachineData.MachineType.DrillLiquid, MachineData.MachineType.Smelter]
+
+var names = {
+	MachineData.MachineType.DrillSolid : "solid_drill",
+	MachineData.MachineType.DrillLiquid : "liquid_drill",
+	MachineData.MachineType.Smelter : "smelter",
+	MachineData.MachineType.Manufactor : "manufactor",
+	MachineData.MachineType.Collector : "collector",
+	MachineData.MachineType.ConveyorBelt : "conveyor"
+}
 
 var rows: Array = []
 
@@ -23,6 +36,9 @@ func _process(dt : float) -> void:
 func _contents_changed():
 	for i in item_list.get_children():
 		i.queue_free()
+		
+	for i in machine_list.get_children():
+		i.queue_free()
 	
 	for item in inventory.stacks:
 		if item.item_id != "":
@@ -30,6 +46,13 @@ func _contents_changed():
 			row.setup(inventory.get_item_from_id(item.item_id).name, inventory.get_item_from_id(item.item_id).icon, item.amount)
 			item_list.add_child(row)
 			rows.append(row)
+	
+	for machine in working_machines:
+		var id = names[machine]
+		var row = row_machine.instantiate()
+		row.setup(id)
+		machine_list.add_child(row)
+		rows.append(row)
 			
 
 func _on_search_changed(text: String):

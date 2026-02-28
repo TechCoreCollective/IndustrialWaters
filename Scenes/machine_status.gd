@@ -9,9 +9,6 @@ extends Control
 @onready var name_label: Label = $VBoxContainer/Name
 @onready var option_button: OptionButton = $VBoxContainer/OptionButton
 
-var text = FileAccess.get_file_as_string("res://config/machines.json")
-var parsed_data = JSON.parse_string(text)
-
 const COSTS = "upgrade_costs"
 const INFO = "info"
 
@@ -28,11 +25,11 @@ func set_machine(machine):
 	_update_res()
 
 func _update_res():
-	max_level = parsed_data.get(machine.name).get("max_level")
+	max_level = Machinejson.parsed_data.get(machine.name).get("max_level")
 	
 	var options = ["No Recipe"]
 	
-	options.append_array(parsed_data.get(machine.name).get("recipes"))
+	options.append_array(Machinejson.parsed_data.get(machine.name).get("recipes"))
 	
 	option_button.clear()
 	for i in options:
@@ -42,6 +39,8 @@ func _update_res():
 	if machine.level == max_level:
 		base += " (MAX)"
 		button.visible = false
+	else:
+		button.visible = true
 	
 	name_label.text = base
 	
@@ -50,7 +49,7 @@ func _update_res():
 	for i in item_list.get_children():
 		i.queue_free()
 	
-	for item in parsed_data.get(machine.name).get(COSTS).get(str(machine.level)):
+	for item in Machinejson.parsed_data.get(machine.name).get(COSTS).get(str(machine.level)):
 		var row = row_scene.instantiate()
 		row.setup(inventory.get_item_from_id(item.get("id")).name, inventory.get_item_from_id(item.get("id")).icon, item.get("amount"))
 		item_list.add_child(row)
@@ -58,20 +57,17 @@ func _update_res():
 	_sync_size()
 	
 	var info_panel = ""
-	for info in parsed_data.get(machine.name).get(INFO).get(str(machine.level)):
+	for info in Machinejson.parsed_data.get(machine.name).get(INFO).get(str(machine.level)):
 		var text = info.get("id") + ": " + info.get("value")
 		info_panel += text + "\n"
 	
 	info_label.text = info_panel
 
 func _upgrade():	
-	for item in parsed_data.get(machine.name).get(COSTS).get(str(machine.level)):
-		print(inventory.contains(item.get("id")))
-		if not inventory.contains(item.get("id"), item.get("amount")):
-			return
 	
-	for item in parsed_data.get(machine.name).get(COSTS).get(str(machine.level)):
-		inventory.remove(item.get("id"), item.get("amount"))
+	var can_craft = Utils.remove_resources_safe(Machinejson.parsed_data.get(machine.name).get(COSTS).get(str(machine.level)))
+	if not can_craft:
+		return
 	
 	machine.level += 1
 	
@@ -85,3 +81,5 @@ func _set_recipe(index: int):
 	var text = option_button.get_item_text(index)
 	if text != "No Recipe":
 		machine.recipe = text
+	else:
+		text = ""
