@@ -9,7 +9,8 @@ func _ready():
 
 func end_machine_drag():
 	var new_machine_count = MachineData.obtainedMachines[MachineData.dragged_type] - 1
-	if grid_root.is_placement_invalid(): new_machine_count += 1
+	if grid_root.is_placement_invalid() or MachineData.drag_ended_prematurely:
+		new_machine_count += 1
 	if new_machine_count <= 0: MachineData.obtainedMachines.erase(MachineData.dragged_type)
 	else: MachineData.obtainedMachines[MachineData.dragged_type] = new_machine_count
 	

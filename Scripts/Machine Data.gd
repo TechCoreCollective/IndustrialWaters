@@ -30,6 +30,9 @@ var machine_y_invalid: Dictionary[MachineType, int] = {
 	MachineType.Smelter: 2
 }
 
+@onready var machine_status = get_parent().get_node("PlacementGrid/MachineStatus")
+@onready var inventory = get_parent().get_node("PlacementGrid/Panel2")
+
 signal drag_start
 signal drag_end
 var dragged_type := MachineType.None
@@ -83,3 +86,8 @@ func get_path_index_of_produced_item(producer: Machine):
 		var path = conway_path_points.values()[path_index]
 		if item_spawn_position in path: return path_index
 	return -1
+
+var drag_ended_prematurely := false
+
+func is_ui_open():
+	return machine_status.visible or inventory.visible

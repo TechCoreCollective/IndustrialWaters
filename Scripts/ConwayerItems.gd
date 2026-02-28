@@ -6,7 +6,7 @@ func add_associated_sprite(conway_item: ConwayItem):
 	var sprite = Sprite2D.new()
 	add_child(sprite)
 	match conway_item.item_type:
-		GlobalInventory.ItemType.CopperOre: sprite.texture = UID.IMG_CONVEYOR_GRID
+		GlobalInventory.ItemType.CopperOre: sprite.texture = UID.IMG_COPPER_ORE_ITEM
 		GlobalInventory.ItemType.Diamond: sprite.texture = UID.IMG_DIAMOND_ITEM
 		GlobalInventory.ItemType.IronOre: sprite.texture = UID.IMG_IRON_ORE_ITEM
 	conway_item.associated_sprite = sprite
@@ -58,9 +58,9 @@ func get_current_item_pos(conway_item: ConwayItem, progress: float) -> Vector2:
 	var end_segment_distance = size_of_current_sub_path
 	var start_segment_distance = 0 if segment_index == 0 else segment_sizes_up_to_point[segment_index-1]
 	var local_progress: float = inverse_lerp(start_segment_distance, end_segment_distance, distance_travelled)
-	local_progress = clamp(local_progress, 0, 1)
 	
 	var start_segment_pos: Vector2 = used_path[segment_index]
 	var end_segment_pos: Vector2 = used_path[segment_index+1]
 	var resulting_pos = lerp(start_segment_pos, end_segment_pos, local_progress)
+	if local_progress > 1: return used_path[used_path.size()-1]
 	return resulting_pos

@@ -4,7 +4,7 @@ extends Node2D
 
 func handle_conveyor_belts():
 	var can_place = MachineData.hovered_button_machine_type == MachineData.MachineType.None and\
-		MachineData.dragged_type == MachineData.MachineType.None
+		MachineData.dragged_type == MachineData.MachineType.None and not MachineData.is_ui_open()
 	if Input.is_action_pressed("conveyor_place") and can_place: place_conveyor()
 
 func place_conveyor():

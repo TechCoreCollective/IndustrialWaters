@@ -38,6 +38,9 @@ func handle_zoom_event(event: InputEvent):
 	if event.button_index == MOUSE_BUTTON_WHEEL_DOWN: grid_zoom /= zoom_change
 	if previous_zoom != grid_zoom: display_scene()
 
+func terminating_drag_and_drop():
+	return Input.is_action_just_pressed("interact") or Input.is_action_just_pressed("cancel_drop")
+
 func _process(delta):
 	update_window_size()
 	background.size = current_window_size
@@ -45,6 +48,9 @@ func _process(delta):
 	dragged_icon.position = get_global_mouse_position()
 	conveyor_root.handle_conveyor_belts()
 	conwayer_items.update_conwayer_items(delta)
+	if terminating_drag_and_drop():
+		end_dragging()
+		MachineData.drag_ended_prematurely = true
 	if MachineData.dragged_type == MachineData.MachineType.None: return
 	make_affected_tiles_visible()
 
@@ -109,14 +115,18 @@ func get_hovered() -> Vector2i:
 	return result
 
 func start_to_drag():
+	if MachineData.is_ui_open(): return
 	dragged_icon.update_type(MachineData.dragged_type)
 	affected_tiles.show()
+	MachineData.drag_ended_prematurely = false
 	make_affected_tiles_visible()
 
 func end_dragging():
 	dragged_icon.update_type(MachineData.MachineType.None)
 	affected_tiles.hide()
-	if is_placement_invalid(): return
+	if is_placement_invalid() or terminating_drag_and_drop() or\
+		MachineData.drag_ended_prematurely or MachineData.is_ui_open():
+			return
 	var added_machine = Machine.ctor(MachineData.previous_dragged, get_hovered())
 	MachineData.placed_machines.append(added_machine)
 	display_machines()

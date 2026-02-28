@@ -37,3 +37,4 @@ func _craft():
 	if Utils.remove_resources_safe(cost):
 		MachineData.obtainedMachines[names.get(item_name)] += 1
 		get_parent().get_parent().get_parent().get_parent().get_parent().get_parent().get_parent().get_node("MachineUi").update_ui()
+		# i was here - honza
