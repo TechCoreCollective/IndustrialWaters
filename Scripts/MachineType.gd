@@ -24,6 +24,7 @@ var data: Dictionary = {}
 var machine_type: MachineData.MachineType
 var place_position: Vector2i
 var conveyor_face_dir: ConveyorFaceDir
+var received_items: Array[GlobalInventory.ItemType]
 var recipe : String
 var name : String
 var level : int
@@ -34,6 +35,7 @@ static func ctor(type: MachineData.MachineType, pos: Vector2) -> Machine:
 	result.machine_type = type
 	result.place_position = pos
 	result.data = {}
+	result.received_items = []
 	if not type in result.names.keys(): result.name = ""
 	else: result.name = result.names.get(type)
 	result.recipe = "diamond"

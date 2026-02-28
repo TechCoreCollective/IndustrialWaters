@@ -1,6 +1,7 @@
 extends Node2D
 
 @onready var grid_root = $".."
+@onready var conveyor_belts = grid_root.get_node("Conveyor Belts")
 
 func add_associated_sprite(conway_item: ConwayItem):
 	var sprite = Sprite2D.new()
@@ -24,10 +25,12 @@ func update_conwayer_items(delta):
 		var travel_progress = conway_item.time_on_belt / full_path_travel_duration
 		if travel_progress < 1: conway_item.time_on_belt += delta
 		handle_conwayer_item(conway_item, travel_progress)
+		if travel_progress >= 1: send_item_to_machine(conway_item)
 
 func handle_conwayer_item(conway_item: ConwayItem, progress: float):
 	var conway_item_pos := get_current_item_pos(conway_item, progress)
 	var item_world_pos = grid_root.get_world_position(conway_item_pos + Vector2.ONE / 2)
+	conway_item.world_tile = conway_item_pos
 	conway_item.associated_sprite.position = item_world_pos
 
 func get_current_item_pos(conway_item: ConwayItem, progress: float) -> Vector2:
@@ -64,3 +67,12 @@ func get_current_item_pos(conway_item: ConwayItem, progress: float) -> Vector2:
 	var resulting_pos = lerp(start_segment_pos, end_segment_pos, local_progress)
 	if local_progress > 1: return used_path[used_path.size()-1]
 	return resulting_pos
+
+func send_item_to_machine(conway_item: ConwayItem):
+	for machine: Machine in MachineData.placed_machines:
+		var result = conveyor_belts.does_machine_connect_to_placed(conway_item.world_tile, machine)
+		if result == null or result == false: continue
+		machine.received_items.append(conway_item)
+		conway_item.associated_sprite.queue_free()
+		MachineData.traveling_conway_items.erase(conway_item)
+		break
