@@ -1,40 +1,41 @@
 [gd_scene format=3 uid="uid://dhitwcme60dby"]
 
 [ext_resource type="Script" uid="uid://couy7q6g4qtet" path="res://Scenes/inventory.gd" id="1_jbd0o"]
-[ext_resource type="Texture2D" uid="uid://celevn4rd7eh" path="res://icons/diamond.png" id="2_4v8qb"]
-[ext_resource type="Texture2D" uid="uid://r2bwasf0ddpb" path="res://icons/raw_iron.png" id="3_1pi3o"]
+[ext_resource type="Script" uid="uid://c2ms3krckcybl" path="res://Scenes/console.gd" id="2_jbd0o"]
 
-[sub_resource type="ItemStack" id="ItemStack_1pi3o"]
-item_id = "iron_ore"
-amount = 152
+[sub_resource type="ItemStack" id="ItemStack_ersrd"]
+item_id = "copper_ore"
+amount = 13
 
-[sub_resource type="ItemStack" id="ItemStack_2hjaa"]
-item_id = "diamond"
-amount = 198
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_eo7b8"]
+load_path = "res://.godot/imported/raw_iron.png-d712d6e656f70768510ba85e8254b85d.ctex"
 
 [sub_resource type="ItemDefinition" id="ItemDefinition_psps2"]
-id = "diamond"
-max_stack = 64
-name = "Diamond"
-icon = ExtResource("2_4v8qb")
-
-[sub_resource type="ItemDefinition" id="ItemDefinition_2hjaa"]
 id = "iron_ore"
-max_stack = 64
+max_stack = 16
 name = "Iron Ore"
-icon = ExtResource("3_1pi3o")
+icon = SubResource("CompressedTexture2D_eo7b8")
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_f1uin"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_fkl5r"]
 load_path = "res://.godot/imported/copper_ore.png-a2d7ea8bf73850033ac91634b11a7374.ctex"
 
-[sub_resource type="ItemDefinition" id="ItemDefinition_4ne0y"]
+[sub_resource type="ItemDefinition" id="ItemDefinition_2w2c5"]
 id = "copper_ore"
-max_stack = 64
+max_stack = 21
 name = "Copper Ore"
-icon = SubResource("CompressedTexture2D_f1uin")
+icon = SubResource("CompressedTexture2D_fkl5r")
 
-[sub_resource type="InventoryDatabase" id="InventoryDatabase_fih0l"]
-items = Array[ItemDefinition]([SubResource("ItemDefinition_psps2"), SubResource("ItemDefinition_2hjaa"), SubResource("ItemDefinition_4ne0y")])
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_4qr6q"]
+load_path = "res://.godot/imported/diamond.png-4b6b4e84a2e87a1a119f92ceceb94c8f.ctex"
+
+[sub_resource type="ItemDefinition" id="ItemDefinition_0a80t"]
+id = "diamond"
+max_stack = 16
+name = "Diamond"
+icon = SubResource("CompressedTexture2D_4qr6q")
+
+[sub_resource type="InventoryDatabase" id="InventoryDatabase_ersrd"]
+items = Array[ItemDefinition]([SubResource("ItemDefinition_psps2"), SubResource("ItemDefinition_2w2c5"), SubResource("ItemDefinition_0a80t")])
 
 [node name="Inventory" type="Control" unique_id=690037143]
 layout_mode = 3
@@ -45,10 +46,21 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_jbd0o")
 
+[node name="Panel" type="Panel" parent="." unique_id=266042314]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1244225983]
-layout_mode = 0
-offset_right = 250.0
-offset_bottom = 100.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 scale = Vector2(0.99738085, 1)
 
 [node name="SearchBar" type="LineEdit" parent="VBoxContainer" unique_id=1789990038]
@@ -70,6 +82,10 @@ layout_mode = 2
 theme_override_constants/separation = 48
 alignment = 1
 
-[node name="Inventory" type="Inventory" parent="." unique_id=1052568721]
-stacks = Array[ItemStack]([SubResource("ItemStack_1pi3o"), SubResource("ItemStack_2hjaa")])
-database = SubResource("InventoryDatabase_fih0l")
+[node name="Console" type="LineEdit" parent="VBoxContainer" unique_id=227583791]
+layout_mode = 2
+script = ExtResource("2_jbd0o")
+
+[node name="Inventory" type="Inventory" parent="." unique_id=1738617265]
+stacks = Array[ItemStack]([SubResource("ItemStack_ersrd")])
+database = SubResource("InventoryDatabase_ersrd")

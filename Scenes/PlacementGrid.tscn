@@ -3,11 +3,14 @@
 [ext_resource type="Script" uid="uid://c07ragixe8gnn" path="res://Scripts/GridManager.gd" id="1_aiu8d"]
 [ext_resource type="PackedScene" uid="uid://oj7wyk3go63k" path="res://Scenes/MachineUI.tscn" id="2_y4yen"]
 [ext_resource type="PackedScene" uid="uid://bjbsuyradge6u" path="res://Scenes/DraggedIcon.tscn" id="3_h7ugp"]
+[ext_resource type="PackedScene" uid="uid://dhitwcme60dby" path="res://Scenes/Inventory.tscn" id="4_w1cts"]
+[ext_resource type="Script" uid="uid://c276g2mj5grps" path="res://Scenes/controls.gd" id="5_eh0th"]
 
 [node name="PlacementGrid" type="Node2D" unique_id=838105151]
 script = ExtResource("1_aiu8d")
 
 [node name="Background" type="ColorRect" parent="." unique_id=256491045]
+z_index = -4096
 offset_right = 1153.0
 offset_bottom = 654.0
 color = Color(0.19215687, 0.44313726, 0.627451, 1)
@@ -32,3 +35,36 @@ offset_bottom = 40.0
 modulate = Color(1, 1, 1, 0.53333336)
 scale = Vector2(2, 2)
 invisible_on_start = true
+
+[node name="Node" type="Node" parent="." unique_id=1779593481]
+script = ExtResource("5_eh0th")
+
+[node name="Panel2" type="Panel" parent="." unique_id=602118032]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 37.0
+offset_top = 12.0
+offset_right = 1061.0
+offset_bottom = 636.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+metadata/_edit_use_anchors_ = true
+
+[node name="Inventory" parent="Panel2" unique_id=690037143 instance=ExtResource("4_w1cts")]
+z_index = 4096
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 514.0
+offset_top = 310.0
+offset_right = 514.0
+offset_bottom = 310.0
+grow_vertical = 1
+size_flags_horizontal = 10
+size_flags_vertical = 2
+metadata/_edit_use_anchors_ = true

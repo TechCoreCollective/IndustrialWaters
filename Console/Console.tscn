@@ -1,4 +1,6 @@
-[gd_resource type="InventoryDatabase" format=3 uid="uid://clr3lry1ugej5"]
+[gd_scene format=3 uid="uid://cuipt2xi1ibms"]
+
+[ext_resource type="Script" uid="uid://c2ms3krckcybl" path="res://Scenes/console.gd" id="1_eo7b8"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_eo7b8"]
 load_path = "res://.godot/imported/raw_iron.png-d712d6e656f70768510ba85e8254b85d.ctex"
@@ -14,7 +16,6 @@ load_path = "res://.godot/imported/copper_ore.png-a2d7ea8bf73850033ac91634b11a73
 
 [sub_resource type="ItemDefinition" id="ItemDefinition_2w2c5"]
 id = "copper_ore"
-max_stack = 21
 name = "Copper Ore"
 icon = SubResource("CompressedTexture2D_fkl5r")
 
@@ -23,9 +24,30 @@ load_path = "res://.godot/imported/diamond.png-4b6b4e84a2e87a1a119f92ceceb94c8f.
 
 [sub_resource type="ItemDefinition" id="ItemDefinition_0a80t"]
 id = "diamond"
-max_stack = 16
 name = "Diamond"
 icon = SubResource("CompressedTexture2D_4qr6q")
 
-[resource]
+[sub_resource type="InventoryDatabase" id="InventoryDatabase_8c4vv"]
 items = Array[ItemDefinition]([SubResource("ItemDefinition_psps2"), SubResource("ItemDefinition_2w2c5"), SubResource("ItemDefinition_0a80t")])
+
+[node name="Console" type="Control" unique_id=911122761]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_eo7b8")
+
+[node name="LineEdit" type="LineEdit" parent="." unique_id=803888677]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -31.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Inventory" type="Inventory" parent="." unique_id=1867269887]
+database = SubResource("InventoryDatabase_8c4vv")
