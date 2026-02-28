@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://c7h4u5tv0ixus"]
+
+[ext_resource type="Script" uid="uid://cxdjstwenjgfr" path="res://Scenes/task_ui.gd" id="1_yxxbm"]
+
+[node name="TaskUI" type="Node2D" unique_id=1790629323]
+
+[node name="TaskUI" type="Control" parent="." unique_id=514988699]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 103.0
+offset_top = 98.0
+offset_right = 1015.0
+offset_bottom = 568.0
+script = ExtResource("1_yxxbm")
+
+[node name="LabelProgress" type="Label" parent="TaskUI" unique_id=1472251528]
+layout_mode = 0
+offset_left = -103.0
+offset_top = -98.0
+offset_right = -63.0
+offset_bottom = -75.0
+
+[node name="LabelName" type="Label" parent="TaskUI" unique_id=775337917]
+layout_mode = 0
+offset_left = -103.0
+offset_top = -63.0
+offset_right = -63.0
+offset_bottom = -40.0
+
+[node name="LabelDescription" type="Label" parent="TaskUI" unique_id=1297362634]
+layout_mode = 0
+offset_left = -103.0
+offset_top = -36.0
+offset_right = -63.0
+offset_bottom = -13.0
+
+[node name="LabelRequirement" type="Label" parent="TaskUI" unique_id=1700329667]
+layout_mode = 0
+offset_left = -103.0
+offset_top = -9.0
+offset_right = -63.0
+offset_bottom = 14.0
+
+[node name="ProgressBar" type="ProgressBar" parent="TaskUI" unique_id=1444025733]
+layout_mode = 0
+offset_left = -103.0
+offset_top = 18.0
+offset_right = -63.0
+offset_bottom = 45.0

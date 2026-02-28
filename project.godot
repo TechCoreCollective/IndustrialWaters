@@ -18,8 +18,10 @@ config/icon="res://icon.svg"
 [autoload]
 
 MachineData="*uid://bvid2p3jgj51t"
+SaveManager="*uid://bcj6ir54jpedj"
 UID="*uid://bpcjmvvwh3oky"
 GlobalInventory="*uid://cnn8x4v1oku0t"
+TaskManager="*uid://bcyi42xxbetyq"
 
 [input]
 
