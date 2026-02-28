@@ -22,6 +22,12 @@
 				{"id": "depth", "value": "5"},
 				{"id": "max_depth", "value": "100"}
 			]
-		}
+		},
+		
+		"recipes": [
+			"copper_ore",
+			"iron_ore",
+			"diamond"
+		]
 	}
 }

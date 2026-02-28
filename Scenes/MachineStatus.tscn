@@ -75,3 +75,11 @@ layout_mode = 2
 [node name="Button" type="Button" parent="VBoxContainer" unique_id=410594162]
 layout_mode = 2
 text = "Upgrade"
+
+[node name="OptionButton" type="OptionButton" parent="VBoxContainer" unique_id=2027060105]
+layout_mode = 2
+alignment = 1
+selected = 0
+item_count = 1
+popup/item_0/text = "No Recipe"
+popup/item_0/id = 0

@@ -18,7 +18,7 @@ func _process(delta: float) -> void:
 			if machine == null:
 				continue
 			
-			if machine.machine_type in MachineData.Generators:
+			if machine.machine_type in MachineData.Generators and machine.recipe != "":
 				if not machine.data.has(machine.recipe):
 					machine.data[machine.recipe] = 0
 				
@@ -31,7 +31,7 @@ func _process(delta: float) -> void:
 	
 	var machine_info = MachineData.get_clicked_machine_info()
 	
-	if machine_info != null and Input.is_action_just_pressed("click"):
+	if machine_info != null and Input.is_action_just_pressed("middle clicjk") and machine_info.name != "conveyor":
 		machine_status.set_machine(machine_info)
 		machine_status.visible = true
 		var pos = get_viewport().get_mouse_position()
