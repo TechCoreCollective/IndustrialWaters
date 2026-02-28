@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://dus7tahhb0rtj"]
+
+[ext_resource type="Script" uid="uid://cxbrs7y1i104" path="res://Scripts/Combat.gd" id="1_rq8dt"]
+[ext_resource type="PackedScene" uid="uid://1u84ka2ymumw" path="res://Scenes/enemy.tscn" id="2_0dhp0"]
+[ext_resource type="PackedScene" uid="uid://ty6qqlo23ig2" path="res://Scenes/player.tscn" id="3_k8hyy"]
+[ext_resource type="PackedScene" uid="uid://22mx5rbp2r08" path="res://Scenes/Torpedo.tscn" id="4_vet15"]
+
+[node name="Main" type="Node2D" unique_id=267973256]
+script = ExtResource("1_rq8dt")
+enemy_scene = ExtResource("2_0dhp0")
+
+[node name="Player" parent="." unique_id=1795255924 instance=ExtResource("3_k8hyy")]
+position = Vector2(-17, 38)
+torpedo_scene = ExtResource("4_vet15")
+
+[node name="Timer" type="Timer" parent="." unique_id=1739182117]
+wait_time = 2.0
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
