@@ -1,7 +1,7 @@
 extends Control
 
 @onready var console: LineEdit = $"."
-@onready var inventory: Inventory = $"../../Inventory"
+@onready var inventory: Inventory = GlobalInventory.get_node("Inventory")
 
 
 var commands = {
@@ -28,6 +28,8 @@ func _process(delta: float) -> void:
 
 		last_command = console.text
 		console.text = ""
+	if Input.is_action_just_pressed("move_up"):
+		console.text = last_command
 
 func _give(args):
 	if len(args) == 0:

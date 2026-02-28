@@ -1,8 +1,19 @@
 class_name Machine
 extends Resource
 
+enum ConveyorFaceDir {
+	Unknown = -1,
+	Vertical,
+	Horizontal,
+	UpRight,
+	UpLeft,
+	DownRight,
+	DownLeft
+}
+
 var machine_type: MachineData.MachineType
 var place_position: Vector2i
+var conveyor_face_dir: ConveyorFaceDir
 
 static func ctor(type: MachineData.MachineType, pos: Vector2) -> Machine:
 	var result: Machine = Machine.new()

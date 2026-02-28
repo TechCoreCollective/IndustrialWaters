@@ -21,8 +21,12 @@ func _process(_delta):
 	if not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and machine_type == MachineData.dragged_type:
 		MachineData.drag_end.emit()
 		return
-	if is_mouse_not_in_rect(): return
+	if is_mouse_not_in_rect():
+		if machine_type == MachineData.hovered_button_machine_type:
+			MachineData.hovered_button_machine_type = MachineData.MachineType.None
+		return
 	modulate = Color.SKY_BLUE
+	MachineData.hovered_button_machine_type = machine_type
 	if not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT): return
 	MachineData.dragged_type = machine_type
 	MachineData.previous_dragged = machine_type

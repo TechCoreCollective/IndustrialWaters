@@ -5,7 +5,7 @@ load_path = "res://.godot/imported/raw_iron.png-d712d6e656f70768510ba85e8254b85d
 
 [sub_resource type="ItemDefinition" id="ItemDefinition_psps2"]
 id = "iron_ore"
-max_stack = 16
+max_stack = 64
 name = "Iron Ore"
 icon = SubResource("CompressedTexture2D_eo7b8")
 
@@ -14,7 +14,7 @@ load_path = "res://.godot/imported/copper_ore.png-a2d7ea8bf73850033ac91634b11a73
 
 [sub_resource type="ItemDefinition" id="ItemDefinition_2w2c5"]
 id = "copper_ore"
-max_stack = 21
+max_stack = 64
 name = "Copper Ore"
 icon = SubResource("CompressedTexture2D_fkl5r")
 
@@ -23,7 +23,7 @@ load_path = "res://.godot/imported/diamond.png-4b6b4e84a2e87a1a119f92ceceb94c8f.
 
 [sub_resource type="ItemDefinition" id="ItemDefinition_0a80t"]
 id = "diamond"
-max_stack = 16
+max_stack = 64
 name = "Diamond"
 icon = SubResource("CompressedTexture2D_4qr6q")
 

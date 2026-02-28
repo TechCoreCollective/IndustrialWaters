@@ -1,41 +1,7 @@
-[gd_scene format=3 uid="uid://dhitwcme60dby"]
+[gd_scene format=3 uid="uid://y5k1ee2o8aga"]
 
 [ext_resource type="Script" uid="uid://couy7q6g4qtet" path="res://Scenes/inventory.gd" id="1_jbd0o"]
 [ext_resource type="Script" uid="uid://c2ms3krckcybl" path="res://Scenes/console.gd" id="2_jbd0o"]
-
-[sub_resource type="ItemStack" id="ItemStack_ersrd"]
-item_id = "copper_ore"
-amount = 13
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_eo7b8"]
-load_path = "res://.godot/imported/raw_iron.png-d712d6e656f70768510ba85e8254b85d.ctex"
-
-[sub_resource type="ItemDefinition" id="ItemDefinition_psps2"]
-id = "iron_ore"
-max_stack = 16
-name = "Iron Ore"
-icon = SubResource("CompressedTexture2D_eo7b8")
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_fkl5r"]
-load_path = "res://.godot/imported/copper_ore.png-a2d7ea8bf73850033ac91634b11a7374.ctex"
-
-[sub_resource type="ItemDefinition" id="ItemDefinition_2w2c5"]
-id = "copper_ore"
-max_stack = 21
-name = "Copper Ore"
-icon = SubResource("CompressedTexture2D_fkl5r")
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_4qr6q"]
-load_path = "res://.godot/imported/diamond.png-4b6b4e84a2e87a1a119f92ceceb94c8f.ctex"
-
-[sub_resource type="ItemDefinition" id="ItemDefinition_0a80t"]
-id = "diamond"
-max_stack = 16
-name = "Diamond"
-icon = SubResource("CompressedTexture2D_4qr6q")
-
-[sub_resource type="InventoryDatabase" id="InventoryDatabase_ersrd"]
-items = Array[ItemDefinition]([SubResource("ItemDefinition_psps2"), SubResource("ItemDefinition_2w2c5"), SubResource("ItemDefinition_0a80t")])
 
 [node name="Inventory" type="Control" unique_id=690037143]
 layout_mode = 3
@@ -85,7 +51,3 @@ alignment = 1
 [node name="Console" type="LineEdit" parent="VBoxContainer" unique_id=227583791]
 layout_mode = 2
 script = ExtResource("2_jbd0o")
-
-[node name="Inventory" type="Inventory" parent="." unique_id=1738617265]
-stacks = Array[ItemStack]([SubResource("ItemStack_ersrd")])
-database = SubResource("InventoryDatabase_ersrd")

@@ -5,9 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://oj7wyk3go63k" path="res://Scenes/MachineUI.tscn" id="2_y4yen"]
 [ext_resource type="PackedScene" uid="uid://bjbsuyradge6u" path="res://Scenes/DraggedIcon.tscn" id="3_h7ugp"]
 [ext_resource type="PackedScene" uid="uid://y5k1ee2o8aga" path="res://Scenes/Inventory.tscn" id="4_w1cts"]
-[ext_resource type="Script" uid="uid://c276g2mj5grps" path="res://Scenes/controls.gd" id="5_eh0th"]
-[ext_resource type="PackedScene" uid="uid://jyeu676iyim8" path="res://Scenes/MachineStatus.tscn" id="6_eh0th"]
-[ext_resource type="PackedScene" uid="uid://bejcq2eeubamo" path="res://Scenes/Soundtrack.tscn" id="7_27ui7"]
+[ext_resource type="Script" path="res://Scenes/controls.gd" id="5_eh0th"]
 
 [node name="PlacementGrid" type="Node2D" unique_id=838105151]
 script = ExtResource("1_aiu8d")
@@ -47,18 +45,6 @@ invisible_on_start = true
 [node name="Node" type="Node" parent="." unique_id=1779593481]
 script = ExtResource("5_eh0th")
 
-[node name="MachineStatus" parent="." unique_id=475339767 instance=ExtResource("6_eh0th")]
-anchors_preset = 0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = 592.0
-offset_top = 293.0
-offset_right = 592.0
-offset_bottom = 293.0
-grow_horizontal = 1
-grow_vertical = 0
-metadata/_edit_use_anchors_ = true
-
 [node name="Panel2" type="Panel" parent="." unique_id=602118032]
 visible = false
 anchors_preset = 8
@@ -90,5 +76,3 @@ grow_vertical = 1
 size_flags_horizontal = 10
 size_flags_vertical = 2
 metadata/_edit_use_anchors_ = true
-
-[node name="Soundtrack" parent="." unique_id=1900409956 instance=ExtResource("7_27ui7")]
