@@ -39,6 +39,8 @@ func _update_res():
 	if machine.level == max_level:
 		base += " (MAX)"
 		button.visible = false
+	else:
+		button.visible = true
 	
 	name_label.text = base
 	

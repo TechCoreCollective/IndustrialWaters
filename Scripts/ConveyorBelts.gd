@@ -4,7 +4,7 @@ extends Node2D
 
 func handle_conveyor_belts():
 	var can_place = MachineData.hovered_button_machine_type == MachineData.MachineType.None and\
-		MachineData.dragged_type == MachineData.MachineType.None
+		MachineData.dragged_type == MachineData.MachineType.None and not MachineData.is_ui_open()
 	if Input.is_action_pressed("conveyor_place") and can_place: place_conveyor()
 
 func place_conveyor():
@@ -14,9 +14,17 @@ func place_conveyor():
 	if is_conway_placement_invalid(): return
 	MachineData.placed_machines.append(conveyor_tile)
 	conway_tiles_by_pos[place_tile] = conveyor_tile
-	conveyor_tile.conveyor_face_dir = determine_facing_direction(place_tile)
+	var direction_or_null = determine_facing_direction(place_tile)
+	if direction_or_null == null:
+		cancel_conveyor_placement(place_tile)
+		return
+	conveyor_tile.conveyor_face_dir = direction_or_null
 	grid.display_machines()
 	handle_active_conwayers(place_tile)
+
+func cancel_conveyor_placement(place_tile: Vector2):
+	conway_tiles_by_pos.erase(place_tile)
+	MachineData.placed_machines.pop_back()
 
 var conway_tiles_by_pos : Dictionary[Vector2i, Machine] = {}
 
@@ -27,7 +35,7 @@ func display_conveyor_belt(machine: Machine, sprite: Sprite2D):
 	sprite.centered = false
 	grid.update_position_of_texture(machine, sprite)
 
-func determine_facing_direction(place_tile: Vector2i, update_neighbours := true) -> Machine.ConveyorFaceDir:
+func determine_facing_direction(place_tile: Vector2i, update_neighbours := true):
 	var neighbours = get_neighbouring_tiles(place_tile)
 	if neighbours.size() == 0: return Machine.ConveyorFaceDir.Vertical
 	var abs_neighbours := []
@@ -37,16 +45,19 @@ func determine_facing_direction(place_tile: Vector2i, update_neighbours := true)
 	match abs_neighbours:
 		[Vector2i.RIGHT]: resulting_dir = Machine.ConveyorFaceDir.Horizontal
 		[Vector2i.DOWN]: resulting_dir = Machine.ConveyorFaceDir.Vertical
-	if neighbours.size() == 2:
-		resulting_dir = check_for_two_connections(neighbours, abs_neighbours)
+	if neighbours.size() >= 2:
+		var dir_or_null = check_for_multiple_connections(neighbours, abs_neighbours)
+		if dir_or_null == null: return null
+		resulting_dir = dir_or_null
 	if not update_neighbours: return resulting_dir
 	var current_abs_neigh = neighbours_absolute_pos
 	for tile_pos in current_abs_neigh:
 		var neigh_new_dir = determine_facing_direction(tile_pos, false)
+		if neigh_new_dir == null: return null
 		conway_tiles_by_pos[tile_pos].conveyor_face_dir = neigh_new_dir
 	return resulting_dir
 
-func check_for_two_connections(neighbours, abs_neighbours):
+func check_for_multiple_connections(neighbours, abs_neighbours):
 	if has_all(neighbours, [Vector2i.DOWN, Vector2i.RIGHT]):
 		return Machine.ConveyorFaceDir.UpRight
 	if has_all(neighbours, [Vector2i.DOWN, Vector2i.LEFT]):
@@ -57,6 +68,7 @@ func check_for_two_connections(neighbours, abs_neighbours):
 		return Machine.ConveyorFaceDir.DownLeft
 	if abs_neighbours == [Vector2i.RIGHT, Vector2i.RIGHT]: return Machine.ConveyorFaceDir.Horizontal
 	if abs_neighbours == [Vector2i.DOWN, Vector2i.DOWN]: return Machine.ConveyorFaceDir.Vertical
+	return null
 
 func has_all(arr: Array, compare: Array):
 	for element in arr: if not element in compare: return false
@@ -89,21 +101,30 @@ func is_conway_placement_invalid():
 
 func does_connect_to_any_machine(placement_pos: Vector2):
 	for machine: Machine in MachineData.placed_machines:
-		var machine_rect = machine.get_rect()
-		if machine.machine_type == MachineData.MachineType.ConveyorBelt: continue
-		var rect_upper_left = machine_rect.position
-		var rect_bottom_right = rect_upper_left + machine_rect.size - Vector2.ONE
-		var connects_to_corner = placement_pos in\
-			[rect_upper_left, rect_bottom_right,\
-			Vector2(rect_upper_left.x, rect_bottom_right.y), Vector2(rect_bottom_right.x, rect_upper_left.y)]
-			
-		if connects_to_corner and not machine.machine_type in MachineData.corner_exception: continue
-		var upper_left_y_delta = placement_pos.y - rect_upper_left.y
-		if machine.machine_type in MachineData.machine_y_invalid and\
-			upper_left_y_delta < MachineData.machine_y_invalid[machine.machine_type]:
-			continue
-		if machine_rect.has_point(placement_pos): return true
+		var result = does_machine_connect_to_placed(placement_pos, machine)
+		if result == null: continue
+		return result
 	return false
+
+func does_machine_connect_to_placed(placement_pos: Vector2, machine: Machine):
+	var machine_rect = machine.get_rect()
+	if machine.machine_type == MachineData.MachineType.ConveyorBelt: return null
+	var rect_upper_left = machine_rect.position
+	var rect_bottom_right = rect_upper_left + machine_rect.size - Vector2.ONE
+	var connects_to_corner = placement_pos in\
+		[rect_upper_left, rect_bottom_right,\
+		Vector2(rect_upper_left.x, rect_bottom_right.y), Vector2(rect_bottom_right.x, rect_upper_left.y)]
+	var connects_to_edge = placement_pos.x == rect_upper_left.x or placement_pos.y == rect_upper_left.y or\
+		placement_pos.x == rect_bottom_right.x or placement_pos.y == rect_bottom_right.y
+	
+	if not connects_to_edge and machine_rect.has_point(placement_pos): return false
+	
+	if connects_to_corner and not machine.machine_type in MachineData.corner_exception: return null
+	var upper_left_y_delta = placement_pos.y - rect_upper_left.y
+	if machine.machine_type in MachineData.machine_y_invalid and\
+		upper_left_y_delta < MachineData.machine_y_invalid[machine.machine_type]:
+		return null
+	if machine_rect.has_point(placement_pos): return true
 
 var conways_with_modified_index: Array[Vector2i]
 
@@ -154,7 +175,6 @@ func create_conway_path_points():
 		var path_start = get_conway_path_start(conway_path)
 		MachineData.conway_path_points[path_index] = [path_start]
 		check_for_path_conway(path_index, path_start)
-	print(MachineData.conway_path_points)
 
 func get_conway_path_start(conway_path):
 	for conway in conway_path:
@@ -166,11 +186,14 @@ var checked_conways_for_path: Array[Vector2i]
 
 func check_for_path_conway(path_index, current_conway):
 	var neighbours = get_neighbouring_tiles(current_conway)
+	var current_path = MachineData.conway_path_points[path_index]
 	for neigh_delta in neighbours:
 		var neighbour_pos = neigh_delta + current_conway
 		if neighbour_pos in checked_conways_for_path: continue
 		checked_conways_for_path.append(neighbour_pos)
 		var neighbour_data = MachineData.get_machine_by_pos(neighbour_pos)
 		var is_edge = not neighbour_data.conveyor_face_dir in [Machine.ConveyorFaceDir.Horizontal, Machine.ConveyorFaceDir.Vertical]
-		if is_edge: MachineData.conway_path_points[path_index].append(neighbour_pos)
+		if is_edge: current_path.append(neighbour_pos)
 		check_for_path_conway(path_index, neighbour_pos)
+	if neighbours.size() == 1 and not current_conway in current_path:
+		current_path.append(current_conway)

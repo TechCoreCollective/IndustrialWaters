@@ -18,6 +18,7 @@ func update_item_count():
 
 func _process(_delta):
 	modulate = Color.WHITE
+	if MachineData.is_ui_open(): return
 	if not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and machine_type == MachineData.dragged_type:
 		MachineData.drag_end.emit()
 		return

@@ -62,7 +62,7 @@ theme_override_constants/scrollbar_v_separation = 48
 
 [node name="ItemList" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/ScrollContainer2" unique_id=549119307]
 layout_mode = 2
-theme_override_constants/separation = 128
+theme_override_constants/separation = 160
 alignment = 1
 
 [node name="Console" type="LineEdit" parent="VBoxContainer" unique_id=227583791]
