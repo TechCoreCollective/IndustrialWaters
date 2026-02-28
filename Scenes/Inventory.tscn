@@ -1,6 +1,40 @@
 [gd_scene format=3 uid="uid://dhitwcme60dby"]
 
 [ext_resource type="Script" uid="uid://couy7q6g4qtet" path="res://Scenes/inventory.gd" id="1_jbd0o"]
+[ext_resource type="Texture2D" uid="uid://celevn4rd7eh" path="res://icons/diamond.png" id="2_4v8qb"]
+[ext_resource type="Texture2D" uid="uid://r2bwasf0ddpb" path="res://icons/raw_iron.png" id="3_1pi3o"]
+
+[sub_resource type="ItemStack" id="ItemStack_1pi3o"]
+item_id = "iron_ore"
+amount = 152
+
+[sub_resource type="ItemStack" id="ItemStack_2hjaa"]
+item_id = "diamond"
+amount = 198
+
+[sub_resource type="ItemDefinition" id="ItemDefinition_psps2"]
+id = "diamond"
+max_stack = 64
+name = "Diamond"
+icon = ExtResource("2_4v8qb")
+
+[sub_resource type="ItemDefinition" id="ItemDefinition_2hjaa"]
+id = "iron_ore"
+max_stack = 64
+name = "Iron Ore"
+icon = ExtResource("3_1pi3o")
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_f1uin"]
+load_path = "res://.godot/imported/copper_ore.png-a2d7ea8bf73850033ac91634b11a7374.ctex"
+
+[sub_resource type="ItemDefinition" id="ItemDefinition_4ne0y"]
+id = "copper_ore"
+max_stack = 64
+name = "Copper Ore"
+icon = SubResource("CompressedTexture2D_f1uin")
+
+[sub_resource type="InventoryDatabase" id="InventoryDatabase_fih0l"]
+items = Array[ItemDefinition]([SubResource("ItemDefinition_psps2"), SubResource("ItemDefinition_2hjaa"), SubResource("ItemDefinition_4ne0y")])
 
 [node name="Inventory" type="Control" unique_id=690037143]
 layout_mode = 3
@@ -35,3 +69,7 @@ theme_override_constants/scrollbar_v_separation = 48
 layout_mode = 2
 theme_override_constants/separation = 48
 alignment = 1
+
+[node name="Inventory" type="Inventory" parent="." unique_id=1052568721]
+stacks = Array[ItemStack]([SubResource("ItemStack_1pi3o"), SubResource("ItemStack_2hjaa")])
+database = SubResource("InventoryDatabase_fih0l")
