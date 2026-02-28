@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://bjbsuyradge6u"]
+
+[ext_resource type="Script" uid="uid://befc1bfn7imiq" path="res://Scripts/DraggedIcon.gd" id="1_jg8xp"]
+
+[node name="DraggedIcon" type="Sprite2D" unique_id=2105014328]
+scale = Vector2(0.5, 0.5)
+script = ExtResource("1_jg8xp")
