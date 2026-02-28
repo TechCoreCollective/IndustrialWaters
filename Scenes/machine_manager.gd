@@ -1,6 +1,7 @@
 extends Node
 
 @onready var machine_status: Control = $"../MachineStatus"
+@onready var panel_2: Panel = $"../Panel2"
 
 var time = 0
 
@@ -35,6 +36,9 @@ func _process(delta: float) -> void:
 	if machine_info != null and Input.is_action_just_pressed("middle clicjk") and machine_info.name != "conveyor":
 		machine_status.set_machine(machine_info)
 		machine_status.visible = true
+		
+		panel_2.visible = false
+		
 		var pos = get_viewport().get_mouse_position()
 		machine_status.set_position(pos)
 	

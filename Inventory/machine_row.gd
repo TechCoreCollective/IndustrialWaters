@@ -13,7 +13,7 @@ var names = {
 	"conveyor": MachineData.MachineType.ConveyorBelt
 }
 
-@export var sol = preload("res://icons/copper_ore.png")
+@export var sol = preload("res://Textures/SolidDrillIcon.png")
 @export var liq = preload("res://Textures/OilDrillIcon.png")
 @export var smelt =  preload("res://Textures/SmelterIcon.png")
 
