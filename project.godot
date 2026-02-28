@@ -17,9 +17,9 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-MachineData="*uid://bvid2p3jgj51t"
 UID="*uid://bpcjmvvwh3oky"
 GlobalInventory="*uid://cnn8x4v1oku0t"
+MachineData="*uid://bvid2p3jgj51t"
 
 [input]
 
