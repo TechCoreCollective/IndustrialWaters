@@ -72,7 +72,9 @@ func send_item_to_machine(conway_item: ConwayItem):
 	for machine: Machine in MachineData.placed_machines:
 		var result = conveyor_belts.does_machine_connect_to_placed(conway_item.world_tile, machine)
 		if result == null or result == false: continue
-		machine.received_items.append(conway_item)
+		if not conway_item.item_type in machine.received_items:
+			machine.received_items[conway_item.item_type] = 0
+		machine.received_items[conway_item.item_type] += 1
 		conway_item.associated_sprite.queue_free()
 		MachineData.traveling_conway_items.erase(conway_item)
 		break

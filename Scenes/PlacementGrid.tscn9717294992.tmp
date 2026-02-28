@@ -1,0 +1,103 @@
+[gd_scene format=3 uid="uid://qfsyklj0mtul"]
+
+[ext_resource type="Script" uid="uid://c07ragixe8gnn" path="res://Scripts/GridManager.gd" id="1_aiu8d"]
+[ext_resource type="Script" uid="uid://bf0eif54l8v2l" path="res://Scripts/ConveyorBelts.gd" id="2_eh0th"]
+[ext_resource type="PackedScene" uid="uid://oj7wyk3go63k" path="res://Scenes/MachineUI.tscn" id="2_y4yen"]
+[ext_resource type="PackedScene" uid="uid://bjbsuyradge6u" path="res://Scenes/DraggedIcon.tscn" id="3_h7ugp"]
+[ext_resource type="Script" uid="uid://dyxxrnxicd4ti" path="res://Scripts/ConwayerItems.gd" id="3_wf6cb"]
+[ext_resource type="PackedScene" uid="uid://y5k1ee2o8aga" path="res://Scenes/Inventory.tscn" id="4_w1cts"]
+[ext_resource type="Script" uid="uid://c276g2mj5grps" path="res://Scenes/controls.gd" id="5_eh0th"]
+[ext_resource type="PackedScene" uid="uid://jyeu676iyim8" path="res://Scenes/MachineStatus.tscn" id="6_eh0th"]
+[ext_resource type="PackedScene" uid="uid://bejcq2eeubamo" path="res://Scenes/Soundtrack.tscn" id="7_27ui7"]
+[ext_resource type="Script" uid="uid://cjyf2mahui2ue" path="res://Scenes/machine_manager.gd" id="8_7o2bu"]
+
+[node name="PlacementGrid" type="Node2D" unique_id=838105151]
+script = ExtResource("1_aiu8d")
+
+[node name="Background" type="ColorRect" parent="." unique_id=256491045]
+z_index = -4096
+offset_right = 1153.0
+offset_bottom = 654.0
+color = Color(0.19215687, 0.44313726, 0.627451, 1)
+
+[node name="AffectedTiles" type="ColorRect" parent="." unique_id=1144768551]
+visible = false
+z_index = -2
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0.38039216, 0.5764706, 0.69411767, 0)
+
+[node name="Conveyor Belts" type="Node2D" parent="." unique_id=730509605]
+z_as_relative = false
+script = ExtResource("2_eh0th")
+
+[node name="Seperator Bars" type="Node2D" parent="." unique_id=1513873166]
+
+[node name="Conwayer Items" type="Node2D" parent="." unique_id=236729342]
+position = Vector2(0, -1)
+script = ExtResource("3_wf6cb")
+
+[node name="Machines" type="Control" parent="." unique_id=1215245832]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="MachineUi" parent="." unique_id=1523249431 instance=ExtResource("2_y4yen")]
+
+[node name="DraggedIcon" parent="." unique_id=2105014328 instance=ExtResource("3_h7ugp")]
+modulate = Color(1, 1, 1, 0.53333336)
+scale = Vector2(2, 2)
+invisible_on_start = true
+
+[node name="Node" type="Node" parent="." unique_id=1779593481]
+script = ExtResource("5_eh0th")
+
+[node name="Panel2" type="Panel" parent="." unique_id=602118032]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 37.0
+offset_top = 12.0
+offset_right = 1061.0
+offset_bottom = 636.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+metadata/_edit_use_anchors_ = true
+
+[node name="Inventory" parent="Panel2" unique_id=690037143 instance=ExtResource("4_w1cts")]
+z_index = 4096
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 514.0
+offset_top = 310.0
+offset_right = 514.0
+offset_bottom = 310.0
+grow_horizontal = 1
+grow_vertical = 1
+size_flags_horizontal = 10
+size_flags_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Soundtrack" parent="." unique_id=1900409956 instance=ExtResource("7_27ui7")]
+
+[node name="MachineManager" type="Node" parent="." unique_id=1033816686]
+script = ExtResource("8_7o2bu")
+
+[node name="MachineStatus" parent="." unique_id=475339767 instance=ExtResource("6_eh0th")]
+visible = false
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 707.0
+offset_top = 314.0
+offset_right = 707.0
+offset_bottom = 314.0
+grow_horizontal = 1
+grow_vertical = 1
