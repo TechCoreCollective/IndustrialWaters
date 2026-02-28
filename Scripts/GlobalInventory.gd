@@ -13,3 +13,10 @@ func convert_name_to_enum(item_name: String) -> ItemType:
 		"copper_ore": return ItemType.CopperOre
 		"iron_ore": return ItemType.IronOre
 	return ItemType.None
+	
+func convert_enum_to_name(item_name: ItemType) -> String:
+	match item_name:
+		ItemType.Diamond: return "diamond"
+		ItemType.CopperOre: return "copper_ore"
+		ItemType.IronOre: return "iron_ore"
+	return ""

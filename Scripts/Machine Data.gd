@@ -11,6 +11,7 @@ enum MachineType {
 }
 
 var Generators = [MachineType.DrillSolid, MachineType.DrillLiquid]
+var Crafters = [MachineType.Smelter]
 
 var obtainedMachines: Dictionary[MachineType, int] = {
 	MachineType.DrillSolid: 6,
@@ -68,6 +69,8 @@ func resources_produced(machine: Machine, item_produced: GlobalInventory.ItemTyp
 	travelling_item.conway_path_index = get_path_index_of_produced_item(machine)
 	if travelling_item.conway_path_index == -1: return
 	traveling_conway_items.append(travelling_item)
+	machine.data[GlobalInventory.convert_enum_to_name(item_produced)] -= 1
+			
 
 func get_machine_by_pos(position: Vector2i):
 	for machine: Machine in placed_machines:

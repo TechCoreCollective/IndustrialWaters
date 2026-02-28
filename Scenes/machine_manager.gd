@@ -5,12 +5,8 @@ extends Node
 
 var time = 0
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+	pass
 
 const time_to_make_resource = 1
 
@@ -28,6 +24,10 @@ func _process(delta: float) -> void:
 				
 				machine.data[machine.recipe] += 1
 				MachineData.resources_produced(machine, GlobalInventory.convert_name_to_enum(machine.recipe))
+				
+			if machine.machine_type in MachineData.Crafters and machine.recipe != "":
+				if not machine.data.has(machine.recipe):
+					machine.data[machine.recipe]
 		
 		time = 0
 	
