@@ -27,6 +27,7 @@ var conveyor_face_dir: ConveyorFaceDir
 var recipe : String
 var name : String
 var level : int
+var conway_path_index: int
 
 static func ctor(type: MachineData.MachineType, pos: Vector2) -> Machine:
 	var result: Machine = Machine.new()

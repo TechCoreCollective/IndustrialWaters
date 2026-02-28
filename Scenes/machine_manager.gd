@@ -15,12 +15,10 @@ func _process(delta: float) -> void:
 		if machine == null:
 			continue
 		
-		if machine.machine_type in MachineData.Generators and time > 5:
+		if machine.machine_type in MachineData.Generators and time > 1:
 			time = 0
 			if not machine.data.has(machine.recipe):
 				machine.data[machine.recipe] = 0
 			
 			machine.data[machine.recipe] += 1
-			MachineData.resources_produced()
-			print(machine.name)
-			print(machine.data)
+			MachineData.resources_produced(machine, GlobalInventory.convert_name_to_enum(machine.recipe))
