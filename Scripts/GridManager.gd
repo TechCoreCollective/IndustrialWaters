@@ -38,6 +38,7 @@ func handle_zoom_event(event: InputEvent):
 	if previous_zoom != grid_zoom: display_scene()
 
 func _process(_delta):
+	print(MachineData.get_clicked_machine_info())
 	update_window_size()
 	background.size = current_window_size
 	if previous_window_size != current_window_size: display_scene()

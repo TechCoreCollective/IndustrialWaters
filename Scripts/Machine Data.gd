@@ -33,3 +33,11 @@ func get_texture_from_type(machine_type: MachineType):
 	return resulting_texture
 
 var hovered_button_machine_type := MachineType.None
+
+func get_clicked_machine_info():
+	var placement_grid = get_parent().get_node("PlacementGrid")
+	var hovered_index = placement_grid.get_hovered()
+	for machine: Machine in placed_machines:
+		var machine_rect = machine.get_rect()
+		if machine_rect.has_point(hovered_index): return machine
+	return null
