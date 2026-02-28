@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://60yol7gdrohx"]
+
+[ext_resource type="Texture2D" uid="uid://cmxlcv7bgbhjx" path="res://Sprites/pipe-turn.png" id="1_pkxg8"]
+
+[node name="PipeTurn" type="Sprite2D" unique_id=1043095315]
+rotation = 4.712389
+scale = Vector2(3, 3)
+texture = ExtResource("1_pkxg8")
