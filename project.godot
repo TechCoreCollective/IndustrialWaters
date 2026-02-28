@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 UID="*uid://bpcjmvvwh3oky"
 MachineData="*uid://bvid2p3jgj51t"
+SaveManager="*uid://bcj6ir54jpedj"
 
 [input]
 
