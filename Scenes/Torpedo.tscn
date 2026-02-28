@@ -1,17 +1,20 @@
 [gd_scene format=3 uid="uid://22mx5rbp2r08"]
 
-[ext_resource type="Script" path="res://Scripts/torpedo.gd" id="1_fas1h"]
-[ext_resource type="Texture2D" uid="uid://ceued3cnx50ye" path="res://icon.svg" id="2_t2myi"]
+[ext_resource type="Script" uid="uid://5u84ro7f6q64" path="res://Scripts/torpedo.gd" id="1_fas1h"]
+[ext_resource type="Texture2D" uid="uid://buoxnp3m507bv" path="res://Sprites/bomb-war-svgrepo-com.svg" id="2_t2myi"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t2myi"]
-size = Vector2(173, 155)
+size = Vector2(154, 52)
 
 [node name="Torpedo" type="Area2D" unique_id=2097157106]
 script = ExtResource("1_fas1h")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=50129349]
+position = Vector2(12.5, -2)
+rotation = -1.5646751
+scale = Vector2(0.43126094, 0.47745848)
 texture = ExtResource("2_t2myi")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=197467577]
-position = Vector2(-1.5, -2.5)
+position = Vector2(5, -4)
 shape = SubResource("RectangleShape2D_t2myi")

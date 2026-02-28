@@ -1,20 +1,63 @@
 [gd_scene format=3 uid="uid://dus7tahhb0rtj"]
 
-[ext_resource type="Script" uid="uid://cxbrs7y1i104" path="res://Scripts/Combat.gd" id="1_rq8dt"]
-[ext_resource type="PackedScene" uid="uid://1u84ka2ymumw" path="res://Scenes/enemy.tscn" id="2_0dhp0"]
-[ext_resource type="PackedScene" uid="uid://ty6qqlo23ig2" path="res://Scenes/player.tscn" id="3_k8hyy"]
-[ext_resource type="PackedScene" uid="uid://22mx5rbp2r08" path="res://Scenes/Torpedo.tscn" id="4_vet15"]
+[ext_resource type="Script" uid="uid://bqd277baoyn20" path="res://Scripts/Combat.gd" id="1_p02pl"]
+[ext_resource type="PackedScene" uid="uid://1u84ka2ymumw" path="res://Scenes/enemy.tscn" id="2_lpmyk"]
+[ext_resource type="PackedScene" uid="uid://ty6qqlo23ig2" path="res://Scenes/player.tscn" id="3_3lmke"]
+[ext_resource type="PackedScene" uid="uid://22mx5rbp2r08" path="res://Scenes/Torpedo.tscn" id="4_dc0jx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1bvp3"]
+size = Vector2(111, 2235)
 
 [node name="Main" type="Node2D" unique_id=267973256]
-script = ExtResource("1_rq8dt")
-enemy_scene = ExtResource("2_0dhp0")
+script = ExtResource("1_p02pl")
+enemy_scene = ExtResource("2_lpmyk")
 
-[node name="Player" parent="." unique_id=1795255924 instance=ExtResource("3_k8hyy")]
-position = Vector2(-17, 38)
-torpedo_scene = ExtResource("4_vet15")
+[node name="Player" parent="." unique_id=1795255924 instance=ExtResource("3_3lmke")]
+position = Vector2(-21, 51)
+torpedo_scene = ExtResource("4_dc0jx")
+
+[node name="COOLDOWN PIČO" type="Timer" parent="Player" unique_id=145973125]
+one_shot = true
 
 [node name="Timer" type="Timer" parent="." unique_id=1739182117]
 wait_time = 2.0
 autostart = true
 
+[node name="Killzone" type="Area2D" parent="." unique_id=1358096584]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone" unique_id=72547198]
+position = Vector2(347, 130)
+shape = SubResource("RectangleShape2D_1bvp3")
+debug_color = Color(0.35718882, 0.4818949, 1, 0.41960785)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=2014666628]
+
+[node name="GameOverScreen" type="ColorRect" parent="CanvasLayer" unique_id=360759148]
+visible = false
+modulate = Color(0, 0, 0, 0.6862745)
+self_modulate = Color(0, 0, 0, 0.7607843)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Label" type="Label" parent="CanvasLayer/GameOverScreen" unique_id=1689025990]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -94.0
+offset_top = -24.5
+offset_right = 94.0
+offset_bottom = 24.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "SKILL ISSUE
+neubránils svoji továrnu"
+
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="area_entered" from="Killzone" to="." method="_on_killzone_area_entered"]

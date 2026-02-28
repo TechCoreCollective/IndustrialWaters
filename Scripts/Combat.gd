@@ -23,3 +23,26 @@ func _on_timer_timeout():
 	
 	# 3. Přidání nepřítele do scény (aby byl vidět a existoval)
 	add_child(enemy)
+
+
+@warning_ignore("unused_parameter")
+
+
+func _on_killzone_area_entered(area):
+	# Zkontrolujeme, jestli do zóny vletěl nepřítel
+	# (Předpokládám, že nepřátelé jsou ve skupině "enemies")
+	if area.is_in_group("enemies"):
+		game_over()
+
+func game_over():
+	# 1. Zastavíme čas hry (všechno zamrzne)
+	get_tree().paused = true
+	
+	# 2. Zobrazíme Game Over screen
+	$CanvasLayer/GameOverScreen.visible = true
+
+# Tip: Přidej možnost restartu pomocí klávesy R
+func _process(_delta):
+	if $CanvasLayer/GameOverScreen.visible and Input.is_action_just_pressed("ui_accept"): # Mezerník nebo Enter
+		get_tree().paused = false
+		get_tree().reload_current_scene()
