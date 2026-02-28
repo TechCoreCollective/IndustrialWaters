@@ -13,8 +13,8 @@ var current_task_progress: int = 0
 
 func _ready() -> void:
 	load_tasks();
-	current_task_index = SaveManager.current_task_index
-	current_task_progress = SaveManager.current_task_progress
+	#current_task_index = SaveManager.current_task_index
+	#current_task_progress = SaveManager.current_task_progress
 
 func load_tasks():
 	if not FileAccess.file_exists(TASKS_PATH):
@@ -31,23 +31,21 @@ func load_tasks():
 	
 	for task_data in json_result:
 		var task = Task.new()
-		task.id = task_data["id"]
-		task.name = task_data["name"]
-		task.description = task_data["description"]
+		task.id = task_data.get("id")
+		task.name = task_data.get("name")
+		task.description = task_data.get("description")
 		task.required_amount = task_data.get("required_amount", 0)
 		
-		match task_data["type"]:
-			"SendMaterials":
+		match task_data.get("type"):
+			"SEND_MATERIALS":
 				task.type = TaskType.SEND_MATERIALS
 				task.required_item_id = task_data["required_item_id"]
 				
-			"BuildMachine":
-				task.type = TaskType.BUILD_MACHINE
-				task.required_machine_type = MachineData.MachineType[task_data["required_machine_id"]]
-		
+			"BUILD_MACHINE":
+				task.type = TaskType.BUILD_MACHINE		
 		tasks.append(task)
 	
-	current_task_index = SaveManager.current_task_index;
+	#current_task_index = SaveManager.current_task_index;
 
 func on_material_sent(item_id: String, amount: int):
 	var task = get_current_task()
@@ -59,7 +57,7 @@ func on_material_sent(item_id: String, amount: int):
 	if current_task_progress >= task.required_amount:
 		complete_current_task();
 	else:
-		SaveManager.save(current_task_index, current_task_progress);
+		pass
 
 func on_machine_built(machine_type: int):
 	var task = get_current_task()
@@ -74,7 +72,7 @@ func on_machine_built(machine_type: int):
 func complete_current_task():
 	current_task_index += 1
 	current_task_progress = 0
-	SaveManager.save(current_task_index, current_task_progress)
+	#SaveManager.save(current_task_index, current_task_progress)
 	
 func get_current_task() -> Task:
 	if current_task_index >= tasks.size():
