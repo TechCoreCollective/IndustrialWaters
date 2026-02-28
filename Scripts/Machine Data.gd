@@ -15,7 +15,8 @@ var obtainedMachines: Dictionary[MachineType, int] = {
 }
 
 var machine_sizes: Dictionary[MachineType, Vector2] = {
-	MachineType.DrillSolid: Vector2(3, 3)
+	MachineType.DrillSolid: Vector2(3, 3),
+	MachineType.ConveyorBelt: Vector2.ONE
 }
 
 signal drag_start
@@ -30,3 +31,5 @@ func get_texture_from_type(machine_type: MachineType):
 	match machine_type:
 		MachineType.DrillSolid: resulting_texture = UID.IMG_DRILL_GRID
 	return resulting_texture
+
+var hovered_button_machine_type := MachineType.None

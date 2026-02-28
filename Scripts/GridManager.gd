@@ -17,6 +17,7 @@ const invalid_placement_color = Color("bf7171ff")
 @onready var dragged_icon = $DraggedIcon
 @onready var affected_tiles = $AffectedTiles
 @onready var machines_root = $Machines
+@onready var conveyor_root = $"Conveyor Belts"
 
 var seperator_rects: Array[ColorRect]
 
@@ -41,6 +42,7 @@ func _process(_delta):
 	background.size = current_window_size
 	if previous_window_size != current_window_size: display_scene()
 	dragged_icon.position = get_global_mouse_position()
+	conveyor_root.handle_conveyor_belts()
 	if MachineData.dragged_type == MachineData.MachineType.None: return
 	make_affected_tiles_visible()
 
@@ -51,14 +53,14 @@ func free_all_previous():
 		seperator.queue_free()
 	seperator_rects.clear()
 
-var space_between_bars: Vector2i
+var space_between_bars: Vector2
 
 func display_scene():
 	free_all_previous()
 	update_window_size()
 	previous_window_size = current_window_size
-	space_between_bars = Vector2i(bar_dist * grid_zoom, bar_dist * grid_zoom)
-	var amount_of_bars = Vector2i(current_window_size) / space_between_bars + Vector2i.ONE * 2
+	space_between_bars = Vector2(bar_dist * grid_zoom, bar_dist * grid_zoom)
+	var amount_of_bars = current_window_size / space_between_bars + Vector2.ONE * 2
 	
 	for x in range(amount_of_bars.x): display_bar(x, true)
 	for y in range(amount_of_bars.y): display_bar(y, false)
@@ -80,6 +82,7 @@ func display_bar(pos: int, is_vertical: bool):
 	bar_node.color = seperator_bar_color
 	bar_node.position = bar_pos
 	bar_node.size = bar_size
+	bar_node.z_index = -2
 	seperator_root.add_child(bar_node)
 	seperator_rects.append(bar_node)
 
@@ -111,7 +114,6 @@ func end_dragging():
 	if is_placement_invalid(): return
 	var added_machine = Machine.new()
 	added_machine.machine_type = MachineData.previous_dragged
-	var machine_size = MachineData.machine_sizes[MachineData.previous_dragged]
 	added_machine.place_position = get_hovered()
 	MachineData.placed_machines.append(added_machine)
 	display_machines()
@@ -120,22 +122,34 @@ func make_affected_tiles_visible():
 	update_position_of_texture(Machine.ctor(MachineData.dragged_type, get_hovered()), affected_tiles)
 	affected_tiles.color = invalid_placement_color if is_placement_invalid() else affected_tiles_color
 
-func update_position_of_texture(machine: Machine, texture: Control):
+const amount_of_conway_tiles = 6
+
+func update_position_of_texture(machine: Machine, texture):
 	var used_machine_size = MachineData.machine_sizes[machine.machine_type]
 	var upper_left_hovered = machine.place_position - Vector2i(used_machine_size / 2)
-	var hovered_pos: Vector2 = upper_left_hovered * space_between_bars
+	var hovered_pos: Vector2 = Vector2(upper_left_hovered) * space_between_bars
 	hovered_pos += Vector2(grid_offset) * Vector2(space_between_bars)
 	texture.position = hovered_pos
-	texture.size = used_machine_size * Vector2(space_between_bars)
+	
+	var target_size = used_machine_size * Vector2(space_between_bars)
+	if texture is Control: texture.size = target_size
+	elif texture is Sprite2D:
+		var sprite_scale = target_size / texture.texture.get_size()
+		sprite_scale = Vector2(sprite_scale.x * amount_of_conway_tiles, sprite_scale.y)
+		texture.scale = sprite_scale
 
-var machine_arr: Array[Control]
+var machine_arr: Array
 
 func display_machines():
 	reset_machine_textures()
 	for machine: Machine in MachineData.placed_machines:
-		var machine_node: TextureRect = TextureRect.new()
+		var machine_node = TextureRect.new()
 		machine_node.texture = MachineData.get_texture_from_type(machine.machine_type)
-		update_position_of_texture(machine, machine_node)
+		if machine.machine_type == MachineData.MachineType.ConveyorBelt:
+			machine_node = Sprite2D.new()
+			machine_node.z_index = -1
+			conveyor_root.display_conveyor_belt(machine, machine_node)
+		else: update_position_of_texture(machine, machine_node)
 		machines_root.add_child(machine_node)
 		machine_arr.append(machine_node)
 
