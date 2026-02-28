@@ -101,21 +101,30 @@ func is_conway_placement_invalid():
 
 func does_connect_to_any_machine(placement_pos: Vector2):
 	for machine: Machine in MachineData.placed_machines:
-		var machine_rect = machine.get_rect()
-		if machine.machine_type == MachineData.MachineType.ConveyorBelt: continue
-		var rect_upper_left = machine_rect.position
-		var rect_bottom_right = rect_upper_left + machine_rect.size - Vector2.ONE
-		var connects_to_corner = placement_pos in\
-			[rect_upper_left, rect_bottom_right,\
-			Vector2(rect_upper_left.x, rect_bottom_right.y), Vector2(rect_bottom_right.x, rect_upper_left.y)]
-			
-		if connects_to_corner and not machine.machine_type in MachineData.corner_exception: continue
-		var upper_left_y_delta = placement_pos.y - rect_upper_left.y
-		if machine.machine_type in MachineData.machine_y_invalid and\
-			upper_left_y_delta < MachineData.machine_y_invalid[machine.machine_type]:
-			continue
-		if machine_rect.has_point(placement_pos): return true
+		var result = does_machine_connect_to_placed(placement_pos, machine)
+		if result == null: continue
+		return result
 	return false
+
+func does_machine_connect_to_placed(placement_pos: Vector2, machine: Machine):
+	var machine_rect = machine.get_rect()
+	if machine.machine_type == MachineData.MachineType.ConveyorBelt: return null
+	var rect_upper_left = machine_rect.position
+	var rect_bottom_right = rect_upper_left + machine_rect.size - Vector2.ONE
+	var connects_to_corner = placement_pos in\
+		[rect_upper_left, rect_bottom_right,\
+		Vector2(rect_upper_left.x, rect_bottom_right.y), Vector2(rect_bottom_right.x, rect_upper_left.y)]
+	var connects_to_edge = placement_pos.x == rect_upper_left.x or placement_pos.y == rect_upper_left.y or\
+		placement_pos.x == rect_bottom_right.x or placement_pos.y == rect_bottom_right.y
+	
+	if not connects_to_edge and machine_rect.has_point(placement_pos): return false
+	
+	if connects_to_corner and not machine.machine_type in MachineData.corner_exception: return null
+	var upper_left_y_delta = placement_pos.y - rect_upper_left.y
+	if machine.machine_type in MachineData.machine_y_invalid and\
+		upper_left_y_delta < MachineData.machine_y_invalid[machine.machine_type]:
+		return null
+	if machine_rect.has_point(placement_pos): return true
 
 var conways_with_modified_index: Array[Vector2i]
 
