@@ -38,7 +38,7 @@ static func ctor(type: MachineData.MachineType, pos: Vector2) -> Machine:
 	result.received_items = {}
 	if not type in result.names.keys(): result.name = ""
 	else: result.name = result.names.get(type)
-	result.recipe = "diamond"
+	result.recipe = ""
 	result.level = 1
 	return result
 
