@@ -1,5 +1,7 @@
 [gd_scene format=3 uid="uid://cnn8x4v1oku0t"]
 
+[ext_resource type="Script" uid="uid://bxvx63omn3p4p" path="res://Scripts/GlobalInventory.gd" id="1_spb3y"]
+
 [sub_resource type="ItemStack" id="ItemStack_jdlrp"]
 item_id = "copper_ore"
 amount = 40
@@ -39,6 +41,7 @@ icon = SubResource("CompressedTexture2D_4qr6q")
 items = Array[ItemDefinition]([SubResource("ItemDefinition_psps2"), SubResource("ItemDefinition_2w2c5"), SubResource("ItemDefinition_0a80t")])
 
 [node name="GlobalInventory" type="Node" unique_id=1808755182]
+script = ExtResource("1_spb3y")
 
 [node name="Inventory" type="Inventory" parent="." unique_id=598955244]
 stacks = Array[ItemStack]([SubResource("ItemStack_jdlrp"), SubResource("ItemStack_spb3y")])

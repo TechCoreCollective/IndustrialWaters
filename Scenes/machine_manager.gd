@@ -23,9 +23,7 @@ func _process(delta: float) -> void:
 					machine.data[machine.recipe] = 0
 				
 				machine.data[machine.recipe] += 1
-				MachineData.resources_produced()
-				print(machine.name)
-				print(machine.data)
+				MachineData.resources_produced(machine, GlobalInventory.convert_name_to_enum(machine.recipe))
 		
 		time = 0
 	

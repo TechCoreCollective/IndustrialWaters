@@ -21,8 +21,13 @@ var obtainedMachines: Dictionary[MachineType, int] = {
 var machine_sizes: Dictionary[MachineType, Vector2] = {
 	MachineType.DrillSolid: Vector2(3, 3),
 	MachineType.DrillLiquid: Vector2(3, 3),
-	MachineType.Smelter: Vector2(2, 2),
+	MachineType.Smelter: Vector2(4, 4),
 	MachineType.ConveyorBelt: Vector2.ONE
+}
+
+var corner_exception: Array[MachineType] = [MachineType.Smelter]
+var machine_y_invalid: Dictionary[MachineType, int] = {
+	MachineType.Smelter: 2
 }
 
 signal drag_start
@@ -31,8 +36,6 @@ var dragged_type := MachineType.None
 var previous_dragged := MachineType.None
 
 var placed_machines: Array[Machine]
-
-
 
 func get_texture_from_type(machine_type: MachineType):
 	var resulting_texture = null
@@ -51,6 +54,14 @@ func get_clicked_machine_info():
 		var machine_rect = machine.get_rect()
 		if machine_rect.has_point(hovered_index): return machine
 	return null
-	
-func resources_produced():
+
+var active_conwayerors: Dictionary[int, Array]
+var conway_path_points: Dictionary[int, Array]
+var highest_conwayor_index: int = -1
+
+func resources_produced(machine: Machine, item_produced: GlobalInventory.ItemType):
 	pass
+
+func get_machine_by_pos(position: Vector2i):
+	for machine: Machine in placed_machines:
+		if machine.place_position == position: return machine

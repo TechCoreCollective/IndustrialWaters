@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://qfsyklj0mtul"]
 
 [ext_resource type="Script" uid="uid://c07ragixe8gnn" path="res://Scripts/GridManager.gd" id="1_aiu8d"]
-[ext_resource type="Script" path="res://Scripts/ConveyorBelts.gd" id="2_eh0th"]
+[ext_resource type="Script" uid="uid://bf0eif54l8v2l" path="res://Scripts/ConveyorBelts.gd" id="2_eh0th"]
 [ext_resource type="PackedScene" uid="uid://oj7wyk3go63k" path="res://Scenes/MachineUI.tscn" id="2_y4yen"]
 [ext_resource type="PackedScene" uid="uid://bjbsuyradge6u" path="res://Scenes/DraggedIcon.tscn" id="3_h7ugp"]
 [ext_resource type="PackedScene" uid="uid://y5k1ee2o8aga" path="res://Scenes/Inventory.tscn" id="4_w1cts"]
