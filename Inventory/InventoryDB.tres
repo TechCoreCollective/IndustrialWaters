@@ -1,31 +1,31 @@
 [gd_resource type="InventoryDatabase" format=3 uid="uid://clr3lry1ugej5"]
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_eo7b8"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_psps2"]
 load_path = "res://.godot/imported/raw_iron.png-d712d6e656f70768510ba85e8254b85d.ctex"
 
 [sub_resource type="ItemDefinition" id="ItemDefinition_psps2"]
 id = "iron_ore"
 max_stack = 64
 name = "Iron Ore"
-icon = SubResource("CompressedTexture2D_eo7b8")
+icon = SubResource("CompressedTexture2D_psps2")
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_fkl5r"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_e40gj"]
 load_path = "res://.godot/imported/copper_ore.png-a2d7ea8bf73850033ac91634b11a7374.ctex"
 
 [sub_resource type="ItemDefinition" id="ItemDefinition_2w2c5"]
 id = "copper_ore"
 max_stack = 64
 name = "Copper Ore"
-icon = SubResource("CompressedTexture2D_fkl5r")
+icon = SubResource("CompressedTexture2D_e40gj")
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_4qr6q"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_osmuc"]
 load_path = "res://.godot/imported/diamond.png-4b6b4e84a2e87a1a119f92ceceb94c8f.ctex"
 
 [sub_resource type="ItemDefinition" id="ItemDefinition_0a80t"]
 id = "diamond"
 max_stack = 64
 name = "Diamond"
-icon = SubResource("CompressedTexture2D_4qr6q")
+icon = SubResource("CompressedTexture2D_osmuc")
 
 [resource]
 items = Array[ItemDefinition]([SubResource("ItemDefinition_psps2"), SubResource("ItemDefinition_2w2c5"), SubResource("ItemDefinition_0a80t")])

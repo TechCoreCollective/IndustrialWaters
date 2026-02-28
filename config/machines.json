@@ -1,5 +1,5 @@
 {
-	"machine": {
+	"solid_drill": {
 		"max_level": 2,
 		
 		"upgrade_costs":{
@@ -22,6 +22,12 @@
 				{"id": "depth", "value": "5"},
 				{"id": "max_depth", "value": "100"}
 			]
-		}
+		},
+		
+		"recipes": [
+			"copper_ore",
+			"iron_ore",
+			"diamond"
+		]
 	}
 }

@@ -1,0 +1,177 @@
+[gd_scene format=3 uid="uid://8lh0b6fdq8wh"]
+
+[ext_resource type="Texture2D" uid="uid://cs1khrhq51yew" path="res://Sprites/blue_grid.png" id="1_cm05o"]
+[ext_resource type="Texture2D" uid="uid://t5f50a5wiuqh" path="res://Sprites/pipe-straight.png" id="1_q1jeu"]
+[ext_resource type="Texture2D" uid="uid://cmxlcv7bgbhjx" path="res://Sprites/pipe-turn.png" id="2_cm05o"]
+[ext_resource type="Script" uid="uid://bpi3uinwtla8m" path="res://Scripts/Rotatable.gd" id="4_apyp7"]
+
+[node name="PipeFixing" type="Node2D" unique_id=732433782]
+
+[node name="Grid" type="Node2D" parent="." unique_id=1651207101]
+position = Vector2(-26, -43)
+
+[node name="Line1" type="Node2D" parent="Grid" unique_id=870910313]
+
+[node name="Sprite2D" type="Sprite2D" parent="Grid/Line1" unique_id=159149134]
+position = Vector2(0, 125.00001)
+scale = Vector2(3, 3)
+texture = ExtResource("1_cm05o")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Grid/Line1" unique_id=2133463106]
+position = Vector2(240, 125)
+scale = Vector2(3, 3)
+texture = ExtResource("1_cm05o")
+
+[node name="Sprite2D3" type="Sprite2D" parent="Grid/Line1" unique_id=1594293487]
+position = Vector2(482, 125)
+scale = Vector2(3, 3)
+texture = ExtResource("1_cm05o")
+
+[node name="Sprite2D4" type="Sprite2D" parent="Grid/Line1" unique_id=1991396206]
+position = Vector2(722, 125)
+scale = Vector2(3, 3)
+texture = ExtResource("1_cm05o")
+
+[node name="Sprite2D5" type="Sprite2D" parent="Grid/Line1" unique_id=1260994207]
+position = Vector2(962, 125)
+scale = Vector2(3, 3)
+texture = ExtResource("1_cm05o")
+
+[node name="Sprite2D6" type="Sprite2D" parent="Grid/Line1" unique_id=1827956329]
+position = Vector2(1203, 125)
+scale = Vector2(3, 3)
+texture = ExtResource("1_cm05o")
+
+[node name="Line2" type="Node2D" parent="Grid" unique_id=65104532]
+position = Vector2(0, 239)
+
+[node name="Sprite2D" type="Sprite2D" parent="Grid/Line2" unique_id=296309707]
+position = Vector2(0, 125.00001)
+scale = Vector2(3, 3)
+texture = ExtResource("1_cm05o")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Grid/Line2" unique_id=663187045]
+position = Vector2(240, 125)
+scale = Vector2(3, 3)
+texture = ExtResource("1_cm05o")
+
+[node name="Sprite2D3" type="Sprite2D" parent="Grid/Line2" unique_id=90816909]
+position = Vector2(482, 125)
+scale = Vector2(3, 3)
+texture = ExtResource("1_cm05o")
+
+[node name="Sprite2D4" type="Sprite2D" parent="Grid/Line2" unique_id=1402746747]
+position = Vector2(722, 125)
+scale = Vector2(3, 3)
+texture = ExtResource("1_cm05o")
+
+[node name="Sprite2D5" type="Sprite2D" parent="Grid/Line2" unique_id=2012234248]
+position = Vector2(962, 125)
+scale = Vector2(3, 3)
+texture = ExtResource("1_cm05o")
+
+[node name="Sprite2D6" type="Sprite2D" parent="Grid/Line2" unique_id=1531779928]
+position = Vector2(1203, 125)
+scale = Vector2(3, 3)
+texture = ExtResource("1_cm05o")
+
+[node name="Line3" type="Node2D" parent="Grid" unique_id=1876175071]
+position = Vector2(0, 479)
+
+[node name="Sprite2D" type="Sprite2D" parent="Grid/Line3" unique_id=1245857177]
+position = Vector2(0, 125.00001)
+scale = Vector2(3, 3)
+texture = ExtResource("1_cm05o")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Grid/Line3" unique_id=524802649]
+position = Vector2(240, 125)
+scale = Vector2(3, 3)
+texture = ExtResource("1_cm05o")
+
+[node name="Sprite2D3" type="Sprite2D" parent="Grid/Line3" unique_id=889610830]
+position = Vector2(482, 125)
+scale = Vector2(3, 3)
+texture = ExtResource("1_cm05o")
+
+[node name="Sprite2D4" type="Sprite2D" parent="Grid/Line3" unique_id=2106238235]
+position = Vector2(722, 125)
+scale = Vector2(3, 3)
+texture = ExtResource("1_cm05o")
+
+[node name="Sprite2D5" type="Sprite2D" parent="Grid/Line3" unique_id=1182309619]
+position = Vector2(962, 125)
+scale = Vector2(3, 3)
+texture = ExtResource("1_cm05o")
+
+[node name="Sprite2D6" type="Sprite2D" parent="Grid/Line3" unique_id=2107089512]
+position = Vector2(1203, 125)
+scale = Vector2(3, 3)
+texture = ExtResource("1_cm05o")
+
+[node name="PipeStraight" type="Sprite2D" parent="." unique_id=706004172]
+position = Vector2(-26, 82)
+scale = Vector2(2, 2)
+texture = ExtResource("1_q1jeu")
+
+[node name="PipeTurn" type="Sprite2D" parent="." unique_id=1150019864]
+position = Vector2(214, 82)
+scale = Vector2(3, 3)
+texture = ExtResource("2_cm05o")
+script = ExtResource("4_apyp7")
+
+[node name="PipeStraight2" type="Sprite2D" parent="." unique_id=1644386235]
+position = Vector2(214, 320)
+scale = Vector2(2, 2)
+texture = ExtResource("1_q1jeu")
+script = ExtResource("4_apyp7")
+
+[node name="PipeTurn2" type="Sprite2D" parent="." unique_id=29707857]
+position = Vector2(214, 561)
+rotation = -3.1415927
+scale = Vector2(3, 3)
+texture = ExtResource("2_cm05o")
+script = ExtResource("4_apyp7")
+
+[node name="PipeStraight3" type="Sprite2D" parent="." unique_id=1940486506]
+position = Vector2(454, 560)
+rotation = 1.5707964
+scale = Vector2(2, 2)
+texture = ExtResource("1_q1jeu")
+script = ExtResource("4_apyp7")
+
+[node name="PipeTurn3" type="Sprite2D" parent="." unique_id=1001183351]
+position = Vector2(694, 561)
+scale = Vector2(3, 3)
+texture = ExtResource("2_cm05o")
+script = ExtResource("4_apyp7")
+
+[node name="PipeStraight4" type="Sprite2D" parent="." unique_id=1077180884]
+position = Vector2(694, 320)
+rotation = 1.5707964
+scale = Vector2(2, 2)
+texture = ExtResource("1_q1jeu")
+
+[node name="PipeTurn4" type="Sprite2D" parent="." unique_id=981857268]
+position = Vector2(694, 82)
+rotation = -4.7058983
+scale = Vector2(3, 3)
+texture = ExtResource("2_cm05o")
+script = ExtResource("4_apyp7")
+
+[node name="PipeTurn5" type="Sprite2D" parent="." unique_id=1147841159]
+position = Vector2(934, 81)
+rotation = -1.5707964
+scale = Vector2(3, 3)
+texture = ExtResource("2_cm05o")
+script = ExtResource("4_apyp7")
+
+[node name="PipeTurn6" type="Sprite2D" parent="." unique_id=1213520710]
+position = Vector2(934, 321)
+rotation = -1.5707964
+scale = Vector2(3, 3)
+texture = ExtResource("2_cm05o")
+
+[node name="PipeStraight5" type="Sprite2D" parent="." unique_id=542017375]
+position = Vector2(1174, 322)
+scale = Vector2(2, 2)
+texture = ExtResource("1_q1jeu")
