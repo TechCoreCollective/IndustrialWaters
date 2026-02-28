@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://giuq5vbcgqme"]
+
+[ext_resource type="Texture2D" uid="uid://t5f50a5wiuqh" path="res://Sprites/pipe-straight.png" id="1_rdrkm"]
+
+[node name="PipeStraight" type="Sprite2D" unique_id=2015489597]
+scale = Vector2(2, 2)
+texture = ExtResource("1_rdrkm")

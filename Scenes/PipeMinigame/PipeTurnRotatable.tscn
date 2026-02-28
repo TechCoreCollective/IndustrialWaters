@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://we7d05svhodg"]
+
+[ext_resource type="Texture2D" uid="uid://cmxlcv7bgbhjx" path="res://Sprites/pipe-turn.png" id="1_mpvod"]
+[ext_resource type="Script" uid="uid://bpi3uinwtla8m" path="res://Scripts/PipeMinigame/Rotatable.gd" id="2_versr"]
+
+[node name="PipeTurn" type="Sprite2D" unique_id=1043095315]
+rotation = 4.712389
+scale = Vector2(3, 3)
+texture = ExtResource("1_mpvod")
+script = ExtResource("2_versr")

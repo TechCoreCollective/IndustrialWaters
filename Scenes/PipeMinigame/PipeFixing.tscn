@@ -3,11 +3,19 @@
 [ext_resource type="Texture2D" uid="uid://cs1khrhq51yew" path="res://Sprites/blue_grid.png" id="1_cm05o"]
 [ext_resource type="Texture2D" uid="uid://t5f50a5wiuqh" path="res://Sprites/pipe-straight.png" id="1_q1jeu"]
 [ext_resource type="Script" uid="uid://dlocoo3nr43x5" path="res://Scripts/PipeMinigame/PipeFixing.gd" id="1_y3ykl"]
+[ext_resource type="PackedScene" uid="uid://giuq5vbcgqme" path="res://Scenes/PipeMinigame/PipeStraight.tscn" id="2_1uecq"]
 [ext_resource type="Texture2D" uid="uid://cmxlcv7bgbhjx" path="res://Sprites/pipe-turn.png" id="2_cm05o"]
+[ext_resource type="PackedScene" uid="uid://60yol7gdrohx" path="res://Scenes/PipeMinigame/PipeTurn.tscn" id="3_esj46"]
 [ext_resource type="Script" uid="uid://bpi3uinwtla8m" path="res://Scripts/PipeMinigame/Rotatable.gd" id="4_apyp7"]
+[ext_resource type="PackedScene" uid="uid://8psl3jaklob5" path="res://Scenes/PipeMinigame/PipeStraightRotatable.tscn" id="4_yajhu"]
+[ext_resource type="PackedScene" uid="uid://we7d05svhodg" path="res://Scenes/PipeMinigame/PipeTurnRotatable.tscn" id="5_pmv1y"]
 
 [node name="PipeFixing" type="Node2D" unique_id=732433782]
 script = ExtResource("1_y3ykl")
+straight_pipe = ExtResource("2_1uecq")
+turn_pipe = ExtResource("3_esj46")
+straight_pipe_rotatable = ExtResource("4_yajhu")
+turn_pipe_rotatable = ExtResource("5_pmv1y")
 
 [node name="Grid" type="Node2D" parent="." unique_id=1651207101]
 position = Vector2(-26, -43)
@@ -111,23 +119,27 @@ scale = Vector2(3, 3)
 texture = ExtResource("1_cm05o")
 
 [node name="PipeStraight" type="Sprite2D" parent="." unique_id=706004172]
+visible = false
 position = Vector2(-26, 82)
 scale = Vector2(2, 2)
 texture = ExtResource("1_q1jeu")
 
 [node name="PipeTurn" type="Sprite2D" parent="." unique_id=1150019864]
+visible = false
 position = Vector2(214, 82)
 scale = Vector2(3, 3)
 texture = ExtResource("2_cm05o")
 script = ExtResource("4_apyp7")
 
 [node name="PipeStraight2" type="Sprite2D" parent="." unique_id=1644386235]
+visible = false
 position = Vector2(214, 320)
 scale = Vector2(2, 2)
 texture = ExtResource("1_q1jeu")
 script = ExtResource("4_apyp7")
 
 [node name="PipeTurn2" type="Sprite2D" parent="." unique_id=29707857]
+visible = false
 position = Vector2(214, 561)
 rotation = -3.1415927
 scale = Vector2(3, 3)
@@ -135,6 +147,7 @@ texture = ExtResource("2_cm05o")
 script = ExtResource("4_apyp7")
 
 [node name="PipeStraight3" type="Sprite2D" parent="." unique_id=1940486506]
+visible = false
 position = Vector2(454, 560)
 rotation = 1.5707964
 scale = Vector2(2, 2)
@@ -142,18 +155,21 @@ texture = ExtResource("1_q1jeu")
 script = ExtResource("4_apyp7")
 
 [node name="PipeTurn3" type="Sprite2D" parent="." unique_id=1001183351]
+visible = false
 position = Vector2(694, 561)
 scale = Vector2(3, 3)
 texture = ExtResource("2_cm05o")
 script = ExtResource("4_apyp7")
 
 [node name="PipeStraight4" type="Sprite2D" parent="." unique_id=1077180884]
+visible = false
 position = Vector2(694, 320)
 rotation = 1.5707964
 scale = Vector2(2, 2)
 texture = ExtResource("1_q1jeu")
 
 [node name="PipeTurn4" type="Sprite2D" parent="." unique_id=981857268]
+visible = false
 position = Vector2(694, 82)
 rotation = -4.7058983
 scale = Vector2(3, 3)
@@ -161,6 +177,7 @@ texture = ExtResource("2_cm05o")
 script = ExtResource("4_apyp7")
 
 [node name="PipeTurn5" type="Sprite2D" parent="." unique_id=1147841159]
+visible = false
 position = Vector2(934, 81)
 rotation = -1.5707964
 scale = Vector2(3, 3)
@@ -168,12 +185,14 @@ texture = ExtResource("2_cm05o")
 script = ExtResource("4_apyp7")
 
 [node name="PipeTurn6" type="Sprite2D" parent="." unique_id=1213520710]
+visible = false
 position = Vector2(934, 321)
 rotation = -1.5707964
 scale = Vector2(3, 3)
 texture = ExtResource("2_cm05o")
 
 [node name="PipeStraight5" type="Sprite2D" parent="." unique_id=542017375]
+visible = false
 position = Vector2(1174, 322)
 scale = Vector2(2, 2)
 texture = ExtResource("1_q1jeu")
