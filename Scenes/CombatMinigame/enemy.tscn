@@ -1,21 +1,23 @@
 [gd_scene format=3 uid="uid://1u84ka2ymumw"]
 
-[ext_resource type="Script" path="res://Scripts/enemy.gd" id="1_7k104"]
-[ext_resource type="Texture2D" uid="uid://ceued3cnx50ye" path="res://icon.svg" id="2_4gyqm"]
+[ext_resource type="Script" uid="uid://dec8bipqmsh2d" path="res://Scripts/CombatMinigame/enemy.gd" id="1_7k104"]
+[ext_resource type="Texture2D" uid="uid://c64i6ao8x5a3u" path="res://Sprites/shark-shape-svgrepo-com.svg" id="2_4gyqm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4gyqm"]
-size = Vector2(139, 170)
+size = Vector2(169.47656, 142)
 
-[node name="Enemy" type="Area2D" unique_id=807319560]
+[node name="Enemy" type="Area2D" unique_id=807319560 groups=["enemies"]]
 script = ExtResource("1_7k104")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1176593819]
 modulate = Color(1, 1, 0, 1)
 self_modulate = Color(0, 1, 1, 1)
+scale = Vector2(0.47868228, 0.54178923)
 texture = ExtResource("2_4gyqm")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=717002781]
-position = Vector2(-2.5, 3)
+position = Vector2(-50.999996, -5)
+scale = Vector2(0.84000134, 1)
 shape = SubResource("RectangleShape2D_4gyqm")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]

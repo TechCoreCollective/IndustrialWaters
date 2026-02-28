@@ -22,6 +22,8 @@ UID="*uid://bpcjmvvwh3oky"
 GlobalInventory="*uid://cnn8x4v1oku0t"
 SaveManager="*uid://bcj6ir54jpedj"
 TaskManager="*uid://bcyi42xxbetyq"
+Machinejson="*uid://dto23vs5cdsoo"
+Utils="*uid://c353nnhkhmpaw"
 
 [input]
 

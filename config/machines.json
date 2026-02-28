@@ -2,6 +2,10 @@
 	"solid_drill": {
 		"max_level": 2,
 		
+		"craft_cost": [
+			{"id": "iron_ore", "amount": 10}
+		],
+		
 		"upgrade_costs":{
 			"1": [
 				{"id": "copper_ore", "amount": 20},

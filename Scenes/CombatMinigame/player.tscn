@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://ty6qqlo23ig2"]
 
-[ext_resource type="Texture2D" uid="uid://ceued3cnx50ye" path="res://icon.svg" id="1_4flbx"]
-[ext_resource type="Script" path="res://Scripts/player.gd" id="1_onrkg"]
+[ext_resource type="Script" uid="uid://4kgaenjkkjv" path="res://Scripts/CombatMinigame/player.gd" id="1_onrkg"]
+[ext_resource type="Texture2D" uid="uid://cbvt5s0fwvsdl" path="res://Sprites/submarine-svgrepo-com.svg" id="2_onrkg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i3pqv"]
-size = Vector2(195, 151)
+size = Vector2(800, 368)
 
 [node name="Player" type="CharacterBody2D" unique_id=1795255924]
 position = Vector2(-6, 47)
@@ -12,10 +12,10 @@ script = ExtResource("1_onrkg")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1296787600]
 position = Vector2(7, -48)
-texture = ExtResource("1_4flbx")
+texture = ExtResource("2_onrkg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=697414912]
-position = Vector2(3, -45)
+position = Vector2(6, -42)
 shape = SubResource("RectangleShape2D_i3pqv")
 
 [node name="Muzzle" type="Marker2D" parent="." unique_id=53752969]
