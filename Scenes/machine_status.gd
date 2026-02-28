@@ -7,6 +7,7 @@ extends Control
 @onready var info_label: Label = $VBoxContainer/Info
 @onready var button: Button = $VBoxContainer/Button
 @onready var name_label: Label = $VBoxContainer/Name
+@onready var option_button: OptionButton = $VBoxContainer/OptionButton
 
 var text = FileAccess.get_file_as_string("res://config/machines.json")
 var parsed_data = JSON.parse_string(text)
@@ -20,6 +21,7 @@ var max_level : int;
 func _ready():
 	source.resized.connect(_sync_size)
 	button.pressed.connect(_upgrade)
+	option_button.item_selected.connect(_set_recipe)
 	
 func set_machine(machine):
 	self.machine = machine
@@ -28,11 +30,18 @@ func set_machine(machine):
 func _update_res():
 	max_level = parsed_data.get(machine.name).get("max_level")
 	
+	var options = ["No Recipe"]
+	
+	options.append_array(parsed_data.get(machine.name).get("recipes"))
+	
+	option_button.clear()
+	for i in options:
+		option_button.add_item(i)
+	
 	var base = machine.name.capitalize() + " Lv. " + str(machine.level)
 	if machine.level == max_level:
 		base += " (MAX)"
 		button.visible = false
-		button.queue_free()
 	
 	name_label.text = base
 	
@@ -71,3 +80,8 @@ func _upgrade():
 func _sync_size():
 	target.size = source.size
 	target.position = source.position
+	
+func _set_recipe(index: int):
+	var text = option_button.get_item_text(index)
+	if text != "No Recipe":
+		machine.recipe = text
