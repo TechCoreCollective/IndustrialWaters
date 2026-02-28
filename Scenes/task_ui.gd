@@ -1,10 +1,10 @@
 extends Control
 
-@onready var label_progress = $LabelProgress
-@onready var label_name = $LabelName
-@onready var label_description = $LabelDescription
-@onready var label_requirement = $LabelRequirement
-@onready var progress_bar = $ProgressBar
+@onready var label_requirement: Label = $VBoxContainer/LabelRequirement
+@onready var progress_bar: ProgressBar = $VBoxContainer/ProgressBar
+@onready var label_description: Label = $VBoxContainer/LabelDescription
+@onready var label_name: Label = $VBoxContainer/LabelName
+@onready var label_progress: Label = $VBoxContainer/LabelProgress
 
 func _process(_delta):
 	update_ui()
