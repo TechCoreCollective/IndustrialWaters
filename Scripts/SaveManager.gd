@@ -3,19 +3,17 @@ extends Node
 const SAVE_PATH := "user://save.json"
 
 var current_task_index: int = 0
-
+var current_task_progress: int = 0
 
 func _ready() -> void:
-	_load()
+	_load()	
 
-
-
-
-func save(task_index: int) -> void:
+func save(task_index: int, progress: int) -> void:
 	current_task_index = task_index
 	
 	var save_data := {
-		"current_task_index": current_task_index
+		"current_task_index": current_task_index,
+		"current_task_progress": current_task_progress
 	}
 	
 	var file := FileAccess.open(SAVE_PATH, FileAccess.WRITE)
@@ -47,6 +45,7 @@ func _load() -> void:
 		return
 		
 	current_task_index = int(json.data.get("current_task_index", 0))
+	current_task_progress = int(json.data.get("current_task_progress", 0))
 
 
 func delete_save() -> void:
