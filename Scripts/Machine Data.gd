@@ -15,13 +15,15 @@ var Generators = [MachineType.DrillSolid, MachineType.DrillLiquid]
 var obtainedMachines: Dictionary[MachineType, int] = {
 	MachineType.DrillSolid: 6,
 	MachineType.DrillLiquid: 3,
-	MachineType.Smelter: 3
+	MachineType.Smelter: 3,
+	MachineType.Collector: 5
 }
 
 var machine_sizes: Dictionary[MachineType, Vector2] = {
 	MachineType.DrillSolid: Vector2(3, 3),
 	MachineType.DrillLiquid: Vector2(3, 3),
 	MachineType.Smelter: Vector2(4, 4),
+	MachineType.Collector: Vector2(3, 3),
 	MachineType.ConveyorBelt: Vector2.ONE
 }
 
@@ -46,6 +48,7 @@ func get_texture_from_type(machine_type: MachineType):
 		MachineType.DrillSolid: resulting_texture = UID.IMG_SOLID_DRILL_GRID
 		MachineType.DrillLiquid: resulting_texture = UID.IMG_OIL_DRILL_GRID
 		MachineType.Smelter: resulting_texture = UID.IMG_SMELTER_GRID
+		MachineType.Collector: resulting_texture = UID.IMG_COLLECTOR_GRID
 	return resulting_texture
 
 var hovered_button_machine_type := MachineType.None
