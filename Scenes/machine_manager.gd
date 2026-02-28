@@ -21,7 +21,6 @@ func _process(delta: float) -> void:
 				machine.data[machine.recipe] = 0
 			
 			machine.data[machine.recipe] += 1
-			print(machine.recipe)
+			MachineData.resources_produced()
+			print(machine.name)
 			print(machine.data)
-	
-		#print(machine, machine.recipe)

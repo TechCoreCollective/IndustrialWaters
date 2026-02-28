@@ -45,3 +45,6 @@ func get_clicked_machine_info():
 		var machine_rect = machine.get_rect()
 		if machine_rect.has_point(hovered_index): return machine
 	return null
+	
+func resources_produced():
+	pass
