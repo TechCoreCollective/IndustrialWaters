@@ -4,6 +4,8 @@ extends Control
 @onready var item_list: VBoxContainer = $VBoxContainer/ScrollContainer/ItemList
 @onready var inventory: Inventory = GlobalInventory.get_node("Inventory")
 
+var row_scene = load("res://Inventory/ItemRow.tscn")
+
 @export var copper: String = "copper_ore"
 
 var rows: Array = []
@@ -19,8 +21,6 @@ func _process(dt : float) -> void:
 		inventory.add(copper, 1)
 		
 func _contents_changed():
-	var row_scene = load("res://Inventory/ItemRow.tscn")
-	
 	for i in item_list.get_children():
 		i.queue_free()
 	

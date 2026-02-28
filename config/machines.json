@@ -1,0 +1,17 @@
+{
+	"machine": {
+		"upgrade_costs":{
+			"1": [
+				{"id": "copper_ore", "amount": 20},
+				{"id": "iron_ore", "amount": 10}
+			]
+		},
+		
+		"info": {
+			"1": [
+				{"id": "depth", "value": "5"},
+				{"id": "max_depth", "value": "50"}
+			]
+		}
+	}
+}

@@ -25,9 +25,11 @@ layout_mode = 2
 stretch_mode = 3
 
 [node name="ItemName" type="Label" parent="HBoxContainer" unique_id=1136040097]
+custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="ItemCount" type="Label" parent="HBoxContainer" unique_id=1507283693]
+custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 horizontal_alignment = 2
