@@ -18,6 +18,7 @@ const invalid_placement_color = Color("bf7171ff")
 @onready var affected_tiles = $AffectedTiles
 @onready var machines_root = $Machines
 @onready var conveyor_root = $"Conveyor Belts"
+@onready var conwayer_items = $"Conwayer Items"
 
 var seperator_rects: Array[ColorRect]
 
@@ -37,12 +38,13 @@ func handle_zoom_event(event: InputEvent):
 	if event.button_index == MOUSE_BUTTON_WHEEL_DOWN: grid_zoom /= zoom_change
 	if previous_zoom != grid_zoom: display_scene()
 
-func _process(_delta):
+func _process(delta):
 	update_window_size()
 	background.size = current_window_size
 	if previous_window_size != current_window_size: display_scene()
 	dragged_icon.position = get_global_mouse_position()
 	conveyor_root.handle_conveyor_belts()
+	conwayer_items.update_conwayer_items(delta)
 	if MachineData.dragged_type == MachineData.MachineType.None: return
 	make_affected_tiles_visible()
 
@@ -128,9 +130,7 @@ const amount_of_conway_tiles = 6
 func update_position_of_texture(machine: Machine, texture):
 	var used_machine_size = MachineData.machine_sizes[machine.machine_type]
 	var upper_left_hovered = machine.place_position - Vector2i(used_machine_size / 2)
-	var hovered_pos: Vector2 = Vector2(upper_left_hovered) * space_between_bars
-	hovered_pos += Vector2(grid_offset) * Vector2(space_between_bars)
-	texture.position = hovered_pos
+	texture.position = get_world_position(upper_left_hovered)
 	
 	var target_size = used_machine_size * Vector2(space_between_bars)
 	if texture is Control: texture.size = target_size
@@ -138,6 +138,11 @@ func update_position_of_texture(machine: Machine, texture):
 		var sprite_scale = target_size / texture.texture.get_size()
 		sprite_scale = Vector2(sprite_scale.x * amount_of_conway_tiles, sprite_scale.y)
 		texture.scale = sprite_scale
+
+func get_world_position(tile_pos) -> Vector2:
+	var result = Vector2(tile_pos) * space_between_bars
+	result += Vector2(grid_offset) * Vector2(space_between_bars)
+	return result
 
 var machine_arr: Array
 

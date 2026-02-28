@@ -10,10 +10,13 @@ func _ready() -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
+
+const time_to_make_resource = 1
+
 func _process(delta: float) -> void:
 	time += delta
 	
-	if time > 5:
+	if time > time_to_make_resource:
 		for machine in MachineData.placed_machines:
 			if machine == null:
 				continue

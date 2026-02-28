@@ -35,7 +35,7 @@ static func ctor(type: MachineData.MachineType, pos: Vector2) -> Machine:
 	result.place_position = pos
 	result.data = {}
 	result.name = result.names.get(type)
-	result.recipe = ""
+	result.recipe = "diamond"
 	result.level = 1
 	return result
 
