@@ -27,7 +27,7 @@ func _contents_changed():
 	for item in inventory.stacks:
 		if item.item_id != "":
 			var row = row_scene.instantiate()
-			row.setup(item.item_id, inventory.get_item_from_id(item.item_id).icon, item.amount)
+			row.setup(inventory.get_item_from_id(item.item_id).name, inventory.get_item_from_id(item.item_id).icon, item.amount)
 			item_list.add_child(row)
 			rows.append(row)
 			
