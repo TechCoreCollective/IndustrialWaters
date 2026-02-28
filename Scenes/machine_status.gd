@@ -20,16 +20,16 @@ var max_level : int;
 func _ready():
 	source.resized.connect(_sync_size)
 	button.pressed.connect(_upgrade)
-	_sync_size()
-	_update_res()
 	
 func set_machine(machine):
 	self.machine = machine
-	self.max_machine.level = parsed_data.get("machine")
+	_update_res()
 
 func _update_res():
-	var base = machine.name.capitalize() + " Lv. " + str(machine.machine.level)
-	if machine.machine.level == max_level:
+	max_level = parsed_data.get(machine.name).get("max_level")
+	
+	var base = machine.name.capitalize() + " Lv. " + str(machine.level)
+	if machine.level == max_level:
 		base += " (MAX)"
 		button.visible = false
 		button.queue_free()
@@ -41,7 +41,7 @@ func _update_res():
 	for i in item_list.get_children():
 		i.queue_free()
 	
-	for item in parsed_data.get(machine.name).get(COSTS).get(str(machine.machine.level)):
+	for item in parsed_data.get(machine.name).get(COSTS).get(str(machine.level)):
 		var row = row_scene.instantiate()
 		row.setup(inventory.get_item_from_id(item.get("id")).name, inventory.get_item_from_id(item.get("id")).icon, item.get("amount"))
 		item_list.add_child(row)
