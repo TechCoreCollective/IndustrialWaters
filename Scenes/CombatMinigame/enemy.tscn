@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://1u84ka2ymumw"]
 
-[ext_resource type="Script" uid="uid://dec8bipqmsh2d" path="res://Scripts/enemy.gd" id="1_7k104"]
+[ext_resource type="Script" uid="uid://dec8bipqmsh2d" path="res://Scripts/CombatMinigame/enemy.gd" id="1_7k104"]
 [ext_resource type="Texture2D" uid="uid://c64i6ao8x5a3u" path="res://Sprites/shark-shape-svgrepo-com.svg" id="2_4gyqm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4gyqm"]

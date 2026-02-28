@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://dus7tahhb0rtj"]
 
-[ext_resource type="Script" uid="uid://bqd277baoyn20" path="res://Scripts/Combat.gd" id="1_p02pl"]
-[ext_resource type="PackedScene" uid="uid://1u84ka2ymumw" path="res://Scenes/enemy.tscn" id="2_lpmyk"]
-[ext_resource type="PackedScene" uid="uid://ty6qqlo23ig2" path="res://Scenes/player.tscn" id="3_3lmke"]
-[ext_resource type="PackedScene" uid="uid://22mx5rbp2r08" path="res://Scenes/Torpedo.tscn" id="4_dc0jx"]
+[ext_resource type="Script" uid="uid://bqd277baoyn20" path="res://Scripts/CombatMinigame/Combat.gd" id="1_p02pl"]
+[ext_resource type="PackedScene" uid="uid://1u84ka2ymumw" path="res://Scenes/CombatMinigame/enemy.tscn" id="2_lpmyk"]
+[ext_resource type="PackedScene" uid="uid://ty6qqlo23ig2" path="res://Scenes/CombatMinigame/player.tscn" id="3_3lmke"]
+[ext_resource type="PackedScene" uid="uid://22mx5rbp2r08" path="res://Scenes/CombatMinigame/Torpedo.tscn" id="4_dc0jx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1bvp3"]
 size = Vector2(111, 2235)

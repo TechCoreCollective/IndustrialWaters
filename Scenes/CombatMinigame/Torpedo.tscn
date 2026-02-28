@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://22mx5rbp2r08"]
 
-[ext_resource type="Script" uid="uid://5u84ro7f6q64" path="res://Scripts/torpedo.gd" id="1_fas1h"]
+[ext_resource type="Script" uid="uid://5u84ro7f6q64" path="res://Scripts/CombatMinigame/torpedo.gd" id="1_fas1h"]
 [ext_resource type="Texture2D" uid="uid://buoxnp3m507bv" path="res://Sprites/bomb-war-svgrepo-com.svg" id="2_t2myi"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t2myi"]
