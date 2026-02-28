@@ -1,5 +1,13 @@
 [gd_scene format=3 uid="uid://cnn8x4v1oku0t"]
 
+[sub_resource type="ItemStack" id="ItemStack_jdlrp"]
+item_id = "copper_ore"
+amount = 40
+
+[sub_resource type="ItemStack" id="ItemStack_spb3y"]
+item_id = "iron_ore"
+amount = 31
+
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_eo7b8"]
 load_path = "res://.godot/imported/raw_iron.png-d712d6e656f70768510ba85e8254b85d.ctex"
 
@@ -33,4 +41,5 @@ items = Array[ItemDefinition]([SubResource("ItemDefinition_psps2"), SubResource(
 [node name="GlobalInventory" type="Node" unique_id=1808755182]
 
 [node name="Inventory" type="Inventory" parent="." unique_id=598955244]
+stacks = Array[ItemStack]([SubResource("ItemStack_jdlrp"), SubResource("ItemStack_spb3y")])
 database = SubResource("InventoryDatabase_jdlrp")
