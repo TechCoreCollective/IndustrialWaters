@@ -10,6 +10,8 @@ enum MachineType {
 	None
 }
 
+var Generators = [MachineType.DrillSolid, MachineType.DrillLiquid]
+
 var obtainedMachines: Dictionary[MachineType, int] = {
 	MachineType.DrillSolid: 6,
 	MachineType.DrillLiquid: 3,
@@ -30,6 +32,8 @@ var previous_dragged := MachineType.None
 
 var placed_machines: Array[Machine]
 
+
+
 func get_texture_from_type(machine_type: MachineType):
 	var resulting_texture = null
 	match machine_type:
@@ -47,3 +51,6 @@ func get_clicked_machine_info():
 		var machine_rect = machine.get_rect()
 		if machine_rect.has_point(hovered_index): return machine
 	return null
+	
+func resources_produced():
+	pass

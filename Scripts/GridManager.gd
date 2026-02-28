@@ -115,9 +115,7 @@ func end_dragging():
 	dragged_icon.update_type(MachineData.MachineType.None)
 	affected_tiles.hide()
 	if is_placement_invalid(): return
-	var added_machine = Machine.new()
-	added_machine.machine_type = MachineData.previous_dragged
-	added_machine.place_position = get_hovered()
+	var added_machine = Machine.ctor(MachineData.previous_dragged, get_hovered())
 	MachineData.placed_machines.append(added_machine)
 	display_machines()
 
