@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cwa6xati3fuao"
-path="res://.godot/imported/DrillGrid.png-c481371b7c84dc0e95e55e5d43c06bc5.ctex"
+uid="uid://cb0j65eeq4kf8"
+path="res://.godot/imported/OilDrillGrid.png-b9e4ff74a67a056536072a283cadbf3e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Textures/DrillGrid.png"
-dest_files=["res://.godot/imported/DrillGrid.png-c481371b7c84dc0e95e55e5d43c06bc5.ctex"]
+source_file="res://Textures/OilDrillGrid.png"
+dest_files=["res://.godot/imported/OilDrillGrid.png-b9e4ff74a67a056536072a283cadbf3e.ctex"]
 
 [params]
 

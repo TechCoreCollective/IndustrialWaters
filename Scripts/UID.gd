@@ -1,6 +1,12 @@
 extends Node
 
 const SCN_UI_SLOT = preload("uid://b66ronir3bmmc")
-const IMG_DRILL_ICON = preload("uid://bs3v6oxvci46w")
+
+const IMG_SOLID_DRILL_ICON = preload("uid://c4iw125v170hr")
+const IMG_OIL_DRILL_ICON = preload("uid://c3q46mgoxrgmh")
+const IMG_SMELTER_ICON = preload("uid://ctd42onjtutii")
+
 const IMG_CONVEYOR_GRID = preload("uid://dhyrb1wb65lqn")
-const IMG_DRILL_GRID = preload("uid://cwa6xati3fuao")
+const IMG_SOLID_DRILL_GRID = preload("uid://l3s3c06ehvmb")
+const IMG_OIL_DRILL_GRID = preload("uid://cb0j65eeq4kf8")
+const IMG_SMELTER_GRID = preload("uid://05yiexs357d2")

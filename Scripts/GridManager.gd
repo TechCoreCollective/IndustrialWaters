@@ -101,7 +101,10 @@ func handle_offset_event():
 
 func get_hovered() -> Vector2i:
 	var mouse_pos = get_viewport().get_mouse_position()
-	return Vector2i(mouse_pos / Vector2(space_between_bars) - grid_offset)
+	var unoffseted = mouse_pos / Vector2(space_between_bars)
+	var result = unoffseted - grid_offset
+	result = Vector2i(floor(result.x), floor(result.y))
+	return result
 
 func start_to_drag():
 	dragged_icon.update_type(MachineData.dragged_type)
@@ -112,9 +115,7 @@ func end_dragging():
 	dragged_icon.update_type(MachineData.MachineType.None)
 	affected_tiles.hide()
 	if is_placement_invalid(): return
-	var added_machine = Machine.new()
-	added_machine.machine_type = MachineData.previous_dragged
-	added_machine.place_position = get_hovered()
+	var added_machine = Machine.ctor(MachineData.previous_dragged, get_hovered())
 	MachineData.placed_machines.append(added_machine)
 	display_machines()
 
