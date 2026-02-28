@@ -2,7 +2,7 @@ extends Control
 
 @onready var search_bar: LineEdit = $VBoxContainer/SearchBar
 @onready var item_list: VBoxContainer = $VBoxContainer/ScrollContainer/ItemList
-@onready var inventory: Inventory = $Inventory
+@onready var inventory: Inventory = GlobalInventory.get_node("Inventory")
 
 @export var copper: String = "copper_ore"
 

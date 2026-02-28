@@ -1,7 +1,7 @@
 extends Control
 
 @onready var console: LineEdit = $"."
-@onready var inventory: Inventory = $"../../Inventory"
+@onready var inventory: Inventory = GlobalInventory.get_node("Inventory")
 
 
 var commands = {
