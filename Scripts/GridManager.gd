@@ -10,11 +10,13 @@ const bar_dist = 100
 const seperator_bar_color = Color("3575a4")
 const bar_thickness = 0.15
 const affected_tiles_color = Color("6193beff")
+const invalid_placement_color = Color("bf7171ff")
 
 @onready var background = $Background
 @onready var seperator_root = $"Seperator Bars"
 @onready var dragged_icon = $DraggedIcon
 @onready var affected_tiles = $AffectedTiles
+@onready var machines_root = $Machines
 
 var seperator_rects: Array[ColorRect]
 
@@ -60,6 +62,7 @@ func display_scene():
 	
 	for x in range(amount_of_bars.x): display_bar(x, true)
 	for y in range(amount_of_bars.y): display_bar(y, false)
+	display_machines()
 
 func display_bar(pos: int, is_vertical: bool):
 	var used_offset = grid_offset.x if is_vertical else grid_offset.y
@@ -103,18 +106,48 @@ func start_to_drag():
 	make_affected_tiles_visible()
 
 func end_dragging():
-	MachineData.dragged_type = MachineData.MachineType.None
-	dragged_icon.update_type(MachineData.dragged_type)
+	dragged_icon.update_type(MachineData.MachineType.None)
 	affected_tiles.hide()
+	if is_placement_invalid(): return
+	var added_machine = Machine.new()
+	added_machine.machine_type = MachineData.previous_dragged
+	var machine_size = MachineData.machine_sizes[MachineData.previous_dragged]
+	added_machine.place_position = get_hovered()
+	MachineData.placed_machines.append(added_machine)
+	display_machines()
 
 func make_affected_tiles_visible():
-	display_scene()
-	var hovered_tile = get_hovered()
-	var used_machine_size = MachineData.machine_sizes[MachineData.dragged_type]
-	var upper_left_hovered = hovered_tile - Vector2i(used_machine_size / 2)
+	update_position_of_texture(Machine.ctor(MachineData.dragged_type, get_hovered()), affected_tiles)
+	affected_tiles.color = invalid_placement_color if is_placement_invalid() else affected_tiles_color
+
+func update_position_of_texture(machine: Machine, texture: Control):
+	var used_machine_size = MachineData.machine_sizes[machine.machine_type]
+	var upper_left_hovered = machine.place_position - Vector2i(used_machine_size / 2)
 	var hovered_pos: Vector2 = upper_left_hovered * space_between_bars
 	hovered_pos += Vector2(grid_offset) * Vector2(space_between_bars)
-	
-	affected_tiles.position = hovered_pos
-	affected_tiles.size = used_machine_size * Vector2(space_between_bars)
-	affected_tiles.color = affected_tiles_color
+	texture.position = hovered_pos
+	texture.size = used_machine_size * Vector2(space_between_bars)
+
+var machine_arr: Array[Control]
+
+func display_machines():
+	reset_machine_textures()
+	for machine: Machine in MachineData.placed_machines:
+		var machine_node: TextureRect = TextureRect.new()
+		machine_node.texture = MachineData.get_texture_from_type(machine.machine_type)
+		update_position_of_texture(machine, machine_node)
+		machines_root.add_child(machine_node)
+		machine_arr.append(machine_node)
+
+func reset_machine_textures():
+	for machine in machine_arr:
+		machine.queue_free()
+	machine_arr.clear()
+
+func is_placement_invalid():
+	var hovered_tile = get_hovered()
+	var hovered_rect = Machine.ctor(MachineData.previous_dragged, hovered_tile).get_rect()
+	for machine: Machine in MachineData.placed_machines:
+		var machine_rect = machine.get_rect()
+		if machine_rect.intersects(hovered_rect): return true
+	return false

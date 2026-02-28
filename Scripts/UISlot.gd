@@ -10,6 +10,9 @@ var mouse_rect: Rect2
 
 func _ready():
 	icon_sprite.update_type(machine_type)
+	update_item_count()
+
+func update_item_count():
 	var amount_of_machines = MachineData.obtainedMachines[machine_type]
 	item_count.text = str(amount_of_machines)
 
@@ -22,6 +25,7 @@ func _process(_delta):
 	modulate = Color.SKY_BLUE
 	if not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT): return
 	MachineData.dragged_type = machine_type
+	MachineData.previous_dragged = machine_type
 	MachineData.drag_start.emit()
 
 func make_rect():

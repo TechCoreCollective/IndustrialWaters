@@ -20,6 +20,12 @@ color = Color(0.38039216, 0.5764706, 0.69411767, 0)
 
 [node name="Seperator Bars" type="Node2D" parent="." unique_id=1513873166]
 
+[node name="Machines" type="Control" parent="." unique_id=1215245832]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
 [node name="MachineUi" parent="." unique_id=1523249431 instance=ExtResource("2_y4yen")]
 
 [node name="DraggedIcon" parent="." unique_id=2105014328 instance=ExtResource("3_h7ugp")]

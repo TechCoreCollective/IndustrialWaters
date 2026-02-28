@@ -1,7 +1,21 @@
 extends Control
 
 @onready var gradient = $Gradient
+@onready var grid_root = $".."
 var ui_slots: Array[UISlot]
+
+func _ready():
+	MachineData.drag_end.connect(end_machine_drag)
+
+func end_machine_drag():
+	var new_machine_count = MachineData.obtainedMachines[MachineData.dragged_type] - 1
+	if grid_root.is_placement_invalid(): new_machine_count += 1
+	if new_machine_count <= 0: MachineData.obtainedMachines.erase(MachineData.dragged_type)
+	else: MachineData.obtainedMachines[MachineData.dragged_type] = new_machine_count
+	
+	MachineData.previous_dragged = MachineData.dragged_type
+	MachineData.dragged_type = MachineData.MachineType.None
+	update_ui()
 
 func _process(_delta):
 	var previous_window_size = latest_window_size

@@ -11,7 +11,7 @@ enum MachineType {
 }
 
 var obtainedMachines: Dictionary[MachineType, int] = {
-	MachineType.DrillSolid: 1
+	MachineType.DrillSolid: 6
 }
 
 var machine_sizes: Dictionary[MachineType, Vector2] = {
@@ -21,3 +21,12 @@ var machine_sizes: Dictionary[MachineType, Vector2] = {
 signal drag_start
 signal drag_end
 var dragged_type := MachineType.None
+var previous_dragged := MachineType.None
+
+var placed_machines: Array[Machine]
+
+func get_texture_from_type(machine_type: MachineType):
+	var resulting_texture = null
+	match machine_type:
+		MachineType.DrillSolid: resulting_texture = UID.IMG_DRILL_GRID
+	return resulting_texture
