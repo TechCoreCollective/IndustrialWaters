@@ -1,7 +1,7 @@
 extends Control
 
 @onready var console: LineEdit = $"."
-@onready var inventory: Inventory = $"../../Inventory"
+@onready var inventory: Inventory = GlobalInventory.get_node("Inventory")
 
 
 var commands = {
@@ -34,8 +34,11 @@ func _give(args):
 		print("Usage: give <item_id> [amount]")
 		return
 
-	var item_id = args[0]
-	var amount = int(args[1]) if len(args) > 1 else 1
-
+	var item_id = args[0][0]
+	var amount = int(args[0][1])
+	
+	print(item_id)
+	print(amount)
+	
 	print("Giving:", amount, "x", item_id)
-	inventory.add(item_name, amount)
+	inventory.add(item_id, amount)
