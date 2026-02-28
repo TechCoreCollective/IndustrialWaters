@@ -10,7 +10,7 @@ var row_machine = load("res://Inventory/MachineRow.tscn")
 
 @export var copper: String = "copper_ore"
 
-var working_machines : Array[MachineData.MachineType] = [MachineData.MachineType.DrillSolid]
+var working_machines : Array[MachineData.MachineType] = [MachineData.MachineType.DrillSolid, MachineData.MachineType.DrillLiquid, MachineData.MachineType.Smelter]
 
 var names = {
 	MachineData.MachineType.DrillSolid : "solid_drill",
