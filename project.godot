@@ -18,6 +18,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 MachineData="*uid://bvid2p3jgj51t"
+UID="*uid://bpcjmvvwh3oky"
 
 [input]
 

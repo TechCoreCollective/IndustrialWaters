@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cpyqvqxh4yfrr" path="res://Textures/MachineUIShadow.png" id="2_hf0ls"]
 [ext_resource type="Texture2D" uid="uid://bnk0tgf2y756e" path="res://Textures/MachineUI.png" id="2_x08ig"]
 [ext_resource type="FontFile" uid="uid://dil43sbwcg2uc" path="res://Textures/Leafcross Font.png" id="4_bb2qq"]
+[ext_resource type="PackedScene" uid="uid://bjbsuyradge6u" path="res://Scenes/DraggedIcon.tscn" id="5_bb2qq"]
 
 [node name="UiSlot" type="Node2D" unique_id=1523390161]
 script = ExtResource("1_jmdwb")
@@ -15,6 +16,8 @@ texture = ExtResource("2_hf0ls")
 
 [node name="MainSprite" type="Sprite2D" parent="." unique_id=1980615695]
 texture = ExtResource("2_x08ig")
+
+[node name="Icon" parent="." unique_id=2105014328 instance=ExtResource("5_bb2qq")]
 
 [node name="ItemCount" type="Label" parent="." unique_id=1545697366]
 offset_left = -10.0

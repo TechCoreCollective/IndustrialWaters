@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c07ragixe8gnn" path="res://Scripts/GridManager.gd" id="1_aiu8d"]
 [ext_resource type="PackedScene" uid="uid://oj7wyk3go63k" path="res://Scenes/MachineUI.tscn" id="2_y4yen"]
+[ext_resource type="PackedScene" uid="uid://bjbsuyradge6u" path="res://Scenes/DraggedIcon.tscn" id="3_h7ugp"]
 
 [node name="PlacementGrid" type="Node2D" unique_id=838105151]
 script = ExtResource("1_aiu8d")
@@ -11,6 +12,17 @@ offset_right = 1153.0
 offset_bottom = 654.0
 color = Color(0.19215687, 0.44313726, 0.627451, 1)
 
+[node name="AffectedTiles" type="ColorRect" parent="." unique_id=1144768551]
+visible = false
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0.38039216, 0.5764706, 0.69411767, 0)
+
 [node name="Seperator Bars" type="Node2D" parent="." unique_id=1513873166]
 
 [node name="MachineUi" parent="." unique_id=1523249431 instance=ExtResource("2_y4yen")]
+
+[node name="DraggedIcon" parent="." unique_id=2105014328 instance=ExtResource("3_h7ugp")]
+modulate = Color(1, 1, 1, 0.53333336)
+scale = Vector2(2, 2)
+invisible_on_start = true

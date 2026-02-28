@@ -9,11 +9,18 @@ const zoom_change = 1.1
 const bar_dist = 100
 const seperator_bar_color = Color("3575a4")
 const bar_thickness = 0.15
+const affected_tiles_color = Color("6193beff")
 
 @onready var background = $Background
 @onready var seperator_root = $"Seperator Bars"
+@onready var dragged_icon = $DraggedIcon
+@onready var affected_tiles = $AffectedTiles
 
 var seperator_rects: Array[ColorRect]
+
+func _ready():
+	MachineData.drag_start.connect(start_to_drag)
+	MachineData.drag_end.connect(end_dragging)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if not event.is_pressed(): return
@@ -31,6 +38,9 @@ func _process(_delta):
 	update_window_size()
 	background.size = current_window_size
 	if previous_window_size != current_window_size: display_scene()
+	dragged_icon.position = get_global_mouse_position()
+	if MachineData.dragged_type == MachineData.MachineType.None: return
+	make_affected_tiles_visible()
 
 func update_window_size(): current_window_size = DisplayServer.window_get_size()
 
@@ -83,6 +93,28 @@ func handle_offset_event():
 	grid_offset += offset_used_change
 	display_scene()
 
-func get_hovered() -> Vector2:
+func get_hovered() -> Vector2i:
 	var mouse_pos = get_viewport().get_mouse_position()
-	return Vector2(mouse_pos / Vector2(space_between_bars) - grid_offset)
+	return Vector2i(mouse_pos / Vector2(space_between_bars) - grid_offset)
+
+func start_to_drag():
+	dragged_icon.update_type(MachineData.dragged_type)
+	affected_tiles.show()
+	make_affected_tiles_visible()
+
+func end_dragging():
+	MachineData.dragged_type = MachineData.MachineType.None
+	dragged_icon.update_type(MachineData.dragged_type)
+	affected_tiles.hide()
+
+func make_affected_tiles_visible():
+	display_scene()
+	var hovered_tile = get_hovered()
+	var used_machine_size = MachineData.machine_sizes[MachineData.dragged_type]
+	var upper_left_hovered = hovered_tile - Vector2i(used_machine_size / 2)
+	var hovered_pos: Vector2 = upper_left_hovered * space_between_bars
+	hovered_pos += Vector2(grid_offset) * Vector2(space_between_bars)
+	
+	affected_tiles.position = hovered_pos
+	affected_tiles.size = used_machine_size * Vector2(space_between_bars)
+	affected_tiles.color = affected_tiles_color
