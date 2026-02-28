@@ -1,0 +1,23 @@
+[
+  {
+	"id": "task_iron_ore",
+	"name": "Collect Iron Ore",
+	"description": "Mine and stockpile iron ore for the first shipment.",
+	"required_item_id": "iron_ore",
+	"required_amount": 50
+  },
+  {
+	"id": "task_fuel_cells",
+	"name": "Synthesize Fuel Cells",
+	"description": "Produce fuel cells to power the launch platform.",
+	"required_item_id": "coppen_ore",
+	"required_amount": 10
+  },
+  {
+	"id": "task_titanium_plates",
+	"name": "Forge Titanium Plates",
+	"description": "Smelt titanium plates for the hull of the transport pod.",
+	"required_item_id": "diamond",
+	"required_amount": 25
+  }
+]
