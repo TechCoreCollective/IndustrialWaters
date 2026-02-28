@@ -10,6 +10,8 @@ enum MachineType {
 	None
 }
 
+var Generators = [MachineType.DrillSolid, MachineType.DrillLiquid]
+
 var obtainedMachines: Dictionary[MachineType, int] = {
 	MachineType.DrillSolid: 6
 }
@@ -25,6 +27,8 @@ var dragged_type := MachineType.None
 var previous_dragged := MachineType.None
 
 var placed_machines: Array[Machine]
+
+
 
 func get_texture_from_type(machine_type: MachineType):
 	var resulting_texture = null

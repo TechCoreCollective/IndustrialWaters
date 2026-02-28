@@ -38,7 +38,7 @@ func handle_zoom_event(event: InputEvent):
 	if previous_zoom != grid_zoom: display_scene()
 
 func _process(_delta):
-	print(MachineData.get_clicked_machine_info())
+	#print(MachineData.get_clicked_machine_info())
 	update_window_size()
 	background.size = current_window_size
 	if previous_window_size != current_window_size: display_scene()
@@ -113,9 +113,7 @@ func end_dragging():
 	dragged_icon.update_type(MachineData.MachineType.None)
 	affected_tiles.hide()
 	if is_placement_invalid(): return
-	var added_machine = Machine.new()
-	added_machine.machine_type = MachineData.previous_dragged
-	added_machine.place_position = get_hovered()
+	var added_machine = Machine.ctor(MachineData.previous_dragged, get_hovered())
 	MachineData.placed_machines.append(added_machine)
 	display_machines()
 
