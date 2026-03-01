@@ -96,9 +96,9 @@ name = "Oil Canister"
 icon = ExtResource("6_jdqlu")
 
 [sub_resource type="ItemDefinition" id="ItemDefinition_3hdto"]
-id = "stick_mezholia"
+id = "mezholium_stick"
 max_stack = 64
-name = "Stick Mezholia"
+name = "Mezholium Stick"
 icon = ExtResource("7_uq0kq")
 
 [sub_resource type="ItemDefinition" id="ItemDefinition_syved"]
@@ -179,7 +179,7 @@ max_stack = 64
 name = "DillPlate"
 icon = ExtResource("20_7ac2k")
 
-[sub_resource type="InventoryDatabase" id="InventoryDatabase_rmqse"]
+[sub_resource type="InventoryDatabase" id="InventoryDatabase_3eimn"]
 items = Array[ItemDefinition]([SubResource("ItemDefinition_psps2"), SubResource("ItemDefinition_2w2c5"), SubResource("ItemDefinition_0a80t"), SubResource("ItemDefinition_e40gj"), SubResource("ItemDefinition_osmuc"), SubResource("ItemDefinition_s34wa"), SubResource("ItemDefinition_t314a"), SubResource("ItemDefinition_o0x8n"), SubResource("ItemDefinition_q6uxh"), SubResource("ItemDefinition_3hdto"), SubResource("ItemDefinition_syved"), SubResource("ItemDefinition_eeshc"), SubResource("ItemDefinition_yow2k"), SubResource("ItemDefinition_fo7pw"), SubResource("ItemDefinition_6veb8"), SubResource("ItemDefinition_g7oiw"), SubResource("ItemDefinition_euchr"), SubResource("ItemDefinition_it8mg"), SubResource("ItemDefinition_o6q2i"), SubResource("ItemDefinition_aa4es"), SubResource("ItemDefinition_knflu"), SubResource("ItemDefinition_ouj0a"), SubResource("ItemDefinition_myq33")])
 
 [node name="GlobalInventory" type="Node" unique_id=1808755182]
@@ -187,4 +187,4 @@ script = ExtResource("1_spb3y")
 
 [node name="Inventory" type="Inventory" parent="." unique_id=598955244]
 stacks = Array[ItemStack]([SubResource("ItemStack_jdlrp"), SubResource("ItemStack_spb3y")])
-database = SubResource("InventoryDatabase_rmqse")
+database = SubResource("InventoryDatabase_3eimn")

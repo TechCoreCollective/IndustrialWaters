@@ -87,9 +87,9 @@ name = "Oil Canister"
 icon = ExtResource("6_q6uxh")
 
 [sub_resource type="ItemDefinition" id="ItemDefinition_3hdto"]
-id = "stick_mezholia"
+id = "mezholium_stick"
 max_stack = 64
-name = "Stick Mezholia"
+name = "Mezholium Stick"
 icon = ExtResource("7_syved")
 
 [sub_resource type="ItemDefinition" id="ItemDefinition_syved"]

@@ -3,32 +3,24 @@
 	"id": "task_iron_ore",
 	"type": "SEND_MATERIALS",
 	"name": "Collect Iron Ore",
-	"description": "Mine and stockpile iron ore for the first shipment.",
+	"description": "Mine Iron Ore using the solid drill. To configure the drill, use the middle mouse button.",
 	"required_item_id": "iron_ore",
 	"required_amount": 50
   },
   {
-	"id": "task_fuel_cells",
+	"id": "task_iron_ingot",
 	"type": "SEND_MATERIALS",
-	"name": "Synthesize Fuel Cells",
-	"description": "Produce fuel cells to power the launch platform.",
-	"required_item_id": "coppen_ore",
-	"required_amount": 10
+	"name": "Collect Iron Ingot",
+	"description": "Use the iron ore to make iron ingots using the smelter. Belts can be drawn around machines with left mouse button",
+	"required_item_id": "iron_ingot",
+	"required_amount": 50
   },
   {
-	"id": "task_titanium_plates",
+	"id": "task_mezholium",
 	"type": "SEND_MATERIALS",
-	"name": "Forge Titanium Plates",
-	"description": "Smelt titanium plates for the hull of the transport pod.",
-	"required_item_id": "diamond",
-	"required_amount": 25
-  },
-  {
-	"id": "task_machine",
-	"type": "BUILD_MACHINE",
-	"name": "Build your first machine!!",
-	"description": "",
-	"required_machine_id": "diamond",
-	"required_amount": 25
+	"name": "Collect Mezholium",
+	"description": "Mezholium is a local type of rock. You can get it from liquid drills.",
+	"required_item_id": "mezholium",
+	"required_amount": 50
   }
 ]
