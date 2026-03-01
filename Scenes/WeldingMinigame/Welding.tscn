@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://jntm2ufk6b6s"]
 
 [ext_resource type="Texture2D" uid="uid://bctvje6x60tx" path="res://Sprites/metall005-new-tileable.png" id="1_56wyk"]
-[ext_resource type="Script" uid="uid://3rdqcf0hhq7a" path="res://Scenes/welding.gd" id="1_n4v7u"]
+[ext_resource type="Script" uid="uid://3rdqcf0hhq7a" path="res://Scripts/WeldingMinigame/welding.gd" id="1_n4v7u"]
 [ext_resource type="Texture2D" uid="uid://dk3r0nx7vnjbu" path="res://icons/WeldingTool.png" id="3_n8nis"]
 
 [sub_resource type="Environment" id="Environment_n4v7u"]
