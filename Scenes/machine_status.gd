@@ -26,38 +26,46 @@ func set_machine(machine):
 	_update_res()
 
 func _update_res():
-	max_level = Machinejson.parsed_data.get(machine.name).get("max_level")
+	var machine_json = Machinejson.parsed_data.get(machine.name)
+	if machine_json == null:
+		return
+
+	max_level = machine_json.get("max_level", 0)
 	repair_button.visible = machine.is_damaged
 	var options = ["No Recipe"]
-	
-	options.append_array(Machinejson.parsed_data.get(machine.name).get("recipes"))
-	
+
+	var recipes = machine_json.get("recipes", [])
+	if recipes:
+		options.append_array(recipes)
+
 	option_button.clear()
-	
+
 	for i in options:
 		option_button.add_item(i)
-	
+
 	if machine.recipe != "":
 		option_button.select(options.find(machine.recipe))
-	
+
 	var base = machine.name.capitalize() + " Lv. " + str(machine.level)
 	if machine.level == max_level:
 		base += " (MAX)"
 		button.visible = false
 	else:
 		button.visible = true
-	
+
 	name_label.text = base
-	
+
 	var row_scene = load("res://Inventory/ItemRow.tscn")
-	
+
 	for i in item_list.get_children():
 		i.queue_free()
-	
+
 	for i in item_list2.get_children():
 		i.queue_free()
-	
-	for item in Machinejson.parsed_data.get(machine.name).get(COSTS).get(str(machine.level)):
+
+	var upgrade_costs = machine_json.get(COSTS, {})
+	var level_costs = upgrade_costs.get(str(machine.level), [])
+	for item in level_costs:
 		var row = row_scene.instantiate()
 		row.setup(inventory.get_item_from_id(item.get("id")).name, inventory.get_item_from_id(item.get("id")).icon, item.get("amount"))
 		item_list.add_child(row)
@@ -74,15 +82,20 @@ func _update_res():
 			
 	_sync_size()
 
-func _upgrade():	
-	
-	var can_craft = Utils.remove_resources_safe(Machinejson.parsed_data.get(machine.name).get(COSTS).get(str(machine.level)))
+func _upgrade():
+	var machine_json = Machinejson.parsed_data.get(machine.name)
+	if machine_json == null:
+		return
+
+	var upgrade_costs = machine_json.get(COSTS, {})
+	var level_costs = upgrade_costs.get(str(machine.level), [])
+	var can_craft = Utils.remove_resources_safe(level_costs)
 	if not can_craft:
 		return
-	
+
 	machine.level += 1
 	machine.multiplier = 2 ** (machine.level-1)
-	
+
 	_update_res()
 
 func _sync_size():
