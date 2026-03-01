@@ -13,10 +13,15 @@ const START_POSITION := Vector2(-26, 82)
 @export var straight_rotation_offset := 0
 @export var corner_rotation_offset := 270
 
+var solution: Array = []
+var movable_mask: Array = []
+var maps: Array = []
+
+
 # - = straight horizontal
 # | = straight vertical
 # L J F 7 = turnes
-var solution: Array[String] = [
+"""var solution: Array[String] = [
 	"-7  F-",
 	" |  | ",
 	" L--J "
@@ -32,14 +37,15 @@ var movable_tiles: Array[Vector2i] = [
 	Vector2i(4,1),
 	Vector2i(4,2),
 	Vector2i(4,0)
-]
+]"""
 
 var grid: Array = []
 
 func _ready():
 	randomize()
+	load_maps()
+	select_random_map()
 	generate_grid()
-	#show_solution()
 
 """func _process(delta: float) -> void:
 	if check_win():
@@ -47,7 +53,25 @@ func _ready():
 	else:
 		print("not win")"""
 
+func load_maps():
+	var file = FileAccess.open("res://Config/pipes.json", FileAccess.READ)
+	var content = file.get_as_text()
+	maps = JSON.parse_string(content)
+
+func select_random_map():
+	#assert(solution.size() == 3)
+	#assert(solution[0].length() == 6)
+	var selected = maps[randi() % maps.size()]
+	solution = selected["solution"]
+	movable_mask = selected["movable"]
+
 func generate_grid():
+	# remove old pipes from scene
+	for child in $Pipes.get_children():
+		child.queue_free()
+		
+	grid.clear()
+	
 	for y in range(GRID_HEIGHT):
 		grid.append([])
 		
@@ -58,10 +82,10 @@ func generate_grid():
 				grid[y].append(null)
 				continue
 			
-			var is_movable = Vector2i(x,y) in movable_tiles;
+			var is_movable = movable_mask[y][x] == "1";
 			
 			var tile := create_tile_from_char(char, is_movable)
-			add_child(tile)
+			$Pipes.add_child(tile)
 			
 			tile.position = START_POSITION + Vector2(x * TILE_SIZE, y * TILE_SIZE)
 			tile.rotation_degrees = get_rotation_from_char(char)
