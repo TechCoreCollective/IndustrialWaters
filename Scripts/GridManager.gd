@@ -51,6 +51,7 @@ func _process(delta):
 	if terminating_drag_and_drop():
 		end_dragging()
 		MachineData.drag_ended_prematurely = true
+	handle_deletions()
 	if MachineData.dragged_type == MachineData.MachineType.None: return
 	make_affected_tiles_visible()
 
@@ -181,3 +182,25 @@ func is_placement_invalid():
 		var machine_rect = machine.get_rect()
 		if machine_rect.intersects(hovered_rect): return true
 	return false
+
+func handle_deletions():
+	if not Input.is_action_pressed("delete_machine"): return
+	var hovered_tile = get_hovered()
+	for machine: Machine in MachineData.placed_machines:
+		var machine_rect = machine.get_rect()
+		if not machine_rect.has_point(hovered_tile): continue
+		if machine.machine_type != MachineData.MachineType.ConveyorBelt:
+			handle_deleted_machine(machine)
+		MachineData.placed_machines.erase(machine)
+		display_scene()
+		break
+
+func handle_deleted_machine(machine_to_be_deleted: Machine):
+	var deleted_items = []
+	for i in range(MachineData.traveling_conway_items.size()):
+		var item: ConwayItem = MachineData.traveling_conway_items[i]
+		if item.creation_machine.place_position == machine_to_be_deleted.place_position:
+			item.associated_sprite.queue_free()
+			deleted_items.append(item)
+	for item: ConwayItem in deleted_items:
+		MachineData.traveling_conway_items.erase(item)

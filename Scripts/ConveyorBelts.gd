@@ -207,3 +207,12 @@ func get_machine_associated_with_convayer(conway_tile_pos: Vector2i):
 		if result == null or result == false: continue
 		return machine
 	return null
+
+func get_convayers_associated_with_machine(machine: Machine) -> Array[Machine]:
+	var result: Array[Machine] = []
+	var machine_rect = machine.get_rect()
+	for conway: Machine in MachineData.placed_machines:
+		if conway.machine_type != MachineData.MachineType.ConveyorBelt: continue
+		var conway_pos = conway.place_position
+		if machine_rect.has_point(conway_pos): result.append(conway)
+	return result

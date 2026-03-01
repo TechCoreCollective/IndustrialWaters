@@ -71,6 +71,7 @@ func resources_produced(machine: Machine, item_produced: GlobalInventory.ItemTyp
 	var travelling_item = ConwayItem.ctor(item_produced)
 	travelling_item.conway_path_index = get_path_index_of_produced_item(machine)
 	if travelling_item.conway_path_index == -1: return
+	travelling_item.creation_machine = machine
 	traveling_conway_items.append(travelling_item)
 	machine.data[GlobalInventory.convert_enum_to_name(item_produced)] -= 1
 
