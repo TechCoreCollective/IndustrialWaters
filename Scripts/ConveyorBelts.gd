@@ -176,10 +176,13 @@ func create_conway_path_points():
 		MachineData.conway_path_points[path_index] = [path_start]
 		check_for_path_conway(path_index, path_start)
 
-func get_conway_path_start(conway_path):
-	for conway in conway_path:
-		var neighbour_count = get_neighbouring_tiles(conway).size()
-		if neighbour_count == 1: return conway
+func get_conway_path_start(conway_path: Array):
+	for conway_tile_pos: Vector2i in conway_path:
+		var neighbour_count = get_neighbouring_tiles(conway_tile_pos).size()
+		if neighbour_count != 1: continue
+		var assoc_machine = get_machine_associated_with_convayer(conway_tile_pos)
+		if assoc_machine == null: continue
+		if assoc_machine.machine_type != MachineData.MachineType.Collector: return conway_tile_pos
 	return conway_path[0]
 
 var checked_conways_for_path: Array[Vector2i]
@@ -197,3 +200,10 @@ func check_for_path_conway(path_index, current_conway):
 		check_for_path_conway(path_index, neighbour_pos)
 	if neighbours.size() == 1 and not current_conway in current_path:
 		current_path.append(current_conway)
+
+func get_machine_associated_with_convayer(conway_tile_pos: Vector2i):
+	for machine: Machine in MachineData.placed_machines:
+		var result = does_machine_connect_to_placed(conway_tile_pos, machine)
+		if result == null or result == false: continue
+		return machine
+	return null
