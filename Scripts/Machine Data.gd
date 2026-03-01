@@ -73,7 +73,7 @@ var traveling_conway_items: Array[ConwayItem]
 var highest_conwayor_index: int = -1
 
 func resources_produced(machine: Machine, item_produced: GlobalInventory.ItemType, path_exception := -1):
-	if machine.is_damaged: return 
+	if machine.is_damaged: return
 	var travelling_item = ConwayItem.ctor(item_produced)
 	travelling_item.conway_path_index = get_path_index_of_produced_item(machine, path_exception)
 	if travelling_item.conway_path_index == -1: return
@@ -91,12 +91,17 @@ func get_path_index_of_produced_item(producer: Machine, path_exception: int):
 		if not producer.get_rect().has_point(machine.place_position): continue
 		conways_in_machine.append(machine.place_position)
 	if conways_in_machine.size() == 0: return -1
-	
-	var machine_conway_count = conways_in_machine.size()-1
+
+	var machine_conway_count = conways_in_machine.size() - 1
 	var item_spawn_index = path_exception
-	while item_spawn_index == path_exception:
-		item_spawn_index = randi_range(0, machine_conway_count)
-	
+	if machine_conway_count > 0:
+		var attempts = 0
+		while item_spawn_index == path_exception and attempts < 10:
+			item_spawn_index = randi_range(0, machine_conway_count)
+			attempts += 1
+	else:
+		item_spawn_index = 0
+
 	var item_spawn_position = conways_in_machine[item_spawn_index]
 	for path_index in conway_path_points.keys():
 		var path = conway_path_points.values()[path_index]
