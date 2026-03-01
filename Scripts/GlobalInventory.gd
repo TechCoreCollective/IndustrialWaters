@@ -35,4 +35,9 @@ func add_item(item_type: ItemType, count: int):
 	var item_name = convert_enum_to_name(item_type)
 	if item_name == "" or item_name == null:
 		return
+	if database == null:
+		return
+	var item_definition = database.get_item_from_id(item_name)
+	if item_definition == null:
+		return
 	database.add(item_name, count)
