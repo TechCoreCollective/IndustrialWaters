@@ -1,9 +1,17 @@
 [
   {
+	"id": "welcome",
+	"type": "SEND_MATERIALS",
+	"name": "Welcome to Industrial Waters!",
+	"description": "Lore: You are an engineer and your government sent you to an unknown planet. This planet is exposed to a lot of radiation so you have to stay UNDER THE SURFACE (water). Click the export button to continue.",
+	"required_item_id": "iron_ore",
+	"required_amount": 1
+  },
+  {
 	"id": "task_iron_ore",
 	"type": "SEND_MATERIALS",
 	"name": "Collect Iron Ore",
-	"description": "Mine Iron Ore using the solid drill. To configure the drill, use the middle mouse button. And put it inside a collector. Belts can be drawn around machines with left mouse button",
+	"description": "Mine Iron Ore using the solid drill. You can place it by dragging it to the grid. To configure the drill, use the middle mouse button. And put it inside a collector. Belts can be drawn around machines with left mouse button",
 	"required_item_id": "iron_ore",
 	"required_amount": 50
   },
@@ -30,5 +38,13 @@
 	"description": "Use the same procedure as iron for getting Cu ingots, then put them into the manufactury",
 	"required_item_id": "mezholium",
 	"required_amount": 50
-  }
+  },
+  {
+	"id": "finish",
+	"type": "SEND_MATERIALS",
+	"name": "Congratulations this is the end",
+	"description": "We hope you liked this short demo",
+	"required_item_id": "kelp",
+	"required_amount": 5000000
+  },
 ]
