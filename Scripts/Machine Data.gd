@@ -98,4 +98,7 @@ func get_path_index_of_produced_item(producer: Machine):
 var drag_ended_prematurely := false
 
 func is_ui_open():
+	if machine_status == null:
+		return false
+	
 	return machine_status.visible or inventory.visible
