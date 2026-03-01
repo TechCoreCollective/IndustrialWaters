@@ -19,7 +19,7 @@
 	"id": "task_iron_ingot",
 	"type": "SEND_MATERIALS",
 	"name": "Collect Iron Ingot",
-	"description": "Use the iron ore to make iron ingots using the smelter.",
+	"description": "Use the iron ore to make iron ingots using the smelter. If you want to delete something, click on it with RMB. Just please don't delete edge conveyors :D",
 	"required_item_id": "iron_ingot",
 	"required_amount": 50
   },
