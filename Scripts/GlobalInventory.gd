@@ -10,7 +10,9 @@ enum ItemType {
 	Kelp,
 	Mezholium,
 	MezholiumStick,
-	Glue
+	Glue,
+	CopperPlate,
+	IronPlate
 }
 
 @onready var database = $Inventory
@@ -26,6 +28,8 @@ func convert_name_to_enum(item_name: String) -> ItemType:
 		"mezholium": return ItemType.Mezholium
 		"mezholium_stick": return ItemType.MezholiumStick
 		"glue": return ItemType.Glue
+		"copper_plate": return ItemType.CopperPlate
+		"iron_plate": return ItemType.IronPlate
 	return ItemType.None
 	
 func convert_enum_to_name(item_name: ItemType) -> String:
@@ -39,6 +43,8 @@ func convert_enum_to_name(item_name: ItemType) -> String:
 		ItemType.Mezholium: return "mezholium"
 		ItemType.MezholiumStick: return "mezholium_stick"
 		ItemType.Glue: return "glue"
+		ItemType.CopperPlate: return "copper_plate"
+		ItemType.IronPlate: return "iron_plate"
 	return ""
 
 func add_item(item_type: ItemType, count: int):

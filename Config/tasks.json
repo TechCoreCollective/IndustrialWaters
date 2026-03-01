@@ -3,7 +3,7 @@
 	"id": "task_iron_ore",
 	"type": "SEND_MATERIALS",
 	"name": "Collect Iron Ore",
-	"description": "Mine Iron Ore using the solid drill. To configure the drill, use the middle mouse button.",
+	"description": "Mine Iron Ore using the solid drill. To configure the drill, use the middle mouse button. And put it inside a collector. Belts can be drawn around machines with left mouse button",
 	"required_item_id": "iron_ore",
 	"required_amount": 50
   },
@@ -11,7 +11,7 @@
 	"id": "task_iron_ingot",
 	"type": "SEND_MATERIALS",
 	"name": "Collect Iron Ingot",
-	"description": "Use the iron ore to make iron ingots using the smelter. Belts can be drawn around machines with left mouse button",
+	"description": "Use the iron ore to make iron ingots using the smelter.",
 	"required_item_id": "iron_ingot",
 	"required_amount": 50
   },
@@ -20,6 +20,14 @@
 	"type": "SEND_MATERIALS",
 	"name": "Collect Mezholium",
 	"description": "Mezholium is a local type of rock. You can get it from liquid drills.",
+	"required_item_id": "mezholium",
+	"required_amount": 50
+  },
+  {
+	"id": "task_copper_plate",
+	"type": "SEND_MATERIALS",
+	"name": "Collect Copper Plates",
+	"description": "Use the same procedure as iron for getting Cu ingots, then put them into the manufactury",
 	"required_item_id": "mezholium",
 	"required_amount": 50
   }

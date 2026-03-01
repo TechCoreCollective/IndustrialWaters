@@ -86,5 +86,37 @@
 			"mezholium_stick",
 			"glue"
 		]
+	},
+	"manufactor": {
+		"max_level": 2,
+		
+		"craft_cost": [
+			{"id": "iron_ore", "amount": 10}
+		],
+		
+		"upgrade_costs":{
+			"1": [
+				{"id": "copper_ore", "amount": 20},
+				{"id": "iron_ore", "amount": 10}
+			],
+			"2": [
+				{"id": "copper_ore", "amount": 50},
+				{"id": "iron_ore", "amount": 25}
+			]
+		},
+		
+		"requirements": {
+			"iron_plate": [
+				{"id": "iron_ingot", "amount": 2}
+			],
+			"coppper_plate": [
+				{"id": "copper_plate", "amount": 2}
+			]
+		},
+		
+		"recipes": [
+			"iron_plate",
+			"copper_plate"
+		]
 	}
 }

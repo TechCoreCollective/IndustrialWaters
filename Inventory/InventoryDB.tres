@@ -18,7 +18,6 @@
 [ext_resource type="Texture2D" uid="uid://b7eyoi52oxnb" path="res://icons/GoldenIngot.png" id="17_aa4es"]
 [ext_resource type="Texture2D" uid="uid://bjbpy6qkodi80" path="res://icons/GravelOre.png" id="18_knflu"]
 [ext_resource type="Texture2D" uid="uid://d2u6xa64la2p2" path="res://icons/ConcreteBlock.png" id="19_ouj0a"]
-[ext_resource type="Texture2D" uid="uid://cnrtaol4r1dli" path="res://icons/DillPlate.png" id="20_myq33"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_psps2"]
 load_path = "res://.godot/imported/raw_iron.png-d712d6e656f70768510ba85e8254b85d.ctex"
@@ -164,11 +163,14 @@ max_stack = 64
 name = "Concrete Block"
 icon = ExtResource("19_ouj0a")
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_knflu"]
+load_path = "res://.godot/imported/DillPlate.png-5a30c217538ce54e7fe1484f764a68ae.ctex"
+
 [sub_resource type="ItemDefinition" id="ItemDefinition_myq33"]
-id = "dill_plate"
+id = "copper_plate"
 max_stack = 64
-name = "DillPlate"
-icon = ExtResource("20_myq33")
+name = "Copper Plate"
+icon = SubResource("CompressedTexture2D_knflu")
 
 [resource]
 items = Array[ItemDefinition]([SubResource("ItemDefinition_psps2"), SubResource("ItemDefinition_2w2c5"), SubResource("ItemDefinition_0a80t"), SubResource("ItemDefinition_e40gj"), SubResource("ItemDefinition_osmuc"), SubResource("ItemDefinition_s34wa"), SubResource("ItemDefinition_t314a"), SubResource("ItemDefinition_o0x8n"), SubResource("ItemDefinition_q6uxh"), SubResource("ItemDefinition_3hdto"), SubResource("ItemDefinition_syved"), SubResource("ItemDefinition_eeshc"), SubResource("ItemDefinition_yow2k"), SubResource("ItemDefinition_fo7pw"), SubResource("ItemDefinition_6veb8"), SubResource("ItemDefinition_g7oiw"), SubResource("ItemDefinition_euchr"), SubResource("ItemDefinition_it8mg"), SubResource("ItemDefinition_o6q2i"), SubResource("ItemDefinition_aa4es"), SubResource("ItemDefinition_knflu"), SubResource("ItemDefinition_ouj0a"), SubResource("ItemDefinition_myq33")])

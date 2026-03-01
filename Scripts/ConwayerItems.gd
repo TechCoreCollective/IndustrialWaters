@@ -20,6 +20,8 @@ func get_texture(conway_item: ConwayItem):
 		GlobalInventory.ItemType.Mezholium: return UID.IMG_MEZHOLIUM_ITEM
 		GlobalInventory.ItemType.MezholiumStick: return UID.IMG_MEZHOLIUM_STICK_ITEM
 		GlobalInventory.ItemType.Glue: return UID.IMG_GLUE_ITEM
+		GlobalInventory.ItemType.CopperPlate: return UID.IMG_COPPER_PLATE_ITEM
+		GlobalInventory.ItemType.IronPlate: return UID.IMG_IRON_PLATE_ITEM
 
 const one_tile_duration: float = 0.25
 

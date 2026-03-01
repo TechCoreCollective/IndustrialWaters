@@ -25,6 +25,8 @@ const IMG_KELP_ITEM = preload("res://icons/Kelp.png")
 const IMG_MEZHOLIUM_ITEM = preload("res://icons/Mezholium.png")
 const IMG_MEZHOLIUM_STICK_ITEM = preload("res://icons/StickMezholia.png")
 const IMG_GLUE_ITEM = preload("res://icons/Glue.png")
+const IMG_COPPER_PLATE_ITEM = preload("res://icons/DillPlate.png")
+const IMG_IRON_PLATE_ITEM = preload("res://icons/IronPlate.png")
 
 const SCN_WELDING = preload("uid://jntm2ufk6b6s")
 const SCN_GRID = preload("uid://qfsyklj0mtul")
