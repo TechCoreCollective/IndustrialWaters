@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://bejcq2eeubamo" path="res://Scenes/Soundtrack.tscn" id="7_27ui7"]
 [ext_resource type="Script" uid="uid://cjyf2mahui2ue" path="res://Scenes/machine_manager.gd" id="8_7o2bu"]
 [ext_resource type="PackedScene" uid="uid://c7h4u5tv0ixus" path="res://Scenes/TaskUI.tscn" id="11_weffg"]
+[ext_resource type="PackedScene" uid="uid://jntm2ufk6b6s" path="res://Scenes/WeldingMinigame/Welding.tscn" id="12_d4lx1"]
 
 [node name="PlacementGrid" type="Node2D" unique_id=838105151]
 script = ExtResource("1_aiu8d")
@@ -113,3 +114,15 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Welding" parent="." unique_id=864953178 instance=ExtResource("12_d4lx1")]
+visible = false
+
+[node name="Label" type="Label" parent="Welding" unique_id=599932299]
+offset_left = 323.0
+offset_top = 283.0
+offset_right = 732.0
+offset_bottom = 306.0
+size_flags_horizontal = 3
+size_flags_vertical = 2
+text = "A machine has been damaged, you'll have to repair it"

@@ -4,6 +4,7 @@ extends Node2D
 @onready var sparks = $Sparks
 @onready var progress_label = $UI/ProgressLabel
 @onready var tool = $WeldingTool
+@onready var machine_manager: Node = $"../MachineManager"
 
 var total_points = 0
 var welded_points = 0
@@ -54,4 +55,7 @@ func update_ui():
 	progress_label.text = "Welded: " + str(round(percentage)) + "%"
 	
 	if welded_points >= total_points:
-		progress_label.text = "DONE! CRACK REPAIRED.";
+		progress_label.text = "DONE! CRACK REPAIRED."
+		progress_label.visible = false
+		machine_manager.break_time = 0
+		self.visible = false
