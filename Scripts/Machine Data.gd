@@ -17,7 +17,7 @@ var obtainedMachines: Dictionary[MachineType, int] = {
 	MachineType.DrillSolid: 6,
 	MachineType.DrillLiquid: 3,
 	MachineType.Smelter: 3,
-	MachineType.Collector: 5,
+	MachineType.Collector: 10,
 	MachineType.Manufactor: 4
 }
 

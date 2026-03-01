@@ -3,7 +3,7 @@
 	"id": "welcome",
 	"type": "SEND_MATERIALS",
 	"name": "Welcome to Industrial Waters!",
-	"description": "Lore: You are an engineer and your government sent you to an unknown planet. This planet is exposed to a lot of radiation so you have to stay UNDER THE SURFACE (water). Your objective is to build basic infrastructure so others can move in. Click the export button to continue.",
+	"description": "Lore: You are an engineer and your government sent you to an unknown planet. This planet is exposed to a lot of radiation so you have to stay UNDER THE SURFACE (water). Your objective is to build basic infrastructure so others can move in. Click the export button to continue. You can close this with the \"`\" key",
 	"required_item_id": "iron_ore",
 	"required_amount": 1
   },
@@ -11,7 +11,7 @@
 	"id": "task_iron_ore",
 	"type": "SEND_MATERIALS",
 	"name": "Collect Iron Ore",
-	"description": "Mine Iron Ore using the solid drill. You can place it by dragging it to the grid. To configure the drill, use the middle mouse button. And put it inside a collector. Belts can be drawn around machines with left mouse button. Machines need maintenance. If a machine stops working, middle click it and click repair.",
+	"description": "Mine Iron Ore using the solid drill. You can place it by dragging it to the grid. To configure the drill, use the middle mouse button. And put it inside a collector. Belts can be drawn around machines with left mouse button. Machines need maintenance. If a machine stops working, middle click it and click repair. If you want to see your inventory, click TAB",
 	"required_item_id": "iron_ore",
 	"required_amount": 50
   },

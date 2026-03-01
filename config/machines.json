@@ -23,6 +23,26 @@
 			"diamond"
 		]
 	},
+	
+	"collector": {
+		"max_level": 1,
+		
+		"craft_cost": [
+			{"id": "iron_ore", "amount": 10}
+		],
+		
+		"upgrade_costs":{
+			"1": [
+				{"id": "copper_ore", "amount": 20},
+				{"id": "iron_ore", "amount": 10}
+			],
+			"2": [
+				{"id": "copper_ore", "amount": 50},
+				{"id": "iron_ore", "amount": 25}
+			]
+		}
+	},
+	
 	"liquid_drill": {
 		"max_level": 2,
 		
