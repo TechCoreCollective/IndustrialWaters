@@ -11,7 +11,7 @@
 	"id": "task_iron_ore",
 	"type": "SEND_MATERIALS",
 	"name": "Collect Iron Ore",
-	"description": "Mine Iron Ore using the solid drill. You can place it by dragging it to the grid. To configure the drill, use the middle mouse button. And put it inside a collector. Belts can be drawn around machines with left mouse button",
+	"description": "Mine Iron Ore using the solid drill. You can place it by dragging it to the grid. To configure the drill, use the middle mouse button. And put it inside a collector. Belts can be drawn around machines with left mouse button. Machines need maintenance. If a machine stops working, middle click it and click repair.",
 	"required_item_id": "iron_ore",
 	"required_amount": 50
   },
