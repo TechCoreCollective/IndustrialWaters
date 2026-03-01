@@ -3,7 +3,7 @@
 	"id": "welcome",
 	"type": "SEND_MATERIALS",
 	"name": "Welcome to Industrial Waters!",
-	"description": "Lore: You are an engineer and your government sent you to an unknown planet. This planet is exposed to a lot of radiation so you have to stay UNDER THE SURFACE (water). Click the export button to continue.",
+	"description": "Lore: You are an engineer and your government sent you to an unknown planet. This planet is exposed to a lot of radiation so you have to stay UNDER THE SURFACE (water). Your objective is to build basic infrastructure so others can move in. Click the export button to continue.",
 	"required_item_id": "iron_ore",
 	"required_amount": 1
   },
