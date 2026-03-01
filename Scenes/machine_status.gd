@@ -78,6 +78,7 @@ func _upgrade():
 		return
 	
 	machine.level += 1
+	machine.multiplier = 2 ** (machine.level-1)
 	
 	_update_res()
 
