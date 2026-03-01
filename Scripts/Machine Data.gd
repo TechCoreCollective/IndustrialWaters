@@ -103,6 +103,9 @@ func get_path_index_of_produced_item(producer: Machine, path_exception: int):
 var drag_ended_prematurely := false
 
 func is_ui_open():
+	if machine_status == null:
+		return false
+	
 	return machine_status.visible or inventory.visible
 
 func smelt_item(smelter: Machine, source_path: int):

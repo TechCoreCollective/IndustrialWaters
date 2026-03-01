@@ -32,8 +32,12 @@ func _update_res():
 	options.append_array(Machinejson.parsed_data.get(machine.name).get("recipes"))
 	
 	option_button.clear()
+	
 	for i in options:
 		option_button.add_item(i)
+	
+	if machine.recipe != "":
+		option_button.select(options.find(machine.recipe))
 	
 	var base = machine.name.capitalize() + " Lv. " + str(machine.level)
 	if machine.level == max_level:
@@ -75,6 +79,7 @@ func _upgrade():
 		return
 	
 	machine.level += 1
+	machine.multiplier = 2 ** (machine.level-1)
 	
 	_update_res()
 

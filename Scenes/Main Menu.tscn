@@ -1,0 +1,51 @@
+[gd_scene format=3 uid="uid://m8hip8urkr1w"]
+
+[ext_resource type="Script" uid="uid://ccfi1rhvlfud6" path="res://Scenes/main_menu.gd" id="1_hcxxy"]
+[ext_resource type="Texture2D" uid="uid://cyvpcdlji56le" path="res://Textures/logo.png" id="1_totuj"]
+
+[node name="MainMenu" type="Control" unique_id=1462715735]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_hcxxy")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=233530808]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 24
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer" unique_id=700725424]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+texture = ExtResource("1_totuj")
+
+[node name="Start" type="Button" parent="VBoxContainer" unique_id=140984903]
+custom_minimum_size = Vector2(256, 48)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Play"
+
+[node name="Keys" type="Button" parent="VBoxContainer" unique_id=391361570]
+custom_minimum_size = Vector2(256, 48)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Key Binds"
+
+[node name="Panel" type="Panel" parent="." unique_id=1044896200]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="." unique_id=2039654666]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0

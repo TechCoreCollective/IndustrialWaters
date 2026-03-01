@@ -26,6 +26,7 @@ var place_position: Vector2i
 var conveyor_face_dir: ConveyorFaceDir
 var received_items: Dictionary[int, int]
 var recipe : String
+var multiplier : int
 var name : String
 var level : int
 var conway_path_index: int
@@ -40,6 +41,7 @@ static func ctor(type: MachineData.MachineType, pos: Vector2) -> Machine:
 	else: result.name = result.names.get(type)
 	result.recipe = ""
 	result.level = 1
+	result.multiplier = 1
 	return result
 
 func get_rect():
