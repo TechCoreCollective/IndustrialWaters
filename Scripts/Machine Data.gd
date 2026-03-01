@@ -109,13 +109,16 @@ func is_ui_open():
 	return machine_status.visible or inventory.visible or is_in_minigame
 
 func smelt_item(smelter: Machine, source_path: int):
+	if smelter.recipe == "" or smelter.recipe == null: return
 	var smelt_result = GlobalInventory.convert_name_to_enum(smelter.recipe)
+	if smelt_result == GlobalInventory.ItemType.None: return
 	resources_produced(smelter, smelt_result, source_path)
 
 const minimum_time_for_damage = 5
 const maximum_time_for_damage = 10
 
 func manage_machine_damage_timer(machine: Machine):
+	return
 	if machine.machine_type != MachineType.DrillSolid: return
 	var wait_time = randf_range(minimum_time_for_damage, maximum_time_for_damage) * machine.level
 	if machine.has_been_repaired: wait_time == 5

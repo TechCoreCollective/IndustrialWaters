@@ -88,4 +88,6 @@ func send_item_to_machine(conway_item: ConwayItem):
 		
 		if machine.machine_type == MachineData.MachineType.Smelter:
 			MachineData.smelt_item(machine, conway_item.conway_path_index)
+		elif machine.machine_type == MachineData.MachineType.Manufactor:
+			MachineData.smelt_item(machine, conway_item.conway_path_index)
 		break
