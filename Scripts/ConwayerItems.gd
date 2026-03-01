@@ -6,12 +6,16 @@ extends Node2D
 func add_associated_sprite(conway_item: ConwayItem):
 	var sprite = Sprite2D.new()
 	add_child(sprite)
-	match conway_item.item_type:
-		GlobalInventory.ItemType.CopperOre: sprite.texture = UID.IMG_COPPER_ORE_ITEM
-		GlobalInventory.ItemType.Diamond: sprite.texture = UID.IMG_DIAMOND_ITEM
-		GlobalInventory.ItemType.IronOre: sprite.texture = UID.IMG_IRON_ORE_ITEM
-		GlobalInventory.ItemType.CopperIngot: sprite.texture = UID.IMG_COPPER_INGOT_ITEM
+	sprite.texture = get_texture(conway_item)
 	conway_item.associated_sprite = sprite
+
+func get_texture(conway_item: ConwayItem):
+	match conway_item.item_type:
+		GlobalInventory.ItemType.CopperOre: return UID.IMG_COPPER_ORE_ITEM
+		GlobalInventory.ItemType.Diamond: return UID.IMG_DIAMOND_ITEM
+		GlobalInventory.ItemType.IronOre: return UID.IMG_IRON_ORE_ITEM
+		GlobalInventory.ItemType.CopperIngot: return UID.IMG_COPPER_INGOT_ITEM
+		GlobalInventory.ItemType.IronIngot: return UID.IMG_IRON_INGOT_ITEM
 
 const one_tile_duration: float = 0.25
 
@@ -70,10 +74,10 @@ func get_current_item_pos(conway_item: ConwayItem, progress: float) -> Vector2:
 	return resulting_pos
 
 func send_item_to_machine(conway_item: ConwayItem):
-	
 	for machine: Machine in MachineData.placed_machines:
 		var result = conveyor_belts.does_machine_connect_to_placed(conway_item.world_tile, machine)
 		if result == null or result == false: continue
+		
 		var is_collector = machine.machine_type == MachineData.MachineType.Collector
 		if not conway_item.item_type in machine.received_items:
 			machine.received_items[conway_item.item_type] = 0
@@ -81,4 +85,7 @@ func send_item_to_machine(conway_item: ConwayItem):
 		machine.received_items[conway_item.item_type] += 1
 		conway_item.associated_sprite.queue_free()
 		MachineData.traveling_conway_items.erase(conway_item)
+		
+		if machine.machine_type == MachineData.MachineType.Smelter:
+			MachineData.smelt_item(machine, conway_item.conway_path_index)
 		break

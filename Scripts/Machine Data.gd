@@ -17,7 +17,8 @@ var obtainedMachines: Dictionary[MachineType, int] = {
 	MachineType.DrillSolid: 6,
 	MachineType.DrillLiquid: 3,
 	MachineType.Smelter: 3,
-	MachineType.Collector: 5
+	MachineType.Collector: 5,
+	MachineType.Manufactor: 4
 }
 
 var machine_sizes: Dictionary[MachineType, Vector2] = {
@@ -25,6 +26,7 @@ var machine_sizes: Dictionary[MachineType, Vector2] = {
 	MachineType.DrillLiquid: Vector2(3, 3),
 	MachineType.Smelter: Vector2(4, 4),
 	MachineType.Collector: Vector2(3, 3),
+	MachineType.Manufactor: Vector2(3, 3),
 	MachineType.ConveyorBelt: Vector2.ONE
 }
 
@@ -50,6 +52,7 @@ func get_texture_from_type(machine_type: MachineType):
 		MachineType.DrillLiquid: resulting_texture = UID.IMG_OIL_DRILL_GRID
 		MachineType.Smelter: resulting_texture = UID.IMG_SMELTER_GRID
 		MachineType.Collector: resulting_texture = UID.IMG_COLLECTOR_GRID
+		MachineType.Manufactor: resulting_texture = UID.IMG_MANUFACTOR_GRID
 	return resulting_texture
 
 var hovered_button_machine_type := MachineType.None
@@ -67,28 +70,30 @@ var conway_path_points: Dictionary[int, Array]
 var traveling_conway_items: Array[ConwayItem]
 var highest_conwayor_index: int = -1
 
-func resources_produced(machine: Machine, item_produced: GlobalInventory.ItemType):
+func resources_produced(machine: Machine, item_produced: GlobalInventory.ItemType, path_exception := -1):
 	var travelling_item = ConwayItem.ctor(item_produced)
-	travelling_item.conway_path_index = get_path_index_of_produced_item(machine)
-	print(traveling_conway_items)
-	print(travelling_item.conway_path_index)
+	travelling_item.conway_path_index = get_path_index_of_produced_item(machine, path_exception)
 	if travelling_item.conway_path_index == -1: return
 	travelling_item.creation_machine = machine
 	traveling_conway_items.append(travelling_item)
-	machine.data[GlobalInventory.convert_enum_to_name(item_produced)] -= 1
 
 func get_machine_by_pos(position: Vector2i):
 	for machine: Machine in placed_machines:
 		if machine.place_position == position: return machine
 
-func get_path_index_of_produced_item(producer: Machine):
+func get_path_index_of_produced_item(producer: Machine, path_exception: int):
 	var conways_in_machine: Array = []
 	for machine: Machine in placed_machines:
 		if machine.machine_type != MachineType.ConveyorBelt: continue
 		if not producer.get_rect().has_point(machine.place_position): continue
 		conways_in_machine.append(machine.place_position)
 	if conways_in_machine.size() == 0: return -1
-	var item_spawn_index = randi_range(0, conways_in_machine.size()-1)
+	
+	var machine_conway_count = conways_in_machine.size()-1
+	var item_spawn_index = path_exception
+	while item_spawn_index == path_exception:
+		item_spawn_index = randi_range(0, machine_conway_count)
+	
 	var item_spawn_position = conways_in_machine[item_spawn_index]
 	for path_index in conway_path_points.keys():
 		var path = conway_path_points.values()[path_index]
@@ -99,3 +104,7 @@ var drag_ended_prematurely := false
 
 func is_ui_open():
 	return machine_status.visible or inventory.visible
+
+func smelt_item(smelter: Machine, source_path: int):
+	var smelt_result = GlobalInventory.convert_name_to_enum(smelter.recipe)
+	resources_produced(smelter, smelt_result, source_path)

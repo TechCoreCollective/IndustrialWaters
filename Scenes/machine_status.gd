@@ -57,9 +57,6 @@ func _update_res():
 		row.setup(inventory.get_item_from_id(item.get("id")).name, inventory.get_item_from_id(item.get("id")).icon, item.get("amount"))
 		item_list.add_child(row)
 		
-	print(machine.received_items)
-	print(machine.data)
-		
 	for item in machine.received_items.keys():
 		var row = row_scene.instantiate()
 		

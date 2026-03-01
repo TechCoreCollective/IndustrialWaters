@@ -55,11 +55,15 @@
 		"requirements": {
 			"copper_ingot": [
 				{"id": "copper_ore", "amount": 2}
+			],
+			"iron_ingot": [
+				{"id": "iron_core", "amount": 2}
 			]
 		},
 		
 		"recipes": [
-			"copper_ingot"
+			"copper_ingot",
+			"iron_ingot"
 		]
 	}
 }
