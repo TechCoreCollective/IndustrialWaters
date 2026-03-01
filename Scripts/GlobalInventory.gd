@@ -7,6 +7,8 @@ enum ItemType {
 	IronOre
 }
 
+@onready var database = $Inventory
+
 func convert_name_to_enum(item_name: String) -> ItemType:
 	match item_name:
 		"diamond": return ItemType.Diamond
@@ -20,3 +22,6 @@ func convert_enum_to_name(item_name: ItemType) -> String:
 		ItemType.CopperOre: return "copper_ore"
 		ItemType.IronOre: return "iron_ore"
 	return ""
+
+func add_item(item_type: ItemType, count: int):
+	database.add(convert_enum_to_name(item_type), count)

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cnn8x4v1oku0t"]
 
-[ext_resource type="Script" path="res://Scripts/GlobalInventory.gd" id="1_spb3y"]
+[ext_resource type="Script" uid="uid://bxvx63omn3p4p" path="res://Scripts/GlobalInventory.gd" id="1_spb3y"]
 
 [sub_resource type="ItemStack" id="ItemStack_jdlrp"]
 item_id = "copper_ore"
