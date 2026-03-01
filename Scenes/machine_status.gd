@@ -67,7 +67,10 @@ func _update_res():
 	var level_costs = upgrade_costs.get(str(machine.level), [])
 	for item in level_costs:
 		var row = row_scene.instantiate()
-		row.setup(inventory.get_item_from_id(item.get("id")).name, inventory.get_item_from_id(item.get("id")).icon, item.get("amount"))
+		var inventory_item = inventory.get_item_from_id(item.get("id"))
+		if inventory_item == null:
+			continue
+		row.setup(inventory_item.name, inventory_item.icon, item.get("amount"))
 		item_list.add_child(row)
 		
 	var received_items_snapshot = machine.received_items.duplicate()
@@ -75,8 +78,11 @@ func _update_res():
 		var row = row_scene.instantiate()
 
 		var item_name = GlobalInventory.convert_enum_to_name(item)
+		var inventory_item = inventory.get_item_from_id(item_name)
+		if inventory_item == null:
+			continue
 
-		row.setup(inventory.get_item_from_id(item_name).name, inventory.get_item_from_id(item_name).icon, received_items_snapshot.get(item))
+		row.setup(inventory_item.name, inventory_item.icon, received_items_snapshot.get(item))
 		item_list2.add_child(row)
 		
 			
