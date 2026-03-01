@@ -12,13 +12,16 @@ func _ready() -> void:
 const time_to_make_resource = 1
 var break_time = 0
 
-var broken = false
+var broken = true
 
 func _process(delta: float) -> void:
 	time += delta
 	
 	if time > time_to_make_resource:
-		break_time += time
+		
+		if not broken:
+			break_time += time
+		
 		for machine in MachineData.placed_machines:
 			if machine == null or (broken and break_time >= 20):
 				continue
