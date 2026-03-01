@@ -12,7 +12,6 @@
 [ext_resource type="Script" uid="uid://cjyf2mahui2ue" path="res://Scenes/machine_manager.gd" id="8_7o2bu"]
 [ext_resource type="PackedScene" uid="uid://c7h4u5tv0ixus" path="res://Scenes/TaskUI.tscn" id="11_weffg"]
 [ext_resource type="Texture2D" uid="uid://cyvpcdlji56le" path="res://Textures/logo.png" id="12_d4lx1"]
-[ext_resource type="FontFile" uid="uid://dil43sbwcg2uc" path="res://Textures/Leafcross Font.png" id="13_7im6e"]
 
 [node name="PlacementGrid" type="Node2D" unique_id=838105151]
 script = ExtResource("1_aiu8d")
@@ -47,7 +46,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="MachineUi" parent="." unique_id=1523249431 instance=ExtResource("2_y4yen")]
-modulate = Color(1, 1, 1, 0)
+visible = false
 
 [node name="DraggedIcon" parent="." unique_id=2105014328 instance=ExtResource("3_h7ugp")]
 modulate = Color(1, 1, 1, 0.53333336)
@@ -84,6 +83,7 @@ grow_horizontal = 1
 grow_vertical = 1
 size_flags_horizontal = 10
 size_flags_vertical = 2
+copper = "copper_ore"
 metadata/_edit_use_anchors_ = true
 
 [node name="Soundtrack" parent="." unique_id=1900409956 instance=ExtResource("7_27ui7")]
@@ -117,12 +117,6 @@ anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Overlay" type="ColorRect" parent="." unique_id=504782741]
-offset_top = -1.0
-offset_right = 40.0
-offset_bottom = 39.0
-color = Color(0.004001091, 0.004001091, 0.004001091, 0.34509805)
-
 [node name="Logo" type="TextureRect" parent="." unique_id=839868318]
 anchors_preset = 4
 anchor_top = 0.5
@@ -135,21 +129,3 @@ grow_vertical = 2
 texture = ExtResource("12_d4lx1")
 expand_mode = 1
 stretch_mode = 5
-
-[node name="Play Game Button" type="Button" parent="." unique_id=1724454429]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 578.0
-offset_top = 486.0
-offset_right = 675.0
-offset_bottom = 517.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(3, 3)
-theme_override_fonts/font = ExtResource("13_7im6e")
-text = "PLAY GAME"
-
-[connection signal="pressed" from="Play Game Button" to="." method="start_game"]

@@ -26,7 +26,6 @@ var rows: Array = []
 func _ready():
 	search_bar.text_changed.connect(_on_search_changed)
 	inventory.contents_changed.connect(_contents_changed)
-	
 	_contents_changed()
 	
 func _process(dt : float) -> void:

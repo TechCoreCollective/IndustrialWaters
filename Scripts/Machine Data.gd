@@ -73,7 +73,8 @@ var traveling_conway_items: Array[ConwayItem]
 var highest_conwayor_index: int = -1
 
 func resources_produced(machine: Machine, item_produced: GlobalInventory.ItemType, path_exception := -1):
-	if machine.is_damaged: return 
+	if machine.is_damaged: return
+	if item_produced == GlobalInventory.ItemType.None: return
 	var travelling_item = ConwayItem.ctor(item_produced)
 	travelling_item.conway_path_index = get_path_index_of_produced_item(machine, path_exception)
 	if travelling_item.conway_path_index == -1: return
@@ -91,12 +92,17 @@ func get_path_index_of_produced_item(producer: Machine, path_exception: int):
 		if not producer.get_rect().has_point(machine.place_position): continue
 		conways_in_machine.append(machine.place_position)
 	if conways_in_machine.size() == 0: return -1
-	
-	var machine_conway_count = conways_in_machine.size()-1
+
+	var machine_conway_count = conways_in_machine.size() - 1
 	var item_spawn_index = path_exception
-	while item_spawn_index == path_exception:
-		item_spawn_index = randi_range(0, machine_conway_count)
-	
+	if machine_conway_count > 0:
+		var attempts = 0
+		while item_spawn_index == path_exception and attempts < 10:
+			item_spawn_index = randi_range(0, machine_conway_count)
+			attempts += 1
+	else:
+		item_spawn_index = 0
+
 	var item_spawn_position = conways_in_machine[item_spawn_index]
 	for path_index in conway_path_points.keys():
 		var path = conway_path_points.values()[path_index]
@@ -106,20 +112,21 @@ func get_path_index_of_produced_item(producer: Machine, path_exception: int):
 var drag_ended_prematurely := false
 
 func is_ui_open():
-	return machine_status.visible or inventory.visible or is_in_minigame
+	return machine_status.visible or inventory.visible or is_in_minigame or grid.title_screen_on
 
 func smelt_item(smelter: Machine, source_path: int):
+	if smelter.recipe == "" or smelter.recipe == null: return
 	var smelt_result = GlobalInventory.convert_name_to_enum(smelter.recipe)
+	if smelt_result == GlobalInventory.ItemType.None: return
 	resources_produced(smelter, smelt_result, source_path)
 
 const minimum_time_for_damage = 5
 const maximum_time_for_damage = 10
 
 func manage_machine_damage_timer(machine: Machine):
-	return
 	if machine.machine_type != MachineType.DrillSolid: return
 	var wait_time = randf_range(minimum_time_for_damage, maximum_time_for_damage) * machine.level
-	if machine.has_been_repaired: wait_time == 5
+	grid.display_scene()
+	if machine.has_been_repaired: return
 	await get_tree().create_timer(wait_time).timeout
 	machine.is_damaged = true
-	grid.display_scene()

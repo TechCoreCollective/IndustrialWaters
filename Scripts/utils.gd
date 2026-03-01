@@ -13,11 +13,13 @@ func remove_resources_safe(required_materials) -> bool:
 	return true
 	
 func remove_resources_safe_machine(required_materials, machine : Machine) -> bool:
+	var received_items_snapshot = machine.received_items.duplicate()
 	for item in required_materials:
-		if not machine.received_items.has(GlobalInventory.convert_name_to_enum(item.get("id"))) or machine.received_items.get(GlobalInventory.convert_name_to_enum(item.get("id"))) < item.get("amount"):
+		var item_enum = GlobalInventory.convert_name_to_enum(item.get("id"))
+		if not received_items_snapshot.has(item_enum) or received_items_snapshot.get(item_enum) < item.get("amount"):
 			return false
-	
+
 	for item in required_materials:
 		machine.received_items[int(GlobalInventory.convert_name_to_enum(item.get("id")))] -= item.get("amount")
-		
+
 	return true

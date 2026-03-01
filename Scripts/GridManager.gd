@@ -11,6 +11,7 @@ const seperator_bar_color = Color("3575a4")
 const bar_thickness = 0.15
 const affected_tiles_color = Color("6193beff")
 const invalid_placement_color = Color("bf7171ff")
+var title_screen_on := true
 
 @onready var background = $Background
 @onready var seperator_root = $"Seperator Bars"
@@ -19,6 +20,10 @@ const invalid_placement_color = Color("bf7171ff")
 @onready var machines_root = $Machines
 @onready var conveyor_root = $"Conveyor Belts"
 @onready var conwayer_items = $"Conwayer Items"
+@onready var logo = $Logo
+@onready var overlay = $Overlay
+@onready var play_game_button = $"Play Game Button"
+@onready var machine_ui_root = $MachineUi
 
 var seperator_rects: Array[ColorRect]
 
@@ -43,6 +48,11 @@ func terminating_drag_and_drop():
 
 func _process(delta):
 	update_window_size()
+	if title_screen_on:
+		logo.size.x = current_window_size.x
+		overlay.size = current_window_size
+		play_game_button.position.x = current_window_size.x / 2 - play_game_button.size.x / 2 * play_game_button.scale.x
+	
 	background.size = current_window_size
 	if previous_window_size != current_window_size: display_scene()
 	dragged_icon.position = get_global_mouse_position()
@@ -236,3 +246,16 @@ func add_neighbours_after_delete(index, current_pos):
 		MachineData.active_conwayerors[index].append(neigh_pos)
 		added_neighbours_since_delete.append(neigh_pos)
 		add_neighbours_after_delete(index, neigh_pos)
+
+const start_game_wait = 0.25
+
+func start_game():
+	create_tween().tween_property(overlay, "color:a", 0, start_game_wait)
+	create_tween().tween_property(logo, "modulate:a", 0, start_game_wait)
+	create_tween().tween_property(play_game_button, "modulate:a", 0, start_game_wait)
+	create_tween().tween_property(machine_ui_root, "modulate:a", 1, start_game_wait)
+	await get_tree().create_timer(start_game_wait).timeout
+	title_screen_on = false
+	overlay.queue_free()
+	logo.queue_free()
+	play_game_button.queue_free()

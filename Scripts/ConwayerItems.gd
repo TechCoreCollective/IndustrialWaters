@@ -23,14 +23,17 @@ func get_size_of_path(conway_item: ConwayItem):
 	return MachineData.active_conwayerors[conway_item.conway_path_index].size()
 
 func update_conwayer_items(delta):
-	for conway_item: ConwayItem in MachineData.traveling_conway_items:
+	var conway_items_copy = MachineData.traveling_conway_items.duplicate()
+	for conway_item: ConwayItem in conway_items_copy:
 		if conway_item.associated_sprite == null: add_associated_sprite(conway_item)
 		var size_of_path = get_size_of_path(conway_item)
 		var full_path_travel_duration: float = one_tile_duration * size_of_path
 		var travel_progress = conway_item.time_on_belt / full_path_travel_duration
 		if travel_progress < 1: conway_item.time_on_belt += delta
 		handle_conwayer_item(conway_item, travel_progress)
-		if travel_progress >= 1: send_item_to_machine(conway_item)
+		if travel_progress >= 1:
+			if conway_item in MachineData.traveling_conway_items:
+				send_item_to_machine(conway_item)
 
 func handle_conwayer_item(conway_item: ConwayItem, progress: float):
 	var conway_item_pos := get_current_item_pos(conway_item, progress)
@@ -74,10 +77,11 @@ func get_current_item_pos(conway_item: ConwayItem, progress: float) -> Vector2:
 	return resulting_pos
 
 func send_item_to_machine(conway_item: ConwayItem):
-	for machine: Machine in MachineData.placed_machines:
+	var machines_copy = MachineData.placed_machines.duplicate()
+	for machine: Machine in machines_copy:
 		var result = conveyor_belts.does_machine_connect_to_placed(conway_item.world_tile, machine)
 		if result == null or result == false: continue
-		
+
 		var is_collector = machine.machine_type == MachineData.MachineType.Collector
 		if not conway_item.item_type in machine.received_items:
 			machine.received_items[conway_item.item_type] = 0
@@ -85,7 +89,9 @@ func send_item_to_machine(conway_item: ConwayItem):
 		machine.received_items[conway_item.item_type] += 1
 		conway_item.associated_sprite.queue_free()
 		MachineData.traveling_conway_items.erase(conway_item)
-		
+
 		if machine.machine_type == MachineData.MachineType.Smelter:
+			MachineData.smelt_item(machine, conway_item.conway_path_index)
+		elif machine.machine_type == MachineData.MachineType.Manufactor:
 			MachineData.smelt_item(machine, conway_item.conway_path_index)
 		break
