@@ -62,13 +62,13 @@ func _update_res():
 		row.setup(inventory.get_item_from_id(item.get("id")).name, inventory.get_item_from_id(item.get("id")).icon, item.get("amount"))
 		item_list.add_child(row)
 		
-	var received_items_keys = machine.received_items.keys()
-	for item in received_items_keys:
+	var received_items_snapshot = machine.received_items.duplicate()
+	for item in received_items_snapshot.keys():
 		var row = row_scene.instantiate()
 
 		var item_name = GlobalInventory.convert_enum_to_name(item)
 
-		row.setup(inventory.get_item_from_id(item_name).name, inventory.get_item_from_id(item_name).icon, machine.received_items.get(item))
+		row.setup(inventory.get_item_from_id(item_name).name, inventory.get_item_from_id(item_name).icon, received_items_snapshot.get(item))
 		item_list2.add_child(row)
 		
 			

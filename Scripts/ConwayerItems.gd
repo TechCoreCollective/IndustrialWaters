@@ -25,14 +25,15 @@ func get_size_of_path(conway_item: ConwayItem):
 func update_conwayer_items(delta):
 	var conway_items_copy = MachineData.traveling_conway_items.duplicate()
 	for conway_item: ConwayItem in conway_items_copy:
-		if conway_item not in MachineData.traveling_conway_items: continue
 		if conway_item.associated_sprite == null: add_associated_sprite(conway_item)
 		var size_of_path = get_size_of_path(conway_item)
 		var full_path_travel_duration: float = one_tile_duration * size_of_path
 		var travel_progress = conway_item.time_on_belt / full_path_travel_duration
 		if travel_progress < 1: conway_item.time_on_belt += delta
 		handle_conwayer_item(conway_item, travel_progress)
-		if travel_progress >= 1: send_item_to_machine(conway_item)
+		if travel_progress >= 1:
+			if conway_item in MachineData.traveling_conway_items:
+				send_item_to_machine(conway_item)
 
 func handle_conwayer_item(conway_item: ConwayItem, progress: float):
 	var conway_item_pos := get_current_item_pos(conway_item, progress)
