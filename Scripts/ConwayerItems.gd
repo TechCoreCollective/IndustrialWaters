@@ -23,7 +23,9 @@ func get_size_of_path(conway_item: ConwayItem):
 	return MachineData.active_conwayerors[conway_item.conway_path_index].size()
 
 func update_conwayer_items(delta):
-	for conway_item: ConwayItem in MachineData.traveling_conway_items:
+	var conway_items_copy = MachineData.traveling_conway_items.duplicate()
+	for conway_item: ConwayItem in conway_items_copy:
+		if conway_item not in MachineData.traveling_conway_items: continue
 		if conway_item.associated_sprite == null: add_associated_sprite(conway_item)
 		var size_of_path = get_size_of_path(conway_item)
 		var full_path_travel_duration: float = one_tile_duration * size_of_path
