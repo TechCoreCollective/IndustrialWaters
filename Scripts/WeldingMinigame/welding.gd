@@ -4,11 +4,12 @@ extends Node2D
 @onready var sparks = $Sparks
 @onready var progress_label = $UI/ProgressLabel
 @onready var tool = $WeldingTool
-@onready var machine_manager: Node = $"../MachineManager"
 
 var total_points = 0
 var welded_points = 0
 var is_welding = false
+
+var to_be_repaired_machine: Machine
 
 func _ready():
 	total_points = $Checkpoints.get_child_count()
@@ -57,5 +58,10 @@ func update_ui():
 	if welded_points >= total_points:
 		progress_label.text = "DONE! CRACK REPAIRED."
 		progress_label.visible = false
-		machine_manager.break_time = 0
 		self.visible = false
+		MachineData.is_in_minigame = false
+		get_parent().get_node("MachineStatus").hide()
+		to_be_repaired_machine.is_damaged = false
+		to_be_repaired_machine.has_been_repaired = true
+		MachineData.manage_machine_damage_timer(to_be_repaired_machine)
+		queue_free()

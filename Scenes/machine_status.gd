@@ -8,6 +8,7 @@ extends Control
 @onready var name_label: Label = $VBoxContainer/Name
 @onready var option_button: OptionButton = $VBoxContainer/OptionButton
 @onready var item_list2: VBoxContainer = $VBoxContainer/ScrollContainer2/ItemList
+@onready var repair_button = $VBoxContainer/Repair
 
 const COSTS = "upgrade_costs"
 const INFO = "info"
@@ -26,7 +27,7 @@ func set_machine(machine):
 
 func _update_res():
 	max_level = Machinejson.parsed_data.get(machine.name).get("max_level")
-	
+	repair_button.visible = machine.is_damaged
 	var options = ["No Recipe"]
 	
 	options.append_array(Machinejson.parsed_data.get(machine.name).get("recipes"))
@@ -93,3 +94,9 @@ func _set_recipe(index: int):
 		machine.recipe = text
 	else:
 		text = ""
+
+func _on_repair_pressed():
+	MachineData.is_in_minigame = true
+	var welding_child = UID.SCN_WELDING.instantiate()
+	welding_child.to_be_repaired_machine = machine
+	get_parent().add_child(welding_child)

@@ -2,7 +2,6 @@ extends Node
 
 @onready var machine_status: Control = $"../MachineStatus"
 @onready var panel_2: Panel = $"../Panel2"
-@onready var welding: Node2D = $"../Welding"
 
 var time = 0
 
@@ -12,18 +11,13 @@ func _ready() -> void:
 const time_to_make_resource = 1
 var break_time = 0
 
-var broken = true
-
 func _process(delta: float) -> void:
 	time += delta
 	
 	if time > time_to_make_resource:
 		
-		if not broken:
-			break_time += time
-		
 		for machine in MachineData.placed_machines:
-			if machine == null or (broken and break_time >= 20):
+			if machine == null:
 				continue
 			
 			if machine.machine_type in MachineData.Generators and machine.recipe != "":
@@ -49,10 +43,6 @@ func _process(delta: float) -> void:
 				
 				for i in resources_needed:
 					i["amount"] /= machine.multiplier
-					
-			if break_time >= 20 and not broken:
-				welding.visible = true
-				broken = true
 				
 		
 		time = 0

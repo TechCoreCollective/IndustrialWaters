@@ -167,6 +167,10 @@ func display_machines():
 			machine_node.z_index = -1
 			conveyor_root.display_conveyor_belt(machine, machine_node)
 		else: update_position_of_texture(machine, machine_node)
+		var warning_node = TextureRect.new()
+		if machine.is_damaged: warning_node.texture = UID.IMG_WARNING
+		warning_node.size = space_between_bars
+		machine_node.add_child(warning_node)
 		machines_root.add_child(machine_node)
 		machine_arr.append(machine_node)
 
