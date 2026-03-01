@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://bqd277baoyn20" path="res://Scripts/CombatMinigame/Combat.gd" id="1_p02pl"]
 [ext_resource type="PackedScene" uid="uid://1u84ka2ymumw" path="res://Scenes/CombatMinigame/enemy.tscn" id="2_lpmyk"]
 [ext_resource type="PackedScene" uid="uid://ty6qqlo23ig2" path="res://Scenes/CombatMinigame/player.tscn" id="3_3lmke"]
+[ext_resource type="Texture2D" uid="uid://6tgckeohm6we" path="res://Sprites/1000_F_247118258_eDx74GmGQWDjXyYHPv1nwiPUB5rXGC5k (1).jpg" id="3_lpmyk"]
 [ext_resource type="PackedScene" uid="uid://22mx5rbp2r08" path="res://Scenes/CombatMinigame/Torpedo.tscn" id="4_dc0jx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1bvp3"]
@@ -12,8 +13,13 @@ size = Vector2(111, 2235)
 script = ExtResource("1_p02pl")
 enemy_scene = ExtResource("2_lpmyk")
 
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=689346096]
+position = Vector2(494.00003, 240)
+scale = Vector2(1.663, 1.3290855)
+texture = ExtResource("3_lpmyk")
+
 [node name="Player" parent="." unique_id=1795255924 instance=ExtResource("3_3lmke")]
-position = Vector2(-21, 51)
+position = Vector2(-21, 204)
 torpedo_scene = ExtResource("4_dc0jx")
 
 [node name="COOLDOWN PIČO" type="Timer" parent="Player" unique_id=145973125]
@@ -26,7 +32,7 @@ autostart = true
 [node name="Killzone" type="Area2D" parent="." unique_id=1358096584]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone" unique_id=72547198]
-position = Vector2(347, 130)
+position = Vector2(366, 146)
 shape = SubResource("RectangleShape2D_1bvp3")
 debug_color = Color(0.35718882, 0.4818949, 1, 0.41960785)
 

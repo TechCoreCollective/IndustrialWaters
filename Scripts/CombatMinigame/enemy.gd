@@ -7,6 +7,7 @@ func _process(delta):
 	position.x -= speed * delta
 
 func _on_area_entered(area):
-	if area.name == "Torpedo": # Pokud nás zasáhne torpédo
+	# Kontrolujeme skupinu, ne jméno
+	if area.is_in_group("projectiles"):
 		area.queue_free() # Smaže torpédo
 		queue_free()      # Smaže nepřítele
