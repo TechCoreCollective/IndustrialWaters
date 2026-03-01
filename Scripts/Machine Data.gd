@@ -11,7 +11,7 @@ enum MachineType {
 }
 
 var Generators = [MachineType.DrillSolid, MachineType.DrillLiquid]
-var Crafters = [MachineType.Smelter]
+var Crafters = [MachineType.Smelter, MachineType.Manufactor]
 
 var obtainedMachines: Dictionary[MachineType, int] = {
 	MachineType.DrillSolid: 6,

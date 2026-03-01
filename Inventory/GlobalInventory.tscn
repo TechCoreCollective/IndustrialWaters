@@ -19,7 +19,6 @@
 [ext_resource type="Texture2D" uid="uid://b7eyoi52oxnb" path="res://icons/GoldenIngot.png" id="17_xt2ai"]
 [ext_resource type="Texture2D" uid="uid://bjbpy6qkodi80" path="res://icons/GravelOre.png" id="18_ejh0e"]
 [ext_resource type="Texture2D" uid="uid://d2u6xa64la2p2" path="res://icons/ConcreteBlock.png" id="19_0asxo"]
-[ext_resource type="Texture2D" uid="uid://cnrtaol4r1dli" path="res://icons/DillPlate.png" id="20_7ac2k"]
 
 [sub_resource type="ItemStack" id="ItemStack_jdlrp"]
 item_id = "copper_ore"
@@ -96,9 +95,9 @@ name = "Oil Canister"
 icon = ExtResource("6_jdqlu")
 
 [sub_resource type="ItemDefinition" id="ItemDefinition_3hdto"]
-id = "stick_mezholia"
+id = "mezholium_stick"
 max_stack = 64
-name = "Stick Mezholia"
+name = "Mezholium Stick"
 icon = ExtResource("7_uq0kq")
 
 [sub_resource type="ItemDefinition" id="ItemDefinition_syved"]
@@ -173,13 +172,16 @@ max_stack = 64
 name = "Concrete Block"
 icon = ExtResource("19_0asxo")
 
-[sub_resource type="ItemDefinition" id="ItemDefinition_myq33"]
-id = "dill_plate"
-max_stack = 64
-name = "DillPlate"
-icon = ExtResource("20_7ac2k")
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_knflu"]
+load_path = "res://.godot/imported/DillPlate.png-5a30c217538ce54e7fe1484f764a68ae.ctex"
 
-[sub_resource type="InventoryDatabase" id="InventoryDatabase_rmqse"]
+[sub_resource type="ItemDefinition" id="ItemDefinition_myq33"]
+id = "copper_plate"
+max_stack = 64
+name = "Copper Plate"
+icon = SubResource("CompressedTexture2D_knflu")
+
+[sub_resource type="InventoryDatabase" id="InventoryDatabase_r4t2s"]
 items = Array[ItemDefinition]([SubResource("ItemDefinition_psps2"), SubResource("ItemDefinition_2w2c5"), SubResource("ItemDefinition_0a80t"), SubResource("ItemDefinition_e40gj"), SubResource("ItemDefinition_osmuc"), SubResource("ItemDefinition_s34wa"), SubResource("ItemDefinition_t314a"), SubResource("ItemDefinition_o0x8n"), SubResource("ItemDefinition_q6uxh"), SubResource("ItemDefinition_3hdto"), SubResource("ItemDefinition_syved"), SubResource("ItemDefinition_eeshc"), SubResource("ItemDefinition_yow2k"), SubResource("ItemDefinition_fo7pw"), SubResource("ItemDefinition_6veb8"), SubResource("ItemDefinition_g7oiw"), SubResource("ItemDefinition_euchr"), SubResource("ItemDefinition_it8mg"), SubResource("ItemDefinition_o6q2i"), SubResource("ItemDefinition_aa4es"), SubResource("ItemDefinition_knflu"), SubResource("ItemDefinition_ouj0a"), SubResource("ItemDefinition_myq33")])
 
 [node name="GlobalInventory" type="Node" unique_id=1808755182]
@@ -187,4 +189,4 @@ script = ExtResource("1_spb3y")
 
 [node name="Inventory" type="Inventory" parent="." unique_id=598955244]
 stacks = Array[ItemStack]([SubResource("ItemStack_jdlrp"), SubResource("ItemStack_spb3y")])
-database = SubResource("InventoryDatabase_rmqse")
+database = SubResource("InventoryDatabase_r4t2s")
