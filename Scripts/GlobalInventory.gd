@@ -32,4 +32,7 @@ func convert_enum_to_name(item_name: ItemType) -> String:
 func add_item(item_type: ItemType, count: int):
 	if item_type == ItemType.None:
 		return
-	database.add(convert_enum_to_name(item_type), count)
+	var item_name = convert_enum_to_name(item_type)
+	if item_name == "" or item_name == null:
+		return
+	database.add(item_name, count)
