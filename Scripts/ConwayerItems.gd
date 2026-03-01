@@ -77,10 +77,11 @@ func get_current_item_pos(conway_item: ConwayItem, progress: float) -> Vector2:
 	return resulting_pos
 
 func send_item_to_machine(conway_item: ConwayItem):
-	for machine: Machine in MachineData.placed_machines:
+	var machines_copy = MachineData.placed_machines.duplicate()
+	for machine: Machine in machines_copy:
 		var result = conveyor_belts.does_machine_connect_to_placed(conway_item.world_tile, machine)
 		if result == null or result == false: continue
-		
+
 		var is_collector = machine.machine_type == MachineData.MachineType.Collector
 		if not conway_item.item_type in machine.received_items:
 			machine.received_items[conway_item.item_type] = 0
@@ -88,7 +89,7 @@ func send_item_to_machine(conway_item: ConwayItem):
 		machine.received_items[conway_item.item_type] += 1
 		conway_item.associated_sprite.queue_free()
 		MachineData.traveling_conway_items.erase(conway_item)
-		
+
 		if machine.machine_type == MachineData.MachineType.Smelter:
 			MachineData.smelt_item(machine, conway_item.conway_path_index)
 		elif machine.machine_type == MachineData.MachineType.Manufactor:
