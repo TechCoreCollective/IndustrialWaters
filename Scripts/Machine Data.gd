@@ -112,7 +112,7 @@ func get_path_index_of_produced_item(producer: Machine, path_exception: int):
 var drag_ended_prematurely := false
 
 func is_ui_open():
-	return machine_status.visible or inventory.visible or is_in_minigame
+	return machine_status.visible or inventory.visible or is_in_minigame or grid.title_screen_on
 
 func smelt_item(smelter: Machine, source_path: int):
 	if smelter.recipe == "" or smelter.recipe == null: return
@@ -124,10 +124,9 @@ const minimum_time_for_damage = 5
 const maximum_time_for_damage = 10
 
 func manage_machine_damage_timer(machine: Machine):
-	return
 	if machine.machine_type != MachineType.DrillSolid: return
 	var wait_time = randf_range(minimum_time_for_damage, maximum_time_for_damage) * machine.level
-	if machine.has_been_repaired: wait_time == 5
+	grid.display_scene()
+	if machine.has_been_repaired: return
 	await get_tree().create_timer(wait_time).timeout
 	machine.is_damaged = true
-	grid.display_scene()
