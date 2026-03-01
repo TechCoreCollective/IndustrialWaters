@@ -1,5 +1,26 @@
 [gd_resource type="InventoryDatabase" format=3 uid="uid://clr3lry1ugej5"]
 
+[ext_resource type="Texture2D" uid="uid://dntiqff12gcll" path="res://icons/SilverOre.png" id="1_e40gj"]
+[ext_resource type="Texture2D" uid="uid://3ogrw4o02cg4" path="res://icons/Oil.png" id="2_osmuc"]
+[ext_resource type="Texture2D" uid="uid://ntvel3qu5rl5" path="res://icons/Mezholium.png" id="3_s34wa"]
+[ext_resource type="Texture2D" uid="uid://b8ycg4hj3jeal" path="res://icons/IronIngot.png" id="4_t314a"]
+[ext_resource type="Texture2D" uid="uid://bjl8q5qu6xm03" path="res://icons/CopperIngot.png" id="5_o0x8n"]
+[ext_resource type="Texture2D" uid="uid://dqku2vykjyqlv" path="res://icons/OilCanister.png" id="6_q6uxh"]
+[ext_resource type="Texture2D" uid="uid://brrd52jgijcgn" path="res://icons/StickMezholia.png" id="7_syved"]
+[ext_resource type="Texture2D" uid="uid://byahnre76jvu5" path="res://icons/IronPlate.png" id="8_eeshc"]
+[ext_resource type="Texture2D" uid="uid://c1r5kqsk6pib0" path="res://icons/CopperCables.png" id="9_yow2k"]
+[ext_resource type="Texture2D" uid="uid://btn30ryngtqpv" path="res://icons/Hammer.png" id="10_fo7pw"]
+[ext_resource type="Texture2D" uid="uid://0ow506bqadym" path="res://icons/Knife.png" id="11_6veb8"]
+[ext_resource type="Texture2D" uid="uid://chy802gk4kw2" path="res://icons/BigCabel.png" id="12_6veb8"]
+[ext_resource type="Texture2D" uid="uid://dfs4ctmcm7kb0" path="res://icons/Kelp.png" id="13_g7oiw"]
+[ext_resource type="Texture2D" uid="uid://lp5pmsferr8r" path="res://icons/Glue.png" id="14_euchr"]
+[ext_resource type="Texture2D" uid="uid://dulaqeqjrlhi6" path="res://icons/GlueCanister.png" id="15_it8mg"]
+[ext_resource type="Texture2D" uid="uid://b5xtj06rapg1r" path="res://icons/GoldenOre.png" id="16_o6q2i"]
+[ext_resource type="Texture2D" uid="uid://b7eyoi52oxnb" path="res://icons/GoldenIngot.png" id="17_aa4es"]
+[ext_resource type="Texture2D" uid="uid://bjbpy6qkodi80" path="res://icons/GravelOre.png" id="18_knflu"]
+[ext_resource type="Texture2D" uid="uid://d2u6xa64la2p2" path="res://icons/ConcreteBlock.png" id="19_ouj0a"]
+[ext_resource type="Texture2D" uid="uid://cnrtaol4r1dli" path="res://icons/DillPlate.png" id="20_myq33"]
+
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_psps2"]
 load_path = "res://.godot/imported/raw_iron.png-d712d6e656f70768510ba85e8254b85d.ctex"
 
@@ -27,5 +48,125 @@ max_stack = 64
 name = "Diamond"
 icon = SubResource("CompressedTexture2D_osmuc")
 
+[sub_resource type="ItemDefinition" id="ItemDefinition_e40gj"]
+id = "silver_ore"
+max_stack = 64
+name = "Silver Ore"
+icon = ExtResource("1_e40gj")
+
+[sub_resource type="ItemDefinition" id="ItemDefinition_osmuc"]
+id = "oil"
+max_stack = 64
+name = "Oil"
+icon = ExtResource("2_osmuc")
+
+[sub_resource type="ItemDefinition" id="ItemDefinition_s34wa"]
+id = "mezholium"
+max_stack = 64
+name = "Mezholium"
+icon = ExtResource("3_s34wa")
+
+[sub_resource type="ItemDefinition" id="ItemDefinition_t314a"]
+id = "iron_ingot"
+max_stack = 64
+name = "Iron Ingot"
+icon = ExtResource("4_t314a")
+
+[sub_resource type="ItemDefinition" id="ItemDefinition_o0x8n"]
+id = "copper_ingot"
+max_stack = 64
+name = "Copper Ingot"
+icon = ExtResource("5_o0x8n")
+
+[sub_resource type="ItemDefinition" id="ItemDefinition_q6uxh"]
+id = "oil_canister"
+max_stack = 64
+name = "Oil Canister"
+icon = ExtResource("6_q6uxh")
+
+[sub_resource type="ItemDefinition" id="ItemDefinition_3hdto"]
+id = "stick_mezholia"
+max_stack = 64
+name = "Stick Mezholia"
+icon = ExtResource("7_syved")
+
+[sub_resource type="ItemDefinition" id="ItemDefinition_syved"]
+id = "iron_plate"
+max_stack = 64
+name = "Iron Plate"
+icon = ExtResource("8_eeshc")
+
+[sub_resource type="ItemDefinition" id="ItemDefinition_eeshc"]
+id = "copper_cables"
+max_stack = 64
+name = "CopperCables"
+icon = ExtResource("9_yow2k")
+
+[sub_resource type="ItemDefinition" id="ItemDefinition_yow2k"]
+id = "hammer"
+max_stack = 64
+name = "Hammer"
+icon = ExtResource("10_fo7pw")
+
+[sub_resource type="ItemDefinition" id="ItemDefinition_fo7pw"]
+id = "knife"
+max_stack = 64
+name = "Knife"
+icon = ExtResource("11_6veb8")
+
+[sub_resource type="ItemDefinition" id="ItemDefinition_6veb8"]
+id = "silver_ingot_duplicate_duplicate_duplicate_duplicate"
+max_stack = 64
+name = "Big Cabel"
+icon = ExtResource("12_6veb8")
+
+[sub_resource type="ItemDefinition" id="ItemDefinition_g7oiw"]
+id = "kelp"
+max_stack = 64
+name = "Kelp"
+icon = ExtResource("13_g7oiw")
+
+[sub_resource type="ItemDefinition" id="ItemDefinition_euchr"]
+id = "glue"
+max_stack = 64
+name = "Glue"
+icon = ExtResource("14_euchr")
+
+[sub_resource type="ItemDefinition" id="ItemDefinition_it8mg"]
+id = "glue_canister"
+max_stack = 64
+name = "Glue Canister"
+icon = ExtResource("15_it8mg")
+
+[sub_resource type="ItemDefinition" id="ItemDefinition_o6q2i"]
+id = "golden_ore"
+max_stack = 64
+name = "Golden Ore"
+icon = ExtResource("16_o6q2i")
+
+[sub_resource type="ItemDefinition" id="ItemDefinition_aa4es"]
+id = "golden_ingot"
+max_stack = 64
+name = "Golden Ingot"
+icon = ExtResource("17_aa4es")
+
+[sub_resource type="ItemDefinition" id="ItemDefinition_knflu"]
+id = "gravel_ore"
+max_stack = 64
+name = "Gravel Ore"
+icon = ExtResource("18_knflu")
+
+[sub_resource type="ItemDefinition" id="ItemDefinition_ouj0a"]
+id = "concrete_block"
+max_stack = 64
+name = "Concrete Block"
+icon = ExtResource("19_ouj0a")
+
+[sub_resource type="ItemDefinition" id="ItemDefinition_myq33"]
+id = "dill_plate"
+max_stack = 64
+name = "DillPlate"
+icon = ExtResource("20_myq33")
+
 [resource]
-items = Array[ItemDefinition]([SubResource("ItemDefinition_psps2"), SubResource("ItemDefinition_2w2c5"), SubResource("ItemDefinition_0a80t")])
+items = Array[ItemDefinition]([SubResource("ItemDefinition_psps2"), SubResource("ItemDefinition_2w2c5"), SubResource("ItemDefinition_0a80t"), SubResource("ItemDefinition_e40gj"), SubResource("ItemDefinition_osmuc"), SubResource("ItemDefinition_s34wa"), SubResource("ItemDefinition_t314a"), SubResource("ItemDefinition_o0x8n"), SubResource("ItemDefinition_q6uxh"), SubResource("ItemDefinition_3hdto"), SubResource("ItemDefinition_syved"), SubResource("ItemDefinition_eeshc"), SubResource("ItemDefinition_yow2k"), SubResource("ItemDefinition_fo7pw"), SubResource("ItemDefinition_6veb8"), SubResource("ItemDefinition_g7oiw"), SubResource("ItemDefinition_euchr"), SubResource("ItemDefinition_it8mg"), SubResource("ItemDefinition_o6q2i"), SubResource("ItemDefinition_aa4es"), SubResource("ItemDefinition_knflu"), SubResource("ItemDefinition_ouj0a"), SubResource("ItemDefinition_myq33")])
