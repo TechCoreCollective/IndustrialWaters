@@ -188,6 +188,7 @@ func is_placement_invalid():
 	return false
 
 func handle_deletions():
+	return # deletion inputs ignored
 	if not Input.is_action_pressed("delete_machine"): return
 	var hovered_tile = get_hovered()
 	for machine: Machine in MachineData.placed_machines:

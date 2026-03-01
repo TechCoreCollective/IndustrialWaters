@@ -54,6 +54,7 @@ func determine_facing_direction(place_tile: Vector2i, update_neighbours := true)
 	for tile_pos in current_abs_neigh:
 		var neigh_new_dir = determine_facing_direction(tile_pos, false)
 		if neigh_new_dir == null: return null
+		if not tile_pos in conway_tiles_by_pos: continue
 		conway_tiles_by_pos[tile_pos].conveyor_face_dir = neigh_new_dir
 	return resulting_dir
 

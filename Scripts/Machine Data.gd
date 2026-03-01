@@ -116,6 +116,7 @@ const minimum_time_for_damage = 5
 const maximum_time_for_damage = 10
 
 func manage_machine_damage_timer(machine: Machine):
+	return
 	if machine.machine_type != MachineType.DrillSolid: return
 	var wait_time = randf_range(minimum_time_for_damage, maximum_time_for_damage) * machine.level
 	if machine.has_been_repaired: wait_time == 5
