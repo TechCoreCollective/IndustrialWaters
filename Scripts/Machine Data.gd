@@ -74,6 +74,7 @@ var highest_conwayor_index: int = -1
 
 func resources_produced(machine: Machine, item_produced: GlobalInventory.ItemType, path_exception := -1):
 	if machine.is_damaged: return
+	if item_produced == GlobalInventory.ItemType.None: return
 	var travelling_item = ConwayItem.ctor(item_produced)
 	travelling_item.conway_path_index = get_path_index_of_produced_item(machine, path_exception)
 	if travelling_item.conway_path_index == -1: return
