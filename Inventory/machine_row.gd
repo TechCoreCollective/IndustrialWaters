@@ -1,6 +1,6 @@
 extends Control
 
-@onready var button: Button = $	Button
+@onready var button: Button = $Button
 
 var item_name: String
 

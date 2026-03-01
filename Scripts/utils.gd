@@ -11,3 +11,13 @@ func remove_resources_safe(required_materials) -> bool:
 		inventory.remove(item.get("id"), item.get("amount"))
 		
 	return true
+	
+func remove_resources_safe_machine(required_materials, machine : Machine) -> bool:
+	for item in required_materials:
+		if not machine.data.has(item.get("id")) or machine.data.get(item.get("id")) < item.get("amount"):
+			return false
+	
+	for item in required_materials:
+		machine.data[item.get("id")] -= item.get("amount")
+		
+	return true
