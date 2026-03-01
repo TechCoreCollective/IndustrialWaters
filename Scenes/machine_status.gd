@@ -22,10 +22,15 @@ func _ready():
 	option_button.item_selected.connect(_set_recipe)
 	
 func set_machine(machine):
+	if machine == null:
+		return
 	self.machine = machine
 	_update_res()
 
 func _update_res():
+	if machine == null:
+		return
+
 	var machine_json = Machinejson.parsed_data.get(machine.name)
 	if machine_json == null:
 		return
