@@ -33,5 +33,44 @@
 			"iron_ore",
 			"diamond"
 		]
+	},
+	"smelter": {
+		"max_level": 2,
+		
+		"craft_cost": [
+			{"id": "iron_ore", "amount": 10}
+		],
+		
+		"upgrade_costs":{
+			"1": [
+				{"id": "copper_ore", "amount": 20},
+				{"id": "iron_ore", "amount": 10}
+			],
+			"2": [
+				{"id": "copper_ore", "amount": 50},
+				{"id": "iron_ore", "amount": 25}
+			]
+		},
+		
+		"info": {
+			"1": [
+				{"id": "depth", "value": "5"},
+				{"id": "max_depth", "value": "50"}
+			],
+			"2": [
+				{"id": "depth", "value": "5"},
+				{"id": "max_depth", "value": "100"}
+			]
+		},
+		
+		"requirements": {
+			"copper_ingot": [
+				{"id": "copper_ore", "amount": 2}
+			]
+		},
+		
+		"recipes": [
+			"copper_ingot"
+		]
 	}
 }

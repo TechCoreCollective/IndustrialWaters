@@ -27,7 +27,12 @@ func _process(delta: float) -> void:
 				
 			if machine.machine_type in MachineData.Crafters and machine.recipe != "":
 				if not machine.data.has(machine.recipe):
-					machine.data[machine.recipe]
+					machine.data[machine.recipe] = 0
+				
+				if Utils.remove_resources_safe_machine(Machinejson.parsed_data.get(machine.name).get("requirements").get(machine.recipe), machine):
+					machine.data[machine.recipe] += 1
+				
+				print(machine.data)
 		
 		time = 0
 	

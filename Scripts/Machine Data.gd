@@ -70,7 +70,6 @@ func resources_produced(machine: Machine, item_produced: GlobalInventory.ItemTyp
 	if travelling_item.conway_path_index == -1: return
 	traveling_conway_items.append(travelling_item)
 	machine.data[GlobalInventory.convert_enum_to_name(item_produced)] -= 1
-			
 
 func get_machine_by_pos(position: Vector2i):
 	for machine: Machine in placed_machines:
