@@ -189,8 +189,8 @@ func handle_deletions():
 	for machine: Machine in MachineData.placed_machines:
 		var machine_rect = machine.get_rect()
 		if not machine_rect.has_point(hovered_tile): continue
-		if machine.machine_type != MachineData.MachineType.ConveyorBelt:
-			handle_deleted_machine(machine)
+		if machine.machine_type != MachineData.MachineType.ConveyorBelt: handle_deleted_machine(machine)
+		else: handle_delete_conwayer_belt(machine)
 		MachineData.placed_machines.erase(machine)
 		display_scene()
 		break
@@ -204,3 +204,30 @@ func handle_deleted_machine(machine_to_be_deleted: Machine):
 			deleted_items.append(item)
 	for item: ConwayItem in deleted_items:
 		MachineData.traveling_conway_items.erase(item)
+
+func handle_delete_conwayer_belt(conway: Machine):
+	var originally_in_index: int
+	for index in MachineData.active_conwayerors.keys():
+		var path = MachineData.active_conwayerors.values()[index]
+		if conway.place_position in path:
+			originally_in_index = index
+			break
+	MachineData.active_conwayerors.erase(originally_in_index)
+	var neighbours = conveyor_root.get_neighbouring_tiles(conway.place_position)
+	added_neighbours_since_delete = [conway.place_position]
+	for neigh in neighbours:
+		MachineData.highest_conwayor_index += 1
+		var neigh_pos = conway.place_position + neigh
+		MachineData.active_conwayerors[MachineData.highest_conwayor_index] = [neigh_pos]
+		add_neighbours_after_delete(MachineData.highest_conwayor_index, neigh_pos)
+
+var added_neighbours_since_delete: Array[Vector2i]
+
+func add_neighbours_after_delete(index, current_pos):
+	var neighbours = conveyor_root.get_neighbouring_tiles(current_pos)
+	for neigh in neighbours:
+		var neigh_pos = current_pos + neigh
+		if neigh_pos in added_neighbours_since_delete: continue
+		MachineData.active_conwayerors[index].append(neigh_pos)
+		added_neighbours_since_delete.append(neigh_pos)
+		add_neighbours_after_delete(index, neigh_pos)

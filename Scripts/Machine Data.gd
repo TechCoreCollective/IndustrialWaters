@@ -70,6 +70,8 @@ var highest_conwayor_index: int = -1
 func resources_produced(machine: Machine, item_produced: GlobalInventory.ItemType):
 	var travelling_item = ConwayItem.ctor(item_produced)
 	travelling_item.conway_path_index = get_path_index_of_produced_item(machine)
+	print(traveling_conway_items)
+	print(travelling_item.conway_path_index)
 	if travelling_item.conway_path_index == -1: return
 	travelling_item.creation_machine = machine
 	traveling_conway_items.append(travelling_item)
