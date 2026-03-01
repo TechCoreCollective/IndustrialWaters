@@ -10,6 +10,7 @@ func add_associated_sprite(conway_item: ConwayItem):
 		GlobalInventory.ItemType.CopperOre: sprite.texture = UID.IMG_COPPER_ORE_ITEM
 		GlobalInventory.ItemType.Diamond: sprite.texture = UID.IMG_DIAMOND_ITEM
 		GlobalInventory.ItemType.IronOre: sprite.texture = UID.IMG_IRON_ORE_ITEM
+		GlobalInventory.ItemType.CopperIngot: sprite.texture = UID.IMG_COPPER_INGOT_ITEM
 	conway_item.associated_sprite = sprite
 
 const one_tile_duration: float = 0.25
@@ -69,6 +70,7 @@ func get_current_item_pos(conway_item: ConwayItem, progress: float) -> Vector2:
 	return resulting_pos
 
 func send_item_to_machine(conway_item: ConwayItem):
+	
 	for machine: Machine in MachineData.placed_machines:
 		var result = conveyor_belts.does_machine_connect_to_placed(conway_item.world_tile, machine)
 		if result == null or result == false: continue

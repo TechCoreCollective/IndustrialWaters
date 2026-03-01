@@ -52,17 +52,6 @@
 			]
 		},
 		
-		"info": {
-			"1": [
-				{"id": "depth", "value": "5"},
-				{"id": "max_depth", "value": "50"}
-			],
-			"2": [
-				{"id": "depth", "value": "5"},
-				{"id": "max_depth", "value": "100"}
-			]
-		},
-		
 		"requirements": {
 			"copper_ingot": [
 				{"id": "copper_ore", "amount": 2}

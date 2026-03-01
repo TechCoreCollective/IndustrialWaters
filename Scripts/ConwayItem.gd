@@ -6,6 +6,7 @@ var time_on_belt: float
 var associated_sprite: Sprite2D
 var conway_path_index: int
 var world_tile: Vector2i
+var creation_machine: Machine
 
 static func ctor(type: GlobalInventory.ItemType):
 	var result = ConwayItem.new()

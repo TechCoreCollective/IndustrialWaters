@@ -4,10 +4,10 @@ extends Control
 @onready var source: VBoxContainer = $VBoxContainer
 @onready var inventory: Inventory = GlobalInventory.get_node("Inventory")
 @onready var item_list: VBoxContainer = $VBoxContainer/ScrollContainer/ItemList
-@onready var info_label: Label = $VBoxContainer/Info
 @onready var button: Button = $VBoxContainer/Button
 @onready var name_label: Label = $VBoxContainer/Name
 @onready var option_button: OptionButton = $VBoxContainer/OptionButton
+@onready var item_list2: VBoxContainer = $VBoxContainer/ScrollContainer2/ItemList
 
 const COSTS = "upgrade_costs"
 const INFO = "info"
@@ -49,19 +49,27 @@ func _update_res():
 	for i in item_list.get_children():
 		i.queue_free()
 	
+	for i in item_list2.get_children():
+		i.queue_free()
+	
 	for item in Machinejson.parsed_data.get(machine.name).get(COSTS).get(str(machine.level)):
 		var row = row_scene.instantiate()
 		row.setup(inventory.get_item_from_id(item.get("id")).name, inventory.get_item_from_id(item.get("id")).icon, item.get("amount"))
 		item_list.add_child(row)
-	
+		
+	print(machine.received_items)
+	print(machine.data)
+		
+	for item in machine.received_items.keys():
+		var row = row_scene.instantiate()
+		
+		var item_name = GlobalInventory.convert_enum_to_name(item)
+		
+		row.setup(inventory.get_item_from_id(item_name).name, inventory.get_item_from_id(item_name).icon, machine.received_items.get(item))
+		item_list2.add_child(row)
+		
+			
 	_sync_size()
-	
-	var info_panel = ""
-	for info in Machinejson.parsed_data.get(machine.name).get(INFO).get(str(machine.level)):
-		var text = info.get("id") + ": " + info.get("value")
-		info_panel += text + "\n"
-	
-	info_label.text = info_panel
 
 func _upgrade():	
 	

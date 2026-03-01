@@ -24,7 +24,7 @@ var data: Dictionary = {}
 var machine_type: MachineData.MachineType
 var place_position: Vector2i
 var conveyor_face_dir: ConveyorFaceDir
-var received_items: Dictionary[GlobalInventory.ItemType, int]
+var received_items: Dictionary[int, int]
 var recipe : String
 var name : String
 var level : int
