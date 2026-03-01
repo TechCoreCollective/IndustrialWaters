@@ -69,8 +69,19 @@ layout_mode = 2
 text = "Information:
 "
 
-[node name="Info" type="Label" parent="VBoxContainer" unique_id=1851089547]
+[node name="ScrollContainer2" type="ScrollContainer" parent="VBoxContainer" unique_id=704824485]
+custom_minimum_size = Vector2(52, 75)
 layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 2
+scroll_hint_mode = 1
+tile_scroll_hint = true
+
+[node name="ItemList" type="VBoxContainer" parent="VBoxContainer/ScrollContainer2" unique_id=843527870]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+theme_override_constants/separation = 32
 
 [node name="Button" type="Button" parent="VBoxContainer" unique_id=410594162]
 layout_mode = 2

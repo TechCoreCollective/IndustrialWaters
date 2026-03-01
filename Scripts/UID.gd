@@ -16,3 +16,5 @@ const IMG_COLLECTOR_GRID = preload("uid://c8asfcgpqdcdk")
 const IMG_COPPER_ORE_ITEM = preload("uid://bxwaeqnk6y1tx")
 const IMG_DIAMOND_ITEM = preload("uid://celevn4rd7eh")
 const IMG_IRON_ORE_ITEM = preload("uid://r2bwasf0ddpb")
+
+const IMG_COPPER_INGOT_ITEM = preload("uid://dyxxrnxicd4ti")

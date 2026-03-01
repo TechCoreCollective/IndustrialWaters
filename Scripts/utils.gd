@@ -14,10 +14,10 @@ func remove_resources_safe(required_materials) -> bool:
 	
 func remove_resources_safe_machine(required_materials, machine : Machine) -> bool:
 	for item in required_materials:
-		if not machine.data.has(item.get("id")) or machine.data.get(item.get("id")) < item.get("amount"):
+		if not machine.received_items.has(GlobalInventory.convert_name_to_enum(item.get("id"))) or machine.received_items.get(GlobalInventory.convert_name_to_enum(item.get("id"))) < item.get("amount"):
 			return false
 	
 	for item in required_materials:
-		machine.data[item.get("id")] -= item.get("amount")
+		machine.received_items[int(GlobalInventory.convert_name_to_enum(item.get("id")))] -= item.get("amount")
 		
 	return true

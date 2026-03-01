@@ -4,7 +4,6 @@
 [ext_resource type="Texture2D" uid="uid://3ogrw4o02cg4" path="res://icons/Oil.png" id="2_osmuc"]
 [ext_resource type="Texture2D" uid="uid://ntvel3qu5rl5" path="res://icons/Mezholium.png" id="3_s34wa"]
 [ext_resource type="Texture2D" uid="uid://b8ycg4hj3jeal" path="res://icons/IronIngot.png" id="4_t314a"]
-[ext_resource type="Texture2D" uid="uid://bjl8q5qu6xm03" path="res://icons/CopperIngot.png" id="5_o0x8n"]
 [ext_resource type="Texture2D" uid="uid://dqku2vykjyqlv" path="res://icons/OilCanister.png" id="6_q6uxh"]
 [ext_resource type="Texture2D" uid="uid://brrd52jgijcgn" path="res://icons/StickMezholia.png" id="7_syved"]
 [ext_resource type="Texture2D" uid="uid://byahnre76jvu5" path="res://icons/IronPlate.png" id="8_eeshc"]
@@ -72,11 +71,14 @@ max_stack = 64
 name = "Iron Ingot"
 icon = ExtResource("4_t314a")
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ouj0a"]
+load_path = "res://.godot/imported/CopperIngot.png-13f654f6198deafa55a278b46d60eb88.ctex"
+
 [sub_resource type="ItemDefinition" id="ItemDefinition_o0x8n"]
 id = "copper_ingot"
 max_stack = 64
 name = "Copper Ingot"
-icon = ExtResource("5_o0x8n")
+icon = SubResource("CompressedTexture2D_ouj0a")
 
 [sub_resource type="ItemDefinition" id="ItemDefinition_q6uxh"]
 id = "oil_canister"
