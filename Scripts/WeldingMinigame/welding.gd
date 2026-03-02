@@ -63,5 +63,4 @@ func update_ui():
 		get_parent().get_node("MachineStatus").hide()
 		to_be_repaired_machine.is_damaged = false
 		to_be_repaired_machine.has_been_repaired = true
-		MachineData.manage_machine_damage_timer(to_be_repaired_machine)
 		queue_free()

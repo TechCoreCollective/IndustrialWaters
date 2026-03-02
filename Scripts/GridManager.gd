@@ -106,7 +106,7 @@ func display_bar(pos: int, is_vertical: bool):
 	seperator_root.add_child(bar_node)
 	seperator_rects.append(bar_node)
 
-const offset_change_multiplier = 0.725
+const offset_change_multiplier = 0.3
 
 func handle_offset_event():
 	var offset_change: Vector2
@@ -115,7 +115,7 @@ func handle_offset_event():
 	if Input.is_action_pressed("move_up"): offset_change.y += 1
 	if Input.is_action_pressed("move_down"): offset_change.y -= 1
 	if offset_change == Vector2.ZERO: return
-	var offset_used_change = offset_change * grid_zoom * offset_change_multiplier
+	var offset_used_change = offset_change / grid_zoom * offset_change_multiplier
 	grid_offset += offset_used_change
 	display_scene()
 
@@ -140,6 +140,7 @@ func end_dragging():
 		MachineData.drag_ended_prematurely or MachineData.is_ui_open():
 			return
 	var added_machine = Machine.ctor(MachineData.previous_dragged, get_hovered())
+	MachineData.manage_machine_damage_timer(added_machine)
 	MachineData.placed_machines.append(added_machine)
 	display_machines()
 
@@ -154,12 +155,15 @@ func update_position_of_texture(machine: Machine, texture):
 	var upper_left_hovered = machine.place_position - Vector2i(used_machine_size / 2)
 	texture.position = get_world_position(upper_left_hovered)
 	
-	var target_size = used_machine_size * Vector2(space_between_bars)
-	if texture is Control: texture.size = target_size
-	elif texture is Sprite2D:
-		var sprite_scale = target_size / texture.texture.get_size()
-		sprite_scale = Vector2(sprite_scale.x * amount_of_conway_tiles, sprite_scale.y)
-		texture.scale = sprite_scale
+	if texture is Control: texture.size = get_target_size(used_machine_size)
+	elif texture is Sprite2D: update_displayed_scale(texture, used_machine_size)
+
+func update_displayed_scale(sprite: Sprite2D, machine_size: Vector2):
+	var sprite_scale = get_target_size(machine_size) / sprite.texture.get_size()
+	sprite_scale = Vector2(sprite_scale.x * amount_of_conway_tiles, sprite_scale.y)
+	sprite.scale = sprite_scale
+
+func get_target_size(machine_size: Vector2): return machine_size * Vector2(space_between_bars)
 
 func get_world_position(tile_pos) -> Vector2:
 	var result = Vector2(tile_pos) * space_between_bars
@@ -198,9 +202,10 @@ func is_placement_invalid():
 		if machine_rect.intersects(hovered_rect): return true
 	return false
 
+const allow_deletions = false
+
 func handle_deletions():
-	return # deletion inputs ignored
-	if not Input.is_action_pressed("delete_machine"): return
+	if not allow_deletions or not Input.is_action_pressed("delete_machine"): return
 	var hovered_tile = get_hovered()
 	for machine: Machine in MachineData.placed_machines:
 		var machine_rect = machine.get_rect()

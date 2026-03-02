@@ -15,6 +15,9 @@ const INFO = "info"
 var machine : Machine;
 var max_level : int;
 
+func test():
+	print("CALLED")
+
 func _ready():
 	source.resized.connect(_sync_size)
 	button.pressed.connect(_upgrade)

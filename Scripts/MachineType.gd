@@ -44,8 +44,6 @@ static func ctor(type: MachineData.MachineType, pos: Vector2) -> Machine:
 	result.recipe = ""
 	result.level = 1
 	result.multiplier = 1
-	if type != MachineData.MachineType.ConveyorBelt:
-		MachineData.manage_machine_damage_timer(result)
 	return result
 
 func get_rect():
@@ -55,3 +53,16 @@ func get_rect():
 	var upper_left_tile = place_position - Vector2i(machine_size / 2)
 	var machine_rect = Rect2(upper_left_tile, machine_size)
 	return machine_rect
+
+enum ProcessingLevel {
+	Generation,
+	Intermediate,
+	Terminator
+}
+
+func get_process_level() -> ProcessingLevel:
+	if machine_type in MachineData.Generators: return ProcessingLevel.Generation
+	if machine_type == MachineData.MachineType.Collector: return ProcessingLevel.Terminator
+	return ProcessingLevel.Intermediate
+
+func get_type(): return MachineData.MachineType.find_key(machine_type)

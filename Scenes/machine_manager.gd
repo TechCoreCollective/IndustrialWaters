@@ -2,6 +2,7 @@ extends Node
 
 @onready var machine_status: Control = $"../MachineStatus"
 @onready var panel_2: Panel = $"../Panel2"
+var latest_machine: Machine
 
 var time = 0
 
@@ -52,17 +53,17 @@ func _process(delta: float) -> void:
 
 
 		time = 0
+	if Input.is_action_just_pressed("open_info"): display_machine_status()
+	if Input.is_action_just_pressed("Escape from Epstein Island"):
+		machine_status.visible = false
 
-	var machine_info = MachineData.get_clicked_machine_info()
-
-	if machine_info != null and Input.is_action_just_pressed("open_info") and machine_info.name != "conveyor":
-		machine_status.set_machine(machine_info)
+func display_machine_status():
+	latest_machine = MachineData.get_clicked_machine_info()
+	if latest_machine != null and latest_machine.name != "conveyor":
+		machine_status.set_machine(latest_machine)
 		machine_status.visible = true
 
 		panel_2.visible = false
 
 		var pos = get_viewport().get_mouse_position()
 		machine_status.set_position(pos)
-
-	if Input.is_action_just_pressed("Escape from Epstein Island"):
-		machine_status.visible = false

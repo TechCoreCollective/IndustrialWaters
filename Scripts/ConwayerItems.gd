@@ -25,15 +25,18 @@ func update_conwayer_items(delta):
 		var travel_progress = conway_item.time_on_belt / full_path_travel_duration
 		if travel_progress < 1: conway_item.time_on_belt += delta
 		handle_conwayer_item(conway_item, travel_progress)
-		if travel_progress >= 1:
-			if conway_item in MachineData.traveling_conway_items:
-				send_item_to_machine(conway_item)
+		if travel_progress >= 1: send_item_to_machine(conway_item)
+
+const item_texture_size = Vector2(32, 32)
+const item_size_multiplier = 0.4
 
 func handle_conwayer_item(conway_item: ConwayItem, progress: float):
 	var conway_item_pos := get_current_item_pos(conway_item, progress)
 	var item_world_pos = grid_root.get_world_position(conway_item_pos + Vector2.ONE / 2)
 	conway_item.world_tile = conway_item_pos
 	conway_item.associated_sprite.position = item_world_pos
+	var item_scale = grid_root.space_between_bars / item_texture_size * item_size_multiplier
+	conway_item.associated_sprite.scale = item_scale
 
 func get_current_item_pos(conway_item: ConwayItem, progress: float) -> Vector2:
 	var used_path = MachineData.conway_path_points[conway_item.conway_path_index]

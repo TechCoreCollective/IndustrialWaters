@@ -200,7 +200,21 @@ func check_for_path_conway(path_index, current_conway):
 		if is_edge: current_path.append(neighbour_pos)
 		check_for_path_conway(path_index, neighbour_pos)
 	if neighbours.size() == 1 and not current_conway in current_path:
+		handle_last_path_vertex(current_conway, current_path)
+
+func handle_last_path_vertex(current_conway: Vector2i, current_path: Array):
+	var machine_at_end = MachineData.get_non_conwayer_at_pos(current_conway)
+	var first_path_vertex = current_path[0]
+	var machine_at_start = MachineData.get_non_conwayer_at_pos(first_path_vertex)
+	var start_level = machine_at_start.get_process_level()
+	var end_level = machine_at_end.get_process_level()
+	
+	if start_level <= end_level:
 		current_path.append(current_conway)
+		return
+	current_path.remove_at(0)
+	current_path.append(first_path_vertex)
+	current_path.insert(0, current_conway)
 
 func get_machine_associated_with_convayer(conway_tile_pos: Vector2i):
 	for machine: Machine in MachineData.placed_machines:
