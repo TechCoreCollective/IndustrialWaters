@@ -21,10 +21,10 @@ func _process(_delta):
 		current_async_task = TaskManager.get_completed_tasks_count()
 	
 	if check_button.button_pressed:
-		print("button pressed")
-		print(TaskManager.get_current_task().required_item_id)
-		if Utils.remove_resources_safe([{"id": TaskManager.get_current_task().required_item_id, "amount": 1}]):
-			print("resource going")
+		var current_task = TaskManager.get_current_task()
+		var can_remove_resources = Utils.remove_resources_safe([{"id": current_task.required_item_id, "amount": 1}])
+		
+		if can_remove_resources or current_task.type == TaskManager.TaskType.INTRO:
 			TaskManager.current_task_progress += 1
 
 	var current_task = TaskManager.get_current_task()

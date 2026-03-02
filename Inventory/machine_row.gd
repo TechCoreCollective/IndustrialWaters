@@ -17,10 +17,13 @@ var names = {
 @export var liq = preload("res://Textures/OilDrillIcon.png")
 @export var smelt =  preload("res://Textures/SmelterIcon.png")
 
+@onready var machine_ui = get_parent().get_parent().get_parent().get_parent().get_parent().get_parent().get_parent().get_node("MachineUi")
+# i was here - honza
+
 var textures = {
 	"solid_drill": sol,
 	"liquid_drill": liq,
-	"smelter": smelt	
+	"smelter": smelt
 }
 
 func _ready() -> void:
@@ -36,5 +39,4 @@ func _craft():
 	
 	if Utils.remove_resources_safe(cost):
 		MachineData.obtainedMachines[names.get(item_name)] += 1
-		get_parent().get_parent().get_parent().get_parent().get_parent().get_parent().get_parent().get_node("MachineUi").update_ui()
-		# i was here - honza
+		machine_ui.update_ui()

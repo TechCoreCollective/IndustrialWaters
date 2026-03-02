@@ -1,15 +1,11 @@
 extends Node
 
-@onready var inventory: Inventory = GlobalInventory.get_node("Inventory")
-
 func remove_resources_safe(required_materials) -> bool:
 	for item in required_materials:
-		if not inventory.contains(item.get("id"), item.get("amount")):
-			return false
-	
-	for item in required_materials:
-		inventory.remove(item.get("id"), item.get("amount"))
-		
+		var item_type := GlobalInventory.convert_name_to_enum(item["id"])
+		var contains_item = item_type in GlobalInventory.inventory
+		if not contains_item: return false
+		GlobalInventory.inventory[item_type] -= item["amount"]
 	return true
 	
 func remove_resources_safe_machine(required_materials, machine : Machine) -> bool:

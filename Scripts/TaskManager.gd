@@ -1,6 +1,7 @@
 extends Node
 
 enum TaskType {
+	INTRO,
 	SEND_MATERIALS,
 	BUILD_MACHINE
 }
@@ -24,12 +25,12 @@ func load_tasks():
 		task.required_amount = task_data.get("required_amount", 0)
 		
 		match task_data.get("type"):
+			"INTRO": task.type = TaskType.INTRO
 			"SEND_MATERIALS":
 				task.type = TaskType.SEND_MATERIALS
 				task.required_item_id = task_data["required_item_id"]
-				
 			"BUILD_MACHINE":
-				task.type = TaskType.BUILD_MACHINE		
+				task.type = TaskType.BUILD_MACHINE
 		tasks.append(task)
 	
 	#current_task_index = SaveManager.current_task_index;

@@ -16,17 +16,19 @@ const IMG_SMELTER_GRID = preload("uid://05yiexs357d2")
 const IMG_COLLECTOR_GRID = preload("uid://c8asfcgpqdcdk")
 const IMG_MANUFACTOR_GRID := preload("uid://bjyo536rxqj0")
 
-const IMG_COPPER_ORE_ITEM = preload("uid://bxwaeqnk6y1tx")
-const IMG_DIAMOND_ITEM = preload("uid://celevn4rd7eh")
-const IMG_IRON_ORE_ITEM = preload("uid://r2bwasf0ddpb")
-const IMG_COPPER_INGOT_ITEM = preload("uid://cvy826krpwoe8")
-const IMG_IRON_INGOT_ITEM = preload("uid://b8ycg4hj3jeal")
-const IMG_KELP_ITEM = preload("res://icons/Kelp.png")
-const IMG_MEZHOLIUM_ITEM = preload("res://icons/Mezholium.png")
-const IMG_MEZHOLIUM_STICK_ITEM = preload("res://icons/StickMezholia.png")
-const IMG_GLUE_ITEM = preload("res://icons/Glue.png")
-const IMG_COPPER_PLATE_ITEM = preload("res://icons/DillPlate.png")
-const IMG_IRON_PLATE_ITEM = preload("res://icons/IronPlate.png")
+const ITEM_TEXTURES : Dictionary[GlobalInventory.ItemType, Texture] = {
+	GlobalInventory.ItemType.CopperOre: preload("uid://bxwaeqnk6y1tx"),
+	GlobalInventory.ItemType.Diamond: preload("uid://celevn4rd7eh"),
+	GlobalInventory.ItemType.IronOre: preload("uid://r2bwasf0ddpb"),
+	GlobalInventory.ItemType.CopperIngot: preload("uid://cvy826krpwoe8"),
+	GlobalInventory.ItemType.IronIngot: preload("uid://b8ycg4hj3jeal"),
+	GlobalInventory.ItemType.Kelp: preload("uid://dfs4ctmcm7kb0"),
+	GlobalInventory.ItemType.Mezholium: preload("uid://ntvel3qu5rl5"),
+	GlobalInventory.ItemType.MezholiumStick: preload("uid://brrd52jgijcgn"),
+	GlobalInventory.ItemType.Glue: preload("res://icons/Glue.png"),
+	GlobalInventory.ItemType.CopperPlate: preload("uid://cnrtaol4r1dli"),
+	GlobalInventory.ItemType.IronPlate: preload("uid://byahnre76jvu5")
+}
 
 const SCN_WELDING = preload("uid://jntm2ufk6b6s")
 const SCN_GRID = preload("uid://qfsyklj0mtul")

@@ -9,19 +9,7 @@ func add_associated_sprite(conway_item: ConwayItem):
 	sprite.texture = get_texture(conway_item)
 	conway_item.associated_sprite = sprite
 
-func get_texture(conway_item: ConwayItem):
-	match conway_item.item_type:
-		GlobalInventory.ItemType.CopperOre: return UID.IMG_COPPER_ORE_ITEM
-		GlobalInventory.ItemType.Diamond: return UID.IMG_DIAMOND_ITEM
-		GlobalInventory.ItemType.IronOre: return UID.IMG_IRON_ORE_ITEM
-		GlobalInventory.ItemType.CopperIngot: return UID.IMG_COPPER_INGOT_ITEM
-		GlobalInventory.ItemType.IronIngot: return UID.IMG_IRON_INGOT_ITEM
-		GlobalInventory.ItemType.Kelp: return UID.IMG_KELP_ITEM
-		GlobalInventory.ItemType.Mezholium: return UID.IMG_MEZHOLIUM_ITEM
-		GlobalInventory.ItemType.MezholiumStick: return UID.IMG_MEZHOLIUM_STICK_ITEM
-		GlobalInventory.ItemType.Glue: return UID.IMG_GLUE_ITEM
-		GlobalInventory.ItemType.CopperPlate: return UID.IMG_COPPER_PLATE_ITEM
-		GlobalInventory.ItemType.IronPlate: return UID.IMG_IRON_PLATE_ITEM
+func get_texture(conway_item: ConwayItem): return UID.ITEM_TEXTURES[conway_item.item_type]
 
 const one_tile_duration: float = 0.25
 

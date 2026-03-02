@@ -44,8 +44,6 @@ func _process(delta: float) -> void:
 				for i in resources_needed:
 					i["amount"] *= machine.multiplier
 
-				print(resources_needed)
-
 				if Utils.remove_resources_safe_machine(resources_needed, machine):
 					machine.data[machine.recipe] += machine.multiplier
 

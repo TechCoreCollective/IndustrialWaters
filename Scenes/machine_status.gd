@@ -2,7 +2,6 @@ extends Control
 
 @onready var target: Panel = $Panel
 @onready var source: VBoxContainer = $VBoxContainer
-@onready var inventory: Inventory = GlobalInventory.get_node("Inventory")
 @onready var item_list: VBoxContainer = $VBoxContainer/ScrollContainer/ItemList
 @onready var button: Button = $VBoxContainer/Button
 @onready var name_label: Label = $VBoxContainer/Name
@@ -21,10 +20,9 @@ func _ready():
 	button.pressed.connect(_upgrade)
 	option_button.item_selected.connect(_set_recipe)
 	
-func set_machine(machine):
-	if machine == null:
-		return
-	self.machine = machine
+func set_machine(machine_to_be_set):
+	if machine_to_be_set == null: return
+	machine = machine_to_be_set
 	_update_res()
 
 func _update_res():
@@ -72,25 +70,18 @@ func _update_res():
 	var level_costs = upgrade_costs.get(str(machine.level), [])
 	for item in level_costs:
 		var row = row_scene.instantiate()
-		var inventory_item = inventory.get_item_from_id(item.get("id"))
-		if inventory_item == null:
-			continue
-		row.setup(inventory_item.name, inventory_item.icon, item.get("amount"))
+		var item_type = GlobalInventory.convert_name_to_enum(item["id"])
+		var item_name = GlobalInventory.item_as_displayed_name(item_type)
+		var item_count = item["amount"]
+		row.setup(item_name, UID.ITEM_TEXTURES[item_type], item_count)
 		item_list.add_child(row)
-		
+	
 	var received_items_snapshot = machine.received_items.duplicate()
 	for item in received_items_snapshot.keys():
 		var row = row_scene.instantiate()
-
-		var item_name = GlobalInventory.convert_enum_to_name(item)
-		var inventory_item = inventory.get_item_from_id(item_name)
-		if inventory_item == null:
-			continue
-
-		row.setup(inventory_item.name, inventory_item.icon, received_items_snapshot.get(item))
+		var item_name = GlobalInventory.item_as_displayed_name(item)
+		row.setup(item_name, UID.ITEM_TEXTURES[item], received_items_snapshot.get(item))
 		item_list2.add_child(row)
-		
-			
 	_sync_size()
 
 func _upgrade():

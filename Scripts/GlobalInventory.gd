@@ -15,47 +15,31 @@ enum ItemType {
 	IronPlate
 }
 
-@onready var database = $Inventory
+var inventory: Dictionary[ItemType, int] = {ItemType.CopperOre: 30}
+signal contents_changed
 
 func convert_name_to_enum(item_name: String) -> ItemType:
-	match item_name:
-		"diamond": return ItemType.Diamond
-		"copper_ore": return ItemType.CopperOre
-		"iron_ore": return ItemType.IronOre
-		"copper_ingot": return ItemType.CopperIngot
-		"iron_ingot": return ItemType.IronIngot
-		"kelp": return ItemType.Kelp
-		"mezholium": return ItemType.Mezholium
-		"mezholium_stick": return ItemType.MezholiumStick
-		"glue": return ItemType.Glue
-		"copper_plate": return ItemType.CopperPlate
-		"iron_plate": return ItemType.IronPlate
-	return ItemType.None
+	var pascal_case_name = item_name.to_pascal_case()
+	if not pascal_case_name in ItemType: return ItemType.None
+	return ItemType[pascal_case_name]
 	
 func convert_enum_to_name(item_name: ItemType) -> String:
-	match item_name:
-		ItemType.Diamond: return "diamond"
-		ItemType.CopperOre: return "copper_ore"
-		ItemType.IronOre: return "iron_ore"
-		ItemType.CopperIngot: return "copper_ingot"
-		ItemType.IronIngot: return "iron_ingot"
-		ItemType.Kelp: return "kelp"
-		ItemType.Mezholium: return "mezholium"
-		ItemType.MezholiumStick: return "mezholium_stick"
-		ItemType.Glue: return "glue"
-		ItemType.CopperPlate: return "copper_plate"
-		ItemType.IronPlate: return "iron_plate"
-	return ""
+	if item_name == ItemType.None: return ""
+	var enum_as_str : String = ItemType.find_key(item_name)
+	return enum_as_str.to_snake_case()
 
 func add_item(item_type: ItemType, count: int):
-	if item_type == ItemType.None:
-		return
-	var item_name = convert_enum_to_name(item_type)
-	if item_name == "" or item_name == null:
-		return
-	if database == null:
-		return
-	var item_definition = database.get_item_from_id(item_name)
-	if item_definition == null:
-		return
-	database.add(item_name, count)
+	if item_type == ItemType.None: return
+	if not item_type in inventory.keys(): inventory[item_type] = 0
+	inventory[item_type] += count
+	contents_changed.emit()
+
+func item_as_displayed_name(item_type: ItemType) -> String:
+	var name_in_snake_case = convert_enum_to_name(item_type)
+	var result = ""
+	var make_proceeding_upper = true
+	for ch in name_in_snake_case:
+		if ch == '_': result += ' '
+		else: result += ch.to_upper() if make_proceeding_upper else ch
+		make_proceeding_upper = ch == '_'
+	return result
