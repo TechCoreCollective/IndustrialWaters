@@ -17,6 +17,7 @@ var solution: Array = []
 var movable_mask: Array = []
 var maps: Array = []
 
+var to_be_repaired_machine: Machine
 
 # - = straight horizontal
 # | = straight vertical
@@ -47,11 +48,10 @@ func _ready():
 	select_random_map()
 	generate_grid()
 
-"""func _process(delta: float) -> void:
+func _process(delta: float) -> void:
 	if check_win():
-		print("WIN!!!")
-	else:
-		print("not win")"""
+		to_be_repaired_machine.repair()
+		queue_free()
 
 func load_maps():
 	var content = UID.JSON_PIPES.file_contents

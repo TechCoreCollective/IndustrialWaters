@@ -66,3 +66,10 @@ func get_process_level() -> ProcessingLevel:
 	return ProcessingLevel.Intermediate
 
 func get_type(): return MachineData.MachineType.find_key(machine_type)
+
+func repair():
+	MachineData.is_in_minigame = false
+	is_damaged = false
+	has_been_repaired = true
+	var grid = MachineData.get_parent().get_node("PlacementGrid")
+	grid.display_scene()

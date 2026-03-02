@@ -1,11 +1,10 @@
 [gd_scene format=3 uid="uid://8lh0b6fdq8wh"]
 
-[ext_resource type="Texture2D" uid="uid://cs1khrhq51yew" path="res://Sprites/blue_grid.png" id="1_cm05o"]
 [ext_resource type="Script" uid="uid://dlocoo3nr43x5" path="res://Scripts/PipeMinigame/PipeFixing.gd" id="1_y3ykl"]
-[ext_resource type="PackedScene" uid="uid://giuq5vbcgqme" path="res://Scenes/PipeMinigame/PipeStraight.tscn" id="2_1uecq"]
-[ext_resource type="PackedScene" uid="uid://60yol7gdrohx" path="res://Scenes/PipeMinigame/PipeTurn.tscn" id="3_esj46"]
-[ext_resource type="PackedScene" uid="uid://8psl3jaklob5" path="res://Scenes/PipeMinigame/PipeStraightRotatable.tscn" id="4_yajhu"]
-[ext_resource type="PackedScene" uid="uid://we7d05svhodg" path="res://Scenes/PipeMinigame/PipeTurnRotatable.tscn" id="5_pmv1y"]
+[ext_resource type="PackedScene" path="res://Scenes/PipeMinigame/PipeStraight.tscn" id="2_1uecq"]
+[ext_resource type="PackedScene" path="res://Scenes/PipeMinigame/PipeTurn.tscn" id="3_esj46"]
+[ext_resource type="PackedScene" path="res://Scenes/PipeMinigame/PipeStraightRotatable.tscn" id="4_yajhu"]
+[ext_resource type="PackedScene" path="res://Scenes/PipeMinigame/PipeTurnRotatable.tscn" id="5_pmv1y"]
 
 [node name="PipeFixing" type="Node2D" unique_id=732433782]
 script = ExtResource("1_y3ykl")
@@ -14,105 +13,9 @@ turn_pipe = ExtResource("3_esj46")
 straight_pipe_rotatable = ExtResource("4_yajhu")
 turn_pipe_rotatable = ExtResource("5_pmv1y")
 
-[node name="Grid" type="Node2D" parent="." unique_id=1651207101]
-position = Vector2(-26, -43)
-
-[node name="Line1" type="Node2D" parent="Grid" unique_id=870910313]
-
-[node name="Sprite2D" type="Sprite2D" parent="Grid/Line1" unique_id=159149134]
-position = Vector2(0, 125.00001)
-scale = Vector2(3, 3)
-texture = ExtResource("1_cm05o")
-
-[node name="Sprite2D2" type="Sprite2D" parent="Grid/Line1" unique_id=2133463106]
-position = Vector2(240, 125)
-scale = Vector2(3, 3)
-texture = ExtResource("1_cm05o")
-
-[node name="Sprite2D3" type="Sprite2D" parent="Grid/Line1" unique_id=1594293487]
-position = Vector2(482, 125)
-scale = Vector2(3, 3)
-texture = ExtResource("1_cm05o")
-
-[node name="Sprite2D4" type="Sprite2D" parent="Grid/Line1" unique_id=1991396206]
-position = Vector2(722, 125)
-scale = Vector2(3, 3)
-texture = ExtResource("1_cm05o")
-
-[node name="Sprite2D5" type="Sprite2D" parent="Grid/Line1" unique_id=1260994207]
-position = Vector2(962, 125)
-scale = Vector2(3, 3)
-texture = ExtResource("1_cm05o")
-
-[node name="Sprite2D6" type="Sprite2D" parent="Grid/Line1" unique_id=1827956329]
-position = Vector2(1203, 125)
-scale = Vector2(3, 3)
-texture = ExtResource("1_cm05o")
-
-[node name="Line2" type="Node2D" parent="Grid" unique_id=65104532]
-position = Vector2(0, 239)
-
-[node name="Sprite2D" type="Sprite2D" parent="Grid/Line2" unique_id=296309707]
-position = Vector2(0, 125.00001)
-scale = Vector2(3, 3)
-texture = ExtResource("1_cm05o")
-
-[node name="Sprite2D2" type="Sprite2D" parent="Grid/Line2" unique_id=663187045]
-position = Vector2(240, 125)
-scale = Vector2(3, 3)
-texture = ExtResource("1_cm05o")
-
-[node name="Sprite2D3" type="Sprite2D" parent="Grid/Line2" unique_id=90816909]
-position = Vector2(482, 125)
-scale = Vector2(3, 3)
-texture = ExtResource("1_cm05o")
-
-[node name="Sprite2D4" type="Sprite2D" parent="Grid/Line2" unique_id=1402746747]
-position = Vector2(722, 125)
-scale = Vector2(3, 3)
-texture = ExtResource("1_cm05o")
-
-[node name="Sprite2D5" type="Sprite2D" parent="Grid/Line2" unique_id=2012234248]
-position = Vector2(962, 125)
-scale = Vector2(3, 3)
-texture = ExtResource("1_cm05o")
-
-[node name="Sprite2D6" type="Sprite2D" parent="Grid/Line2" unique_id=1531779928]
-position = Vector2(1203, 125)
-scale = Vector2(3, 3)
-texture = ExtResource("1_cm05o")
-
-[node name="Line3" type="Node2D" parent="Grid" unique_id=1876175071]
-position = Vector2(0, 479)
-
-[node name="Sprite2D" type="Sprite2D" parent="Grid/Line3" unique_id=1245857177]
-position = Vector2(0, 125.00001)
-scale = Vector2(3, 3)
-texture = ExtResource("1_cm05o")
-
-[node name="Sprite2D2" type="Sprite2D" parent="Grid/Line3" unique_id=524802649]
-position = Vector2(240, 125)
-scale = Vector2(3, 3)
-texture = ExtResource("1_cm05o")
-
-[node name="Sprite2D3" type="Sprite2D" parent="Grid/Line3" unique_id=889610830]
-position = Vector2(482, 125)
-scale = Vector2(3, 3)
-texture = ExtResource("1_cm05o")
-
-[node name="Sprite2D4" type="Sprite2D" parent="Grid/Line3" unique_id=2106238235]
-position = Vector2(722, 125)
-scale = Vector2(3, 3)
-texture = ExtResource("1_cm05o")
-
-[node name="Sprite2D5" type="Sprite2D" parent="Grid/Line3" unique_id=1182309619]
-position = Vector2(962, 125)
-scale = Vector2(3, 3)
-texture = ExtResource("1_cm05o")
-
-[node name="Sprite2D6" type="Sprite2D" parent="Grid/Line3" unique_id=2107089512]
-position = Vector2(1203, 125)
-scale = Vector2(3, 3)
-texture = ExtResource("1_cm05o")
+[node name="Background" type="ColorRect" parent="." unique_id=811913448]
+offset_right = 1161.0
+offset_bottom = 649.0
+color = Color(0.24156481, 0.32354975, 0.46229354, 1)
 
 [node name="Pipes" type="Node2D" parent="." unique_id=1090971571]

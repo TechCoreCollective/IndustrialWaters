@@ -59,8 +59,5 @@ func update_ui():
 		progress_label.text = "DONE! CRACK REPAIRED."
 		progress_label.visible = false
 		self.visible = false
-		MachineData.is_in_minigame = false
-		get_parent().get_node("MachineStatus").hide()
-		to_be_repaired_machine.is_damaged = false
-		to_be_repaired_machine.has_been_repaired = true
+		to_be_repaired_machine.repair()
 		queue_free()

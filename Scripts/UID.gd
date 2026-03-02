@@ -31,7 +31,7 @@ const ITEM_TEXTURES : Dictionary[GlobalInventory.ItemType, Texture] = {
 }
 
 const SCN_WELDING = preload("uid://jntm2ufk6b6s")
-const SCN_GRID = preload("uid://qfsyklj0mtul")
+const SCN_PIPES = preload("uid://8lh0b6fdq8wh")
 
 const JSON_TASKS = preload("uid://byvqdbn00o6dy")
 const JSON_PIPES = preload("uid://g8t4fs6pgsgb")

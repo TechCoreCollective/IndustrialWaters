@@ -15,9 +15,6 @@ const INFO = "info"
 var machine : Machine;
 var max_level : int;
 
-func test():
-	print("CALLED")
-
 func _ready():
 	source.resized.connect(_sync_size)
 	button.pressed.connect(_upgrade)
@@ -116,6 +113,9 @@ func _set_recipe(index: int):
 
 func _on_repair_pressed():
 	MachineData.is_in_minigame = true
-	var welding_child = UID.SCN_WELDING.instantiate()
-	welding_child.to_be_repaired_machine = machine
-	get_parent().add_child(welding_child)
+	var minigame_scene = UID.SCN_WELDING
+	if machine.machine_type == MachineData.MachineType.Smelter: minigame_scene = UID.SCN_PIPES
+	var minigame_instance = minigame_scene.instantiate()
+	minigame_instance.to_be_repaired_machine = machine
+	get_parent().add_child(minigame_instance)
+	hide()

@@ -115,14 +115,15 @@ func smelt_item(smelter: Machine, source_path: int):
 	if smelt_result == GlobalInventory.ItemType.None: return
 	resources_produced(smelter, smelt_result, source_path)
 
-const minimum_time_for_damage = 15
-const maximum_time_for_damage = 30
+const minimum_time_for_damage = 1
+const maximum_time_for_damage = 2
 
 const enable_repairs = true
+const machines_which_can_break = [MachineType.DrillSolid, MachineType.DrillLiquid, MachineType.Smelter]
 
 func manage_machine_damage_timer(machine: Machine):
 	if not enable_repairs: return
-	if not machine.machine_type in [MachineType.DrillSolid, MachineType.DrillLiquid]: return
+	if not machine.machine_type in machines_which_can_break: return
 	var wait_time = randf_range(minimum_time_for_damage, maximum_time_for_damage) * machine.level
 	if machine.has_been_repaired: return
 	await get_tree().create_timer(wait_time).timeout
