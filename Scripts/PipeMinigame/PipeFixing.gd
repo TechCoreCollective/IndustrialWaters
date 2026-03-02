@@ -54,8 +54,7 @@ func _ready():
 		print("not win")"""
 
 func load_maps():
-	var file = FileAccess.open("res://Config/pipes.json", FileAccess.READ)
-	var content = file.get_as_text()
+	var content = UID.JSON_PIPES.file_contents
 	maps = JSON.parse_string(content)
 
 func select_random_map():

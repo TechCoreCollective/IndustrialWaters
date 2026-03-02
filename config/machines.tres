@@ -1,0 +1,131 @@
+[gd_resource type="Resource" script_class="JSONResource" format=3 uid="uid://dt1nr0e0pecf8"]
+
+[ext_resource type="Script" uid="uid://cjhlr4kiktxo0" path="res://Scripts/JSONResource.gd" id="1_2hr2u"]
+
+[resource]
+script = ExtResource("1_2hr2u")
+file_contents = "
+{
+	\"solid_drill\": {
+		\"max_level\": 2,
+		
+		\"craft_cost\": [
+			{\"id\": \"iron_ore\", \"amount\": 10}
+		],
+		
+		\"upgrade_costs\":{
+			\"1\": [
+				{\"id\": \"copper_ore\", \"amount\": 20},
+				{\"id\": \"iron_ore\", \"amount\": 10}
+			],
+			\"2\": [
+				{\"id\": \"copper_ore\", \"amount\": 50},
+				{\"id\": \"iron_ore\", \"amount\": 25}
+			]
+		},
+		
+		\"recipes\": [
+			\"copper_ore\",
+			\"iron_ore\",
+			\"diamond\"
+		]
+	},
+	\"liquid_drill\": {
+		\"max_level\": 2,
+		
+		\"craft_cost\": [
+			{\"id\": \"iron_ore\", \"amount\": 10}
+		],
+		
+		\"upgrade_costs\":{
+			\"1\": [
+				{\"id\": \"copper_ore\", \"amount\": 20},
+				{\"id\": \"iron_ore\", \"amount\": 10}
+			],
+			\"2\": [
+				{\"id\": \"copper_ore\", \"amount\": 50},
+				{\"id\": \"iron_ore\", \"amount\": 25}
+			]
+		},
+		
+		\"recipes\": [
+			\"kelp\",
+			\"mezholium\"
+		]
+	},
+	
+	\"smelter\": {
+		\"max_level\": 2,
+		
+		\"craft_cost\": [
+			{\"id\": \"iron_ore\", \"amount\": 10}
+		],
+		
+		\"upgrade_costs\":{
+			\"1\": [
+				{\"id\": \"copper_ore\", \"amount\": 20},
+				{\"id\": \"iron_ore\", \"amount\": 10}
+			],
+			\"2\": [
+				{\"id\": \"copper_ore\", \"amount\": 50},
+				{\"id\": \"iron_ore\", \"amount\": 25}
+			]
+		},
+		
+		\"requirements\": {
+			\"copper_ingot\": [
+				{\"id\": \"copper_ore\", \"amount\": 2}
+			],
+			\"iron_ingot\": [
+				{\"id\": \"iron_core\", \"amount\": 2}
+			],
+			\"glue\": [
+				{\"id\": \"kelp\", \"amount\": 2}
+			],
+			\"mezholium_stick\": [
+				{\"id\": \"mezholium\", \"amount\": 2}
+			]
+		},
+		
+		\"recipes\": [
+			\"copper_ingot\",
+			\"iron_ingot\",
+			\"mezholium_stick\",
+			\"glue\"
+		]
+	},
+	\"manufactor\": {
+		\"max_level\": 2,
+		
+		\"craft_cost\": [
+			{\"id\": \"iron_ore\", \"amount\": 10}
+		],
+		
+		\"upgrade_costs\":{
+			\"1\": [
+				{\"id\": \"copper_ore\", \"amount\": 20},
+				{\"id\": \"iron_ore\", \"amount\": 10}
+			],
+			\"2\": [
+				{\"id\": \"copper_ore\", \"amount\": 50},
+				{\"id\": \"iron_ore\", \"amount\": 25}
+			]
+		},
+		
+		\"requirements\": {
+			\"iron_plate\": [
+				{\"id\": \"iron_ingot\", \"amount\": 2}
+			],
+			\"coppper_plate\": [
+				{\"id\": \"copper_plate\", \"amount\": 2}
+			]
+		},
+		
+		\"recipes\": [
+			\"iron_plate\",
+			\"copper_plate\"
+		]
+	}
+}
+"
+metadata/_custom_type_script = "uid://cjhlr4kiktxo0"

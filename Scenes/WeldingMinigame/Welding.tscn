@@ -9,6 +9,7 @@ background_mode = 3
 glow_enabled = true
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_n4v7u"]
+radius = 25.0
 
 [sub_resource type="Gradient" id="Gradient_n4v7u"]
 colors = PackedColorArray(1, 0.6875, 0, 1, 1, 1, 1, 1)

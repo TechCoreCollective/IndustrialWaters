@@ -30,3 +30,7 @@ const IMG_IRON_PLATE_ITEM = preload("res://icons/IronPlate.png")
 
 const SCN_WELDING = preload("uid://jntm2ufk6b6s")
 const SCN_GRID = preload("uid://qfsyklj0mtul")
+
+const JSON_TASKS = preload("uid://byvqdbn00o6dy")
+const JSON_PIPES = preload("uid://g8t4fs6pgsgb")
+const JSON_MACHINES = preload("uid://dt1nr0e0pecf8")

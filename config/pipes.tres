@@ -1,0 +1,47 @@
+[gd_resource type="Resource" script_class="JSONResource" format=3 uid="uid://g8t4fs6pgsgb"]
+
+[ext_resource type="Script" uid="uid://cjhlr4kiktxo0" path="res://Scripts/JSONResource.gd" id="1_f55nw"]
+
+[resource]
+script = ExtResource("1_f55nw")
+file_contents = "
+[
+  {
+	\"solution\": [
+	  \"-7  F-\",
+	  \" |  | \",
+      \" L--J \"
+	],
+	\"movable\": [
+	  \"010010\",
+	  \"010010\",
+      \"011110\"
+	]
+  },
+  {
+	\"solution\": [
+	  \"-7 F7 \",
+	  \" | |L-\",
+      \" L-J  \"
+	],
+	\"movable\": [
+	  \"010110\",
+	  \"010110\",
+      \"011100\"
+	]
+  },
+  {
+	\"solution\": [
+	  \" F-7  \",
+	  \" L7L7 \",
+      \"--J L-\"
+	],
+	\"movable\": [
+	  \"011100\",
+	  \"011110\",
+      \"001010\"
+	]
+  }
+]
+"
+metadata/_custom_type_script = "uid://cjhlr4kiktxo0"

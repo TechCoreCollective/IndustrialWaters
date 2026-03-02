@@ -57,7 +57,7 @@ func _process(delta: float) -> void:
 
 	var machine_info = MachineData.get_clicked_machine_info()
 
-	if machine_info != null and Input.is_action_just_pressed("middle clicjk") and machine_info.name != "conveyor":
+	if machine_info != null and Input.is_action_just_pressed("open_info") and machine_info.name != "conveyor":
 		machine_status.set_machine(machine_info)
 		machine_status.visible = true
 

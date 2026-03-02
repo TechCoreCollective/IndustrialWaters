@@ -26,11 +26,12 @@ func _process(_delta):
 		if Utils.remove_resources_safe([{"id": TaskManager.get_current_task().required_item_id, "amount": 1}]):
 			print("resource going")
 			TaskManager.current_task_progress += 1
-	
-	if TaskManager.current_task_progress >= TaskManager.get_current_task().required_amount:
+
+	var current_task = TaskManager.get_current_task()
+	if current_task == null: return
+	if TaskManager.current_task_progress >= current_task.required_amount:
 		TaskManager.complete_current_task()
-		
-		
+
 func update_ui():
 	var manager = TaskManager
 	var task = manager.get_current_task()

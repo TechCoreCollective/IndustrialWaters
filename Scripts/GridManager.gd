@@ -24,6 +24,7 @@ var title_screen_on := true
 @onready var overlay = $Overlay
 @onready var play_game_button = $"Play Game Button"
 @onready var machine_ui_root = $MachineUi
+@onready var task_ui = $TaskUI
 
 var seperator_rects: Array[ColorRect]
 
@@ -259,3 +260,4 @@ func start_game():
 	overlay.queue_free()
 	logo.queue_free()
 	play_game_button.queue_free()
+	task_ui.show()

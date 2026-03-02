@@ -1,7 +1,5 @@
 extends Node
 
-const TASKS_PATH := "res://Config/tasks.json"
-
 enum TaskType {
 	SEND_MATERIALS,
 	BUILD_MACHINE
@@ -17,18 +15,7 @@ func _ready() -> void:
 	#current_task_progress = SaveManager.current_task_progress
 
 func load_tasks():
-	if not FileAccess.file_exists(TASKS_PATH):
-		push_error("Tasks JSON not found")
-		return
-		
-	var file = FileAccess.open(TASKS_PATH, FileAccess.READ)
-	if file == null:
-		push_error("Cannot open tasks JSON")
-		return
-		
-	var json_result = JSON.parse_string(file.get_as_text())
-	file.close()
-	
+	var json_result = JSON.parse_string(UID.JSON_TASKS.file_contents)
 	for task_data in json_result:
 		var task = Task.new()
 		task.id = task_data.get("id")
