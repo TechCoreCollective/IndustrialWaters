@@ -4,21 +4,21 @@ enum MachineType {
 	DrillSolid,
 	DrillLiquid,
 	Smelter,
-	Manufactor,
+	Crafter,
 	Collector,
 	ConveyorBelt,
 	None
 }
 
 const Generators = [MachineType.DrillSolid, MachineType.DrillLiquid]
-const Crafters = [MachineType.Smelter, MachineType.Manufactor]
+const Crafters = [MachineType.Smelter]
 
 var obtainedMachines: Dictionary[MachineType, int] = {
 	MachineType.DrillSolid: 6,
 	MachineType.DrillLiquid: 3,
 	MachineType.Smelter: 3,
 	MachineType.Collector: 10,
-	MachineType.Manufactor: 4
+	MachineType.Crafter: 4
 }
 
 var machine_sizes: Dictionary[MachineType, Vector2] = {
@@ -26,7 +26,7 @@ var machine_sizes: Dictionary[MachineType, Vector2] = {
 	MachineType.DrillLiquid: Vector2(3, 3),
 	MachineType.Smelter: Vector2(4, 4),
 	MachineType.Collector: Vector2(3, 3),
-	MachineType.Manufactor: Vector2(3, 3),
+	MachineType.Crafter: Vector2(3, 3),
 	MachineType.ConveyorBelt: Vector2.ONE
 }
 
@@ -40,7 +40,7 @@ signal drag_end
 var dragged_type := MachineType.None
 var previous_dragged := MachineType.None
 
-var placed_machines: Array[Machine]
+var placed_machines: Array[Machine] = [Machine.ctor(MachineType.DrillSolid, Vector2.ONE), Machine.ctor(MachineType.Crafter, Vector2(5, 4))]
 
 func get_texture_from_type(machine_type: MachineType):
 	var resulting_texture = null
@@ -49,7 +49,7 @@ func get_texture_from_type(machine_type: MachineType):
 		MachineType.DrillLiquid: resulting_texture = UID.IMG_OIL_DRILL_GRID
 		MachineType.Smelter: resulting_texture = UID.IMG_SMELTER_GRID
 		MachineType.Collector: resulting_texture = UID.IMG_COLLECTOR_GRID
-		MachineType.Manufactor: resulting_texture = UID.IMG_MANUFACTOR_GRID
+		MachineType.Crafter: resulting_texture = UID.IMG_CRAFTER_GRID
 	return resulting_texture
 
 var hovered_button_machine_type := MachineType.None
@@ -115,8 +115,8 @@ func smelt_item(smelter: Machine, source_path: int):
 	if smelt_result == GlobalInventory.ItemType.None: return
 	resources_produced(smelter, smelt_result, source_path)
 
-const minimum_time_for_damage = 1
-const maximum_time_for_damage = 2
+const minimum_time_for_damage = 15
+const maximum_time_for_damage = 30
 
 const enable_repairs = true
 const machines_which_can_break = [MachineType.DrillSolid, MachineType.DrillLiquid, MachineType.Smelter]

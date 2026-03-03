@@ -15,7 +15,7 @@ enum ItemType {
 	IronPlate
 }
 
-var inventory: Dictionary[ItemType, int] = {ItemType.CopperOre: 30}
+var inventory: Dictionary[ItemType, int] = {ItemType.IronOre: 100, ItemType.CopperOre: 150}
 signal contents_changed
 
 func convert_name_to_enum(item_name: String) -> ItemType:

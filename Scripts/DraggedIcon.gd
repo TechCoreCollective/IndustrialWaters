@@ -12,7 +12,7 @@ func update_type(new_type):
 		MachineData.MachineType.DrillLiquid: icon_texture = UID.IMG_OIL_DRILL_ICON
 		MachineData.MachineType.Smelter: icon_texture = UID.IMG_SMELTER_ICON
 		MachineData.MachineType.Collector: icon_texture = UID.IMG_COLLECTOR_ICON
-		MachineData.MachineType.Manufactor: icon_texture = UID.IMG_MANUFACTOR_ICON
+		MachineData.MachineType.Crafter: icon_texture = UID.IMG_CRAFTER_ICON
 	texture = icon_texture
 
 func _ready():

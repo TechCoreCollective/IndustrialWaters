@@ -15,7 +15,7 @@ var names = {
 	MachineData.MachineType.DrillSolid : "solid_drill",
 	MachineData.MachineType.DrillLiquid : "liquid_drill",
 	MachineData.MachineType.Smelter : "smelter",
-	MachineData.MachineType.Manufactor : "manufactor",
+	MachineData.MachineType.Crafter : "crafter",
 	MachineData.MachineType.Collector : "collector",
 	MachineData.MachineType.ConveyorBelt : "conveyor"
 }
@@ -39,13 +39,6 @@ func _contents_changed():
 		var row = row_scene.instantiate()
 		row.setup(GlobalInventory.item_as_displayed_name(item_type), UID.ITEM_TEXTURES[item_type], GlobalInventory.inventory[item_type])
 		item_list.add_child(row)
-		rows.append(row)
-	
-	for machine in working_machines:
-		var id = names[machine]
-		var row = row_machine.instantiate()
-		row.setup(id)
-		machine_list.add_child(row)
 		rows.append(row)
 
 func _on_search_changed(text: String):

@@ -33,9 +33,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -150.0
-offset_top = -55.0
+offset_top = -172.5
 offset_right = 150.0
-offset_bottom = 55.0
+offset_bottom = 222.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -49,43 +49,40 @@ text = "Machine Lv. 1"
 [node name="HSeparator" type="HSeparator" parent="VBoxContainer" unique_id=48963110]
 layout_mode = 2
 
-[node name="UpgradeCostTitle" type="Label" parent="VBoxContainer" unique_id=1808512132]
+[node name="Upgrade Cost Title" type="Label" parent="VBoxContainer" unique_id=1808512132]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_i14ln")
 theme_override_font_sizes/font_size = 24
 text = "Upgrade cost:"
 
-[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer" unique_id=278109356]
+[node name="Upgrade Cost" type="ScrollContainer" parent="VBoxContainer" unique_id=278109356]
 custom_minimum_size = Vector2(52, 75)
 layout_mode = 2
 size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0
 horizontal_scroll_mode = 0
-vertical_scroll_mode = 2
-scroll_hint_mode = 1
-tile_scroll_hint = true
 
-[node name="ItemList" type="VBoxContainer" parent="VBoxContainer/ScrollContainer" unique_id=954093244]
+[node name="ItemList" type="VBoxContainer" parent="VBoxContainer/Upgrade Cost" unique_id=954093244]
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 theme_override_constants/separation = 32
 
-[node name="InfoTitle" type="Label" parent="VBoxContainer" unique_id=1375559851]
+[node name="Contained Items Title" type="Label" parent="VBoxContainer" unique_id=2066179021]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_i14ln")
 theme_override_font_sizes/font_size = 24
-text = "Information:
-"
+text = "Contains items:"
 
-[node name="ScrollContainer2" type="ScrollContainer" parent="VBoxContainer" unique_id=704824485]
+[node name="Contained Items" type="ScrollContainer" parent="VBoxContainer" unique_id=704824485]
 custom_minimum_size = Vector2(52, 75)
 layout_mode = 2
 size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0
 horizontal_scroll_mode = 0
-vertical_scroll_mode = 2
 scroll_hint_mode = 1
 tile_scroll_hint = true
 
-[node name="ItemList" type="VBoxContainer" parent="VBoxContainer/ScrollContainer2" unique_id=843527870]
+[node name="ItemList" type="VBoxContainer" parent="VBoxContainer/Contained Items" unique_id=843527870]
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 theme_override_constants/separation = 32
@@ -96,6 +93,13 @@ theme_override_fonts/font = ExtResource("2_i14ln")
 theme_override_font_sizes/font_size = 24
 text = "Upgrade"
 
+[node name="Repair" type="Button" parent="VBoxContainer" unique_id=1475419207]
+visible = false
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_i14ln")
+theme_override_font_sizes/font_size = 24
+text = "Repair"
+
 [node name="OptionButton" type="OptionButton" parent="VBoxContainer" unique_id=2027060105]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_i14ln")
@@ -105,12 +109,5 @@ selected = 0
 item_count = 1
 popup/item_0/text = "No Recipe"
 popup/item_0/id = 0
-
-[node name="Repair" type="Button" parent="VBoxContainer" unique_id=1475419207]
-visible = false
-layout_mode = 2
-theme_override_fonts/font = ExtResource("2_i14ln")
-theme_override_font_sizes/font_size = 24
-text = "Repair"
 
 [connection signal="pressed" from="VBoxContainer/Repair" to="." method="_on_repair_pressed"]

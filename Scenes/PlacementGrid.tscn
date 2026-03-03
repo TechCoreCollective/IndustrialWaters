@@ -152,4 +152,13 @@ scale = Vector2(3, 3)
 theme_override_fonts/font = ExtResource("13_7im6e")
 text = "PLAY GAME"
 
+[node name="Version Number" type="Label" parent="." unique_id=1773712922]
+offset_left = 16.0
+offset_top = 6.0
+offset_right = 260.0
+offset_bottom = 54.0
+theme_override_fonts/font = ExtResource("13_7im6e")
+theme_override_font_sizes/font_size = 48
+text = "Version 1.1"
+
 [connection signal="pressed" from="Play Game Button" to="." method="start_game"]

@@ -94,7 +94,7 @@ file_contents = "
 			\"glue\"
 		]
 	},
-	\"manufactor\": {
+	\"crafter\": {
 		\"max_level\": 2,
 		
 		\"craft_cost\": [

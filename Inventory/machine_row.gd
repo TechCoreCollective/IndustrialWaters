@@ -8,7 +8,7 @@ var names = {
 	"solid_drill": MachineData.MachineType.DrillSolid,
 	"liquid_drill": MachineData.MachineType.DrillLiquid,
 	"smelter": MachineData.MachineType.Smelter,
-	"manufactor": MachineData.MachineType.Manufactor,
+	"crafter": MachineData.MachineType.Crafter,
 	"collector": MachineData.MachineType.Collector,
 	"conveyor": MachineData.MachineType.ConveyorBelt
 }
