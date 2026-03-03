@@ -13,9 +13,7 @@ enum MachineType {
 const Generators = [MachineType.DrillSolid, MachineType.DrillLiquid]
 const Crafters = [MachineType.Smelter]
 
-var obtainedMachines: Dictionary[MachineType, int] = {
-	MachineType.DrillLiquid: 1
-}
+var obtainedMachines: Dictionary[MachineType, int] = {}
 
 var machine_sizes: Dictionary[MachineType, Vector2] = {
 	MachineType.DrillSolid: Vector2(3, 3),
@@ -29,6 +27,15 @@ var machine_sizes: Dictionary[MachineType, Vector2] = {
 var corner_exception: Array[MachineType] = [MachineType.Smelter]
 var machine_y_invalid: Dictionary[MachineType, int] = {
 	MachineType.Smelter: 2
+}
+
+var names = {
+	"solid_drill": MachineType.DrillSolid,
+	"oil_drill": MachineType.DrillLiquid,
+	"smelter": MachineType.Smelter,
+	"crafter": MachineType.Crafter,
+	"collector": MachineType.Collector,
+	"conveyor": MachineType.ConveyorBelt
 }
 
 signal drag_start
@@ -66,7 +73,7 @@ var highest_conwayor_index: int = -1
 
 func resources_produced(machine: Machine, item_produced: GlobalInventory.ItemType, path_exception := -1):
 	if machine.is_damaged: return
-	if item_produced == GlobalInventory.ItemType.None: return
+	if item_produced == GlobalInventory.ItemType.None or item_produced == -1: return
 	var travelling_item = ConwayItem.ctor(item_produced)
 	var send_to_path_index = get_path_index_of_produced_item(machine, path_exception)
 	travelling_item.conway_path_index = send_to_path_index
@@ -114,7 +121,7 @@ func smelt_item(smelter: Machine, source_path: int):
 const minimum_time_for_damage = 15
 const maximum_time_for_damage = 30
 
-const enable_repairs = true
+const enable_repairs = false
 const machines_which_can_break = [MachineType.DrillSolid, MachineType.DrillLiquid, MachineType.Smelter]
 
 func manage_machine_damage_timer(machine: Machine):
@@ -143,5 +150,15 @@ func get_machine_with_restrict_from_pos(machine_pos: Vector2i, only_non_conways:
 		if machine_rect.has_point(machine_pos): return machine
 	return Machine.ctor(MachineData.MachineType.None, machine_pos)
 
+func add_machine_to_inventory(machine_type: MachineType, amount: int = 1):
+	if not machine_type in obtainedMachines: obtainedMachines[machine_type] = 0
+	obtainedMachines[machine_type] += amount
+
 func craft_item(machine: Machine):
-	print(machine.recipe)
+	var craft_cost = machine.get_craft_cost()
+	while machine.contains_all_required_items(craft_cost):
+		machine.remove_all_required_items(craft_cost)
+		var wanted_machine_type = names[machine.recipe]
+		add_machine_to_inventory(wanted_machine_type)
+	var machine_ui = get_parent().get_node("PlacementGrid").machine_ui_root
+	machine_ui.update_ui()

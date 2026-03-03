@@ -116,6 +116,7 @@ func _sync_size():
 func _set_recipe(index: int):
 	var text = option_button.get_item_text(index)
 	machine.recipe = text
+	MachineData.craft_item(machine)
 	_update_res()
 
 func _on_repair_pressed():
@@ -155,10 +156,9 @@ func handle_craft_cost():
 	var can_see_craft_cost = machine.machine_type == MachineData.MachineType.Crafter and option_button.selected > 0
 	craft_cost_title.visible = can_see_craft_cost
 	craft_cost.visible = can_see_craft_cost
-	if not machine.recipe in Machinejson.parsed_data: return
-	var machine_json = Machinejson.parsed_data[machine.recipe]
-	var crafting_costs = machine_json["craft_cost"]
-	for required_item in crafting_costs:
+	var craft_cost = machine.get_craft_cost()
+	if craft_cost == null: return
+	for required_item in craft_cost:
 		var item_name = required_item["id"]
 		var required_amount = required_item["amount"]
 		var row = row_scene.instantiate()

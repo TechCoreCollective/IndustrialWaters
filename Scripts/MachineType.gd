@@ -75,3 +75,30 @@ func repair():
 	has_been_repaired = true
 	var grid = MachineData.get_parent().get_node("PlacementGrid")
 	grid.display_scene()
+
+func get_craft_cost():
+	if not recipe in Machinejson.parsed_data: return null
+	var machine_json = Machinejson.parsed_data[recipe]
+	var crafting_costs = machine_json["craft_cost"]
+	return crafting_costs
+
+func contains_all_required_items(items):
+	if items == null: return false
+	for required_item in items:
+		var item_type = GlobalInventory.convert_name_to_enum(required_item["id"])
+		var item_amount = required_item["amount"]
+		var count_in_internal_storage = 0
+		if item_type in received_items: count_in_internal_storage = received_items[item_type]
+		if item_amount > count_in_internal_storage: return false
+	return true
+
+func remove_all_required_items(items):
+	if items == null: return false
+	for required_item in items:
+		var item_type = GlobalInventory.convert_name_to_enum(required_item["id"])
+		var item_amount = required_item["amount"]
+		var new_item_count = received_items[item_type] - item_amount
+		if new_item_count < 0: new_item_count = 0
+		received_items[item_type] = new_item_count
+		if new_item_count == 0: received_items.erase(item_type)
+	storage_modified.emit()

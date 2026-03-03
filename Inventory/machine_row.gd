@@ -4,15 +4,6 @@ extends Control
 
 var item_name: String
 
-var names = {
-	"solid_drill": MachineData.MachineType.DrillSolid,
-	"oil_drill": MachineData.MachineType.DrillLiquid,
-	"smelter": MachineData.MachineType.Smelter,
-	"crafter": MachineData.MachineType.Crafter,
-	"collector": MachineData.MachineType.Collector,
-	"conveyor": MachineData.MachineType.ConveyorBelt
-}
-
 @export var sol = preload("res://Textures/SolidDrillIcon.png")
 @export var liq = preload("res://Textures/OilDrillIcon.png")
 @export var smelt =  preload("res://Textures/SmelterIcon.png")
@@ -38,5 +29,5 @@ func _craft():
 	var cost = Machinejson.parsed_data.get(item_name).get("craft_cost")
 	
 	if Utils.remove_resources_safe(cost):
-		MachineData.obtainedMachines[names.get(item_name)] += 1
+		MachineData.obtainedMachines[MachineData.names.get(item_name)] += 1
 		machine_ui.update_ui()
