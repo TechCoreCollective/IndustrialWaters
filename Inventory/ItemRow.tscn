@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dj5j4s7f0cs3l"]
 
 [ext_resource type="Script" uid="uid://dab5lq2e0ujpd" path="res://Inventory/item_row.gd" id="1_u5t8w"]
+[ext_resource type="FontFile" uid="uid://dil43sbwcg2uc" path="res://Textures/Leafcross Font.png" id="2_r6g8t"]
 
 [node name="ItemRow" type="Control" unique_id=531361307]
 layout_mode = 3
@@ -28,8 +29,12 @@ stretch_mode = 3
 custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_r6g8t")
+theme_override_font_sizes/font_size = 24
 
 [node name="ItemCount" type="Label" parent="HBoxContainer" unique_id=1507283693]
 custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_r6g8t")
+theme_override_font_sizes/font_size = 24
 horizontal_alignment = 2

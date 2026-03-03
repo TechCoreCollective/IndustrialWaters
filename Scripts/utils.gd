@@ -17,5 +17,6 @@ func remove_resources_safe_machine(required_materials, machine : Machine) -> boo
 
 	for item in required_materials:
 		machine.received_items[int(GlobalInventory.convert_name_to_enum(item.get("id")))] -= item.get("amount")
+		machine.storage_modified.emit()
 
 	return true

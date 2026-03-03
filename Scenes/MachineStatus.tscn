@@ -87,7 +87,27 @@ custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 theme_override_constants/separation = 32
 
-[node name="Button" type="Button" parent="VBoxContainer" unique_id=410594162]
+[node name="Craft Cost Title" type="Label" parent="VBoxContainer" unique_id=390704538]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_i14ln")
+theme_override_font_sizes/font_size = 24
+text = "Craft cost:"
+
+[node name="Craft Cost" type="ScrollContainer" parent="VBoxContainer" unique_id=843536699]
+custom_minimum_size = Vector2(52, 75)
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0
+horizontal_scroll_mode = 0
+scroll_hint_mode = 1
+tile_scroll_hint = true
+
+[node name="ItemList" type="VBoxContainer" parent="VBoxContainer/Craft Cost" unique_id=331311684]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="Upgrade" type="Button" parent="VBoxContainer" unique_id=410594162]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_i14ln")
 theme_override_font_sizes/font_size = 24

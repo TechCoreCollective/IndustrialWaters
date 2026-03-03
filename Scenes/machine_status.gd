@@ -3,7 +3,7 @@ extends Control
 @onready var target: Panel = $Panel
 @onready var source: VBoxContainer = $VBoxContainer
 @onready var upgrade_cost_list: VBoxContainer = $"VBoxContainer/Upgrade Cost/ItemList"
-@onready var button: Button = $VBoxContainer/Button
+@onready var upgrade_button: Button = $VBoxContainer/Upgrade
 @onready var name_label: Label = $VBoxContainer/Name
 @onready var option_button: OptionButton = $VBoxContainer/OptionButton
 @onready var contained_items_list: VBoxContainer = $"VBoxContainer/Contained Items/ItemList"
@@ -12,6 +12,9 @@ extends Control
 @onready var upgrade_cost_title = $"VBoxContainer/Upgrade Cost Title"
 @onready var contained_items_title = $"VBoxContainer/Contained Items Title"
 @onready var contained_items = $"VBoxContainer/Contained Items"
+@onready var craft_cost_title = $"VBoxContainer/Craft Cost Title"
+@onready var craft_cost = $"VBoxContainer/Craft Cost"
+@onready var craft_cost_list = $"VBoxContainer/Craft Cost/ItemList"
 
 const COSTS = "upgrade_costs"
 const INFO = "info"
@@ -21,7 +24,7 @@ var max_level : int;
 
 func _ready():
 	source.resized.connect(_sync_size)
-	button.pressed.connect(_upgrade)
+	upgrade_button.pressed.connect(_upgrade)
 	option_button.item_selected.connect(_set_recipe)
 
 func _process(_delta):
@@ -30,7 +33,11 @@ func _process(_delta):
 func set_machine(machine_to_be_set):
 	if machine_to_be_set == null: return
 	machine = machine_to_be_set
+	if not machine.storage_modified.is_connected(_update_res):
+		machine.storage_modified.connect(_update_res)
 	_update_res()
+
+var row_scene = preload("res://Inventory/ItemRow.tscn")
 
 func _update_res():
 	if machine == null:
@@ -46,23 +53,17 @@ func _update_res():
 
 	var base = machine.name.capitalize() + " Lv. " + str(machine.level)
 	var on_max_level = machine.level == max_level
-	upgrade_cost.visible = not on_max_level
-	upgrade_cost_title.visible = not on_max_level
 	if on_max_level:
 		base += " (MAX)"
-		button.visible = false
+		upgrade_button.visible = false
 	else:
-		button.visible = true
+		upgrade_button.visible = true
 
 	name_label.text = base
 
-	var row_scene = load("res://Inventory/ItemRow.tscn")
-
-	for i in upgrade_cost_list.get_children():
-		i.queue_free()
-
-	for i in contained_items_list.get_children():
-		i.queue_free()
+	for i in upgrade_cost_list.get_children(): i.queue_free()
+	for i in contained_items_list.get_children(): i.queue_free()
+	for i in craft_cost_list.get_children(): i.queue_free()
 
 	var upgrade_costs = machine_json.get(COSTS, {})
 	var level_costs = upgrade_costs.get(str(machine.level), [])
@@ -74,16 +75,22 @@ func _update_res():
 		row.setup(item_name, UID.ITEM_TEXTURES[item_type], item_count)
 		upgrade_cost_list.add_child(row)
 	
+	var hide_upgrade_cost = on_max_level or level_costs.size() == 0
+	upgrade_cost.visible = not hide_upgrade_cost
+	upgrade_cost_title.visible = not hide_upgrade_cost
+	
 	var received_items_snapshot = machine.received_items.duplicate()
 	for item in received_items_snapshot.keys():
 		var row = row_scene.instantiate()
 		var item_name = GlobalInventory.item_as_displayed_name(item)
 		row.setup(item_name, UID.ITEM_TEXTURES[item], received_items_snapshot.get(item))
 		contained_items_list.add_child(row)
+	
 	var holds_items = received_items_snapshot.size() > 0
 	contained_items_title.visible = holds_items
 	contained_items.visible = holds_items
 	
+	handle_craft_cost()
 	_sync_size()
 
 func _upgrade():
@@ -105,14 +112,11 @@ func _upgrade():
 func _sync_size():
 	target.size = Vector2(source.size.x, option_button.position.y)
 	target.position = source.position
-	contained_items.custom_minimum_size = contained_items_list.get_minimum_size()
 	
 func _set_recipe(index: int):
 	var text = option_button.get_item_text(index)
-	if text != "No Recipe":
-		machine.recipe = text
-	else:
-		text = ""
+	machine.recipe = text
+	_update_res()
 
 func _on_repair_pressed():
 	MachineData.is_in_minigame = true
@@ -126,9 +130,19 @@ func _on_repair_pressed():
 func handle_option_button(machine_json):
 	var options = ["No Recipe"]
 	var recipes = machine_json.get("recipes", [])
-	for recipe_result in recipes:
-		recipe_result = GlobalInventory.item_as_displayed_name(GlobalInventory.convert_name_to_enum(recipe_result))
-		options.append(recipe_result)
+	var is_crafter = machine.machine_type == MachineData.MachineType.Crafter
+	if is_crafter: recipes = machine_json.get("crafting_results", [])
+	for i in range(recipes.size()):
+		var recipe_result = recipes[i]
+		if not is_crafter:
+			#recipe_result = GlobalInventory.item_as_displayed_name(GlobalInventory.convert_name_to_enum(recipe_result))
+			options.append(recipe_result)
+			continue
+		
+		if i >= machine.level: break
+		for craftable in recipe_result:
+			#var displayed_name = GlobalInventory.get_displayed(craftable)
+			options.append(craftable)
 
 	option_button.clear()
 	for i in options:
@@ -136,3 +150,18 @@ func handle_option_button(machine_json):
 	
 	if machine.recipe != "":
 		option_button.select(options.find(machine.recipe))
+
+func handle_craft_cost():
+	var can_see_craft_cost = machine.machine_type == MachineData.MachineType.Crafter and option_button.selected > 0
+	craft_cost_title.visible = can_see_craft_cost
+	craft_cost.visible = can_see_craft_cost
+	if not machine.recipe in Machinejson.parsed_data: return
+	var machine_json = Machinejson.parsed_data[machine.recipe]
+	var crafting_costs = machine_json["craft_cost"]
+	for required_item in crafting_costs:
+		var item_name = required_item["id"]
+		var required_amount = required_item["amount"]
+		var row = row_scene.instantiate()
+		var item_type = GlobalInventory.convert_name_to_enum(item_name)
+		row.setup(item_name, UID.ITEM_TEXTURES[item_type], required_amount)
+		craft_cost_list.add_child(row)

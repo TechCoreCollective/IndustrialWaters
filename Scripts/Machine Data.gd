@@ -14,11 +14,7 @@ const Generators = [MachineType.DrillSolid, MachineType.DrillLiquid]
 const Crafters = [MachineType.Smelter]
 
 var obtainedMachines: Dictionary[MachineType, int] = {
-	MachineType.DrillSolid: 6,
-	MachineType.DrillLiquid: 3,
-	MachineType.Smelter: 3,
-	MachineType.Collector: 10,
-	MachineType.Crafter: 4
+	MachineType.DrillLiquid: 1
 }
 
 var machine_sizes: Dictionary[MachineType, Vector2] = {
@@ -146,3 +142,6 @@ func get_machine_with_restrict_from_pos(machine_pos: Vector2i, only_non_conways:
 		var machine_rect = machine.get_rect()
 		if machine_rect.has_point(machine_pos): return machine
 	return Machine.ctor(MachineData.MachineType.None, machine_pos)
+
+func craft_item(machine: Machine):
+	print(machine.recipe)

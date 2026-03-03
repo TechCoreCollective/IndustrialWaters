@@ -6,7 +6,7 @@ var item_name: String
 
 var names = {
 	"solid_drill": MachineData.MachineType.DrillSolid,
-	"liquid_drill": MachineData.MachineType.DrillLiquid,
+	"oil_drill": MachineData.MachineType.DrillLiquid,
 	"smelter": MachineData.MachineType.Smelter,
 	"crafter": MachineData.MachineType.Crafter,
 	"collector": MachineData.MachineType.Collector,
@@ -22,7 +22,7 @@ var names = {
 
 var textures = {
 	"solid_drill": sol,
-	"liquid_drill": liq,
+	"oil_drill": liq,
 	"smelter": smelt
 }
 

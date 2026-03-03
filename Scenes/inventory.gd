@@ -13,7 +13,7 @@ var working_machines : Array[MachineData.MachineType] = [MachineData.MachineType
 
 var names = {
 	MachineData.MachineType.DrillSolid : "solid_drill",
-	MachineData.MachineType.DrillLiquid : "liquid_drill",
+	MachineData.MachineType.DrillLiquid : "oil_drill",
 	MachineData.MachineType.Smelter : "smelter",
 	MachineData.MachineType.Crafter : "crafter",
 	MachineData.MachineType.Collector : "collector",

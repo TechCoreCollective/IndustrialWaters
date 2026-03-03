@@ -255,13 +255,16 @@ func add_neighbours_after_delete(index, current_pos):
 		add_neighbours_after_delete(index, neigh_pos)
 
 const start_game_wait = 0.25
+var started_previously = false
 
 func start_game():
+	if started_previously: return
 	create_tween().tween_property(overlay, "color:a", 0, start_game_wait)
 	create_tween().tween_property(logo, "modulate:a", 0, start_game_wait)
 	create_tween().tween_property(play_game_button, "modulate:a", 0, start_game_wait)
 	create_tween().tween_property(machine_ui_root, "modulate:a", 1, start_game_wait)
 	create_tween().tween_property(version_number, "modulate:a", 0, start_game_wait)
+	started_previously = true
 	await get_tree().create_timer(start_game_wait).timeout
 	title_screen_on = false
 	overlay.queue_free()

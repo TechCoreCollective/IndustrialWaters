@@ -13,12 +13,14 @@ enum ConveyorFaceDir {
 
 var names = {
 	MachineData.MachineType.DrillSolid : "solid_drill",
-	MachineData.MachineType.DrillLiquid : "liquid_drill",
+	MachineData.MachineType.DrillLiquid : "oil_drill",
 	MachineData.MachineType.Smelter : "smelter",
 	MachineData.MachineType.Crafter : "crafter",
 	MachineData.MachineType.Collector : "collector",
 	MachineData.MachineType.ConveyorBelt : "conveyor"
 }
+
+signal storage_modified
 
 var data: Dictionary = {}
 var machine_type: MachineData.MachineType

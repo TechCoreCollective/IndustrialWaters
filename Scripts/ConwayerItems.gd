@@ -83,12 +83,13 @@ func send_item_to_machine(conway_item: ConwayItem):
 		if not conway_item.item_type in machine.received_items:
 			machine.received_items[conway_item.item_type] = 0
 		if is_collector: GlobalInventory.add_item(conway_item.item_type, 1)
+		
 		machine.received_items[conway_item.item_type] += 1
+		machine.storage_modified.emit()
 		conway_item.associated_sprite.queue_free()
 		MachineData.traveling_conway_items.erase(conway_item)
 
-		if machine.machine_type == MachineData.MachineType.Smelter:
-			MachineData.smelt_item(machine, conway_item.conway_path_index)
-		elif machine.machine_type == MachineData.MachineType.Crafter:
-			MachineData.smelt_item(machine, conway_item.conway_path_index)
+		match machine.machine_type:
+			MachineData.MachineType.Smelter: MachineData.smelt_item(machine, conway_item.conway_path_index)
+			MachineData.MachineType.Crafter: MachineData.craft_item(machine)
 		break
