@@ -34,7 +34,7 @@ file_contents = "
 		\"max_level\": 2,
 		
 		\"craft_cost\": [
-			{\"id\": \"iron_ore\", \"amount\": 10}
+			{\"id\": \"copper_ore\", \"amount\": 10}
 		],
 		
 		\"upgrade_costs\":{
@@ -102,7 +102,9 @@ file_contents = "
 		],
 		
 		\"upgrade_costs\":{
-			\"1\": [],
+			\"1\": [
+				{\"id\": \"diamond\", \"amount\": 10}
+			],
 			\"2\": [
 				{\"id\": \"copper_ore\", \"amount\": 50},
 				{\"id\": \"iron_ore\", \"amount\": 25}

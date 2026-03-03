@@ -25,6 +25,10 @@ Machinejson="*uid://dto23vs5cdsoo"
 Utils="*uid://c353nnhkhmpaw"
 GlobalInventory="*uid://bxvx63omn3p4p"
 
+[editor]
+
+movie_writer/movie_file="C:/Users/trigw/Desktop/record.png"
+
 [input]
 
 interact={

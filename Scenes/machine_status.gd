@@ -86,10 +86,6 @@ func _update_res():
 		row.setup(item_name, UID.ITEM_TEXTURES[item], received_items_snapshot.get(item))
 		contained_items_list.add_child(row)
 	
-	var holds_items = received_items_snapshot.size() > 0
-	contained_items_title.visible = holds_items
-	contained_items.visible = holds_items
-	
 	handle_craft_cost()
 	_sync_size()
 
@@ -115,6 +111,7 @@ func _sync_size():
 	
 func _set_recipe(index: int):
 	var text = option_button.get_item_text(index)
+	if machine.machine_type == MachineData.MachineType.Crafter: text = crafter_options[option_button.selected]
 	machine.recipe = text
 	MachineData.craft_item(machine)
 	_update_res()
@@ -128,35 +125,38 @@ func _on_repair_pressed():
 	get_parent().add_child(minigame_instance)
 	hide()
 
+var crafter_options: Array[String] = []
+
 func handle_option_button(machine_json):
-	var options = ["No Recipe"]
+	crafter_options = ["No Recipe"]
 	var recipes = machine_json.get("recipes", [])
 	var is_crafter = machine.machine_type == MachineData.MachineType.Crafter
 	if is_crafter: recipes = machine_json.get("crafting_results", [])
 	for i in range(recipes.size()):
 		var recipe_result = recipes[i]
 		if not is_crafter:
-			#recipe_result = GlobalInventory.item_as_displayed_name(GlobalInventory.convert_name_to_enum(recipe_result))
-			options.append(recipe_result)
+			recipe_result = GlobalInventory.item_as_displayed_name(GlobalInventory.convert_name_to_enum(recipe_result))
+			crafter_options.append(recipe_result)
 			continue
 		
 		if i >= machine.level: break
 		for craftable in recipe_result:
-			#var displayed_name = GlobalInventory.get_displayed(craftable)
-			options.append(craftable)
+			crafter_options.append(craftable)
+			craftable = GlobalInventory.get_displayed(craftable)
 
 	option_button.clear()
-	for i in options:
+	for i in crafter_options:
 		option_button.add_item(i)
 	
 	if machine.recipe != "":
-		option_button.select(options.find(machine.recipe))
+		option_button.select(crafter_options.find(machine.recipe))
 
 func handle_craft_cost():
 	var can_see_craft_cost = machine.machine_type == MachineData.MachineType.Crafter and option_button.selected > 0
 	craft_cost_title.visible = can_see_craft_cost
 	craft_cost.visible = can_see_craft_cost
 	var craft_cost = machine.get_craft_cost()
+	
 	if craft_cost == null: return
 	for required_item in craft_cost:
 		var item_name = required_item["id"]
