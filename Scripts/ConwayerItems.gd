@@ -11,7 +11,7 @@ func add_associated_sprite(conway_item: ConwayItem):
 
 func get_texture(conway_item: ConwayItem): return UID.ITEM_TEXTURES[conway_item.item_type]
 
-const one_tile_duration: float = 0.25
+const one_tile_duration: float = 0.3
 
 func get_size_of_path(conway_item: ConwayItem):
 	return MachineData.active_conwayerors[conway_item.conway_path_index].size()
@@ -78,6 +78,9 @@ func send_item_to_machine(conway_item: ConwayItem):
 	for machine: Machine in machines_copy:
 		var result = conveyor_belts.does_machine_connect_to_placed(conway_item.world_tile, machine)
 		if result == null or result == false: continue
+		if machine.currently_crafting:
+			erase_conway_item(conway_item)
+			break
 
 		var is_collector = machine.machine_type == MachineData.MachineType.Collector
 		if not conway_item.item_type in machine.received_items:
@@ -86,10 +89,13 @@ func send_item_to_machine(conway_item: ConwayItem):
 		
 		machine.received_items[conway_item.item_type] += 1
 		machine.storage_modified.emit()
-		conway_item.associated_sprite.queue_free()
-		MachineData.traveling_conway_items.erase(conway_item)
+		erase_conway_item(conway_item)
 
 		match machine.machine_type:
 			MachineData.MachineType.Smelter: MachineData.smelt_item(machine, conway_item.conway_path_index)
 			MachineData.MachineType.Crafter: MachineData.craft_item(machine)
 		break
+
+func erase_conway_item(conway_item: ConwayItem):
+	conway_item.associated_sprite.queue_free()
+	MachineData.traveling_conway_items.erase(conway_item)

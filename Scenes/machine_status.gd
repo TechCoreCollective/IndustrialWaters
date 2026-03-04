@@ -35,6 +35,7 @@ func set_machine(machine_to_be_set):
 	machine = machine_to_be_set
 	if not machine.storage_modified.is_connected(_update_res):
 		machine.storage_modified.connect(_update_res)
+	option_button.get_popup().hide()
 	_update_res()
 
 var row_scene = preload("res://Inventory/ItemRow.tscn")
@@ -86,6 +87,10 @@ func _update_res():
 		row.setup(item_name, UID.ITEM_TEXTURES[item], received_items_snapshot.get(item))
 		contained_items_list.add_child(row)
 	
+	var can_see_contained = machine.get_process_level() != Machine.ProcessingLevel.Generation
+	contained_items.visible = can_see_contained
+	contained_items_title.visible = can_see_contained
+	
 	handle_craft_cost()
 	_sync_size()
 
@@ -101,8 +106,6 @@ func _upgrade():
 		return
 
 	machine.level += 1
-	machine.multiplier = 2 ** (machine.level-1)
-
 	_update_res()
 
 func _sync_size():
@@ -111,7 +114,8 @@ func _sync_size():
 	
 func _set_recipe(index: int):
 	var text = option_button.get_item_text(index)
-	if machine.machine_type == MachineData.MachineType.Crafter: text = crafter_options[option_button.selected]
+	if machine.machine_type == MachineData.MachineType.Crafter:
+		text = crafter_options[option_button.selected]
 	machine.recipe = text
 	MachineData.craft_item(machine)
 	_update_res()
@@ -129,23 +133,29 @@ var crafter_options: Array[String] = []
 
 func handle_option_button(machine_json):
 	crafter_options = ["No Recipe"]
-	var recipes = machine_json.get("recipes", [])
+	var button_options = [crafter_options[0]]
+	var all_possible_recipes = machine_json.get("recipes", [])
+	var recipes = []
+	for i in range(all_possible_recipes.size()):
+		var new_recipes = all_possible_recipes[i]
+		if i >= machine.level: break
+		recipes.append_array(new_recipes)
+	
 	var is_crafter = machine.machine_type == MachineData.MachineType.Crafter
-	if is_crafter: recipes = machine_json.get("crafting_results", [])
 	for i in range(recipes.size()):
 		var recipe_result = recipes[i]
 		if not is_crafter:
 			recipe_result = GlobalInventory.item_as_displayed_name(GlobalInventory.convert_name_to_enum(recipe_result))
 			crafter_options.append(recipe_result)
+			button_options.append(recipe_result)
 			continue
 		
-		if i >= machine.level: break
-		for craftable in recipe_result:
-			crafter_options.append(craftable)
-			craftable = GlobalInventory.get_displayed(craftable)
+		crafter_options.append(recipe_result)
+		var craftable = GlobalInventory.get_displayed(recipe_result)
+		button_options.append(craftable)
 
 	option_button.clear()
-	for i in crafter_options:
+	for i in button_options:
 		option_button.add_item(i)
 	
 	if machine.recipe != "":
@@ -155,11 +165,11 @@ func handle_craft_cost():
 	var can_see_craft_cost = machine.machine_type == MachineData.MachineType.Crafter and option_button.selected > 0
 	craft_cost_title.visible = can_see_craft_cost
 	craft_cost.visible = can_see_craft_cost
-	var craft_cost = machine.get_craft_cost()
+	var used_cost = machine.get_craft_cost()
 	
-	if craft_cost == null: return
-	for required_item in craft_cost:
-		var item_name = required_item["id"]
+	if used_cost == null: return
+	for required_item in used_cost:
+		var item_name = GlobalInventory.get_displayed(required_item["id"])
 		var required_amount = required_item["amount"]
 		var row = row_scene.instantiate()
 		var item_type = GlobalInventory.convert_name_to_enum(item_name)

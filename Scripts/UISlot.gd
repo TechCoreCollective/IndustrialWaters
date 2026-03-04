@@ -5,7 +5,7 @@ extends Node2D
 @onready var item_count = $ItemCount
 @onready var icon_sprite = $Icon
 
-var machine_type : MachineData.MachineType
+var machine_type : MachineData.MachineType = -1
 var mouse_rect: Rect2
 
 func _ready():
@@ -13,7 +13,9 @@ func _ready():
 	update_item_count()
 
 func update_item_count():
-	var amount_of_machines = MachineData.obtainedMachines[machine_type]
+	var amount_of_machines = 0
+	if machine_type in MachineData.obtainedMachines:
+		amount_of_machines = MachineData.obtainedMachines[machine_type]
 	item_count.text = str(amount_of_machines)
 
 func _process(_delta):

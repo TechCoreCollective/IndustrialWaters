@@ -27,3 +27,8 @@ offset_right = 655.1953
 offset_bottom = 1807.4558
 rotation = 4.712389
 texture = SubResource("GradientTexture2D_ek4tp")
+
+[node name="Items" type="Control" parent="." unique_id=409607912]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0

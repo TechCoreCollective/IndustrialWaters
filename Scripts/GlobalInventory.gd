@@ -12,10 +12,20 @@ enum ItemType {
 	MezholiumStick,
 	Glue,
 	CopperPlate,
-	IronPlate
+	IronPlate,
+	Oil,
+	ThermalFluid,
+	Lubricant
 }
 
-var inventory: Dictionary[ItemType, int] = {}
+var inventory: Dictionary[ItemType, int] = {
+	ItemType.CopperOre: 200,
+	ItemType.IronOre: 150,
+	ItemType.Lubricant: 20
+}
+
+const items_seen_in_grid := [ItemType.Lubricant]
+
 signal contents_changed
 
 func name_to_enum_generic_convert(element_name: String, used_enum: Dictionary) -> int:

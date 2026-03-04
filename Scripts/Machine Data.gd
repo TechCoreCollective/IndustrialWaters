@@ -13,7 +13,13 @@ enum MachineType {
 const Generators = [MachineType.DrillSolid, MachineType.DrillLiquid]
 const Crafters = [MachineType.Smelter]
 
-var obtainedMachines: Dictionary[MachineType, int] = {}
+var obtainedMachines: Dictionary[MachineType, int] = {
+	MachineType.DrillLiquid: 5,
+	MachineType.DrillSolid: 5,
+	MachineType.Smelter: 5,
+	MachineType.Collector: 5,
+	MachineType.Crafter: 5,
+}
 
 var machine_sizes: Dictionary[MachineType, Vector2] = {
 	MachineType.DrillSolid: Vector2(3, 3),
@@ -116,12 +122,24 @@ func smelt_item(smelter: Machine, source_path: int):
 	if smelter.recipe == "" or smelter.recipe == null: return
 	var smelt_result = GlobalInventory.convert_name_to_enum(smelter.recipe)
 	if smelt_result == GlobalInventory.ItemType.None: return
+	
+	var smelter_requirements = Machinejson.parsed_data["smelter"]["requirements"]
+	var result_requirements = smelter_requirements[smelter.recipe.to_snake_case()]
+	var machines_crafted = 0
+	while smelter.contains_all_required_items(result_requirements):
+		smelter.remove_all_required_items(result_requirements)
+		machines_crafted += 1
+	if machines_crafted == 0: return
+	
+	smelter.currently_crafting = true
+	await get_tree().create_timer(crafting_time * machines_crafted).timeout
+	smelter.currently_crafting = false
 	resources_produced(smelter, smelt_result, source_path)
 
 const minimum_time_for_damage = 1
 const maximum_time_for_damage = 2
 
-const enable_repairs = true
+const enable_repairs = false
 const machines_which_can_break = [MachineType.DrillSolid, MachineType.DrillLiquid, MachineType.Smelter]
 
 func manage_machine_damage_timer(machine: Machine):
@@ -154,11 +172,21 @@ func add_machine_to_inventory(machine_type: MachineType, amount: int = 1):
 	if not machine_type in obtainedMachines: obtainedMachines[machine_type] = 0
 	obtainedMachines[machine_type] += amount
 
+const crafting_time = 3
+
 func craft_item(machine: Machine):
+	if machine.machine_type != MachineType.Crafter or machine.recipe == "": return
 	var craft_cost = machine.get_craft_cost()
+	var wanted_machine_type = names[machine.recipe]
+	var machines_crafted = 0
 	while machine.contains_all_required_items(craft_cost):
 		machine.remove_all_required_items(craft_cost)
-		var wanted_machine_type = names[machine.recipe]
-		add_machine_to_inventory(wanted_machine_type)
+		machines_crafted += 1
+	if machines_crafted == 0: return
+	
+	machine.currently_crafting = true
+	await get_tree().create_timer(crafting_time * machines_crafted).timeout
+	add_machine_to_inventory(wanted_machine_type, machines_crafted)
+	machine.currently_crafting = false
 	var machine_ui = get_parent().get_node("PlacementGrid").machine_ui_root
 	machine_ui.update_ui()

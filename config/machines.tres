@@ -25,10 +25,10 @@ file_contents = "
 		},
 		
 		\"recipes\": [
-			\"copper_ore\",
-			\"iron_ore\",
-			\"diamond\"
-		]
+			[\"copper_ore\"],
+			[\"iron_ore\"],
+			[\"diamond\"]
+		],
 	},
 	\"oil_drill\": {
 		\"max_level\": 2,
@@ -49,8 +49,8 @@ file_contents = "
 		},
 		
 		\"recipes\": [
-			\"kelp\",
-			\"mezholium\"
+			[\"oil\"],
+			[\"thermal_fluid\"]
 		]
 	},
 	
@@ -79,19 +79,13 @@ file_contents = "
 			\"iron_ingot\": [
 				{\"id\": \"iron_core\", \"amount\": 2}
 			],
-			\"glue\": [
-				{\"id\": \"kelp\", \"amount\": 2}
-			],
-			\"mezholium_stick\": [
-				{\"id\": \"mezholium\", \"amount\": 2}
+			\"lubricant\": [
+				{\"id\": \"oil\", \"amount\": 16}
 			]
 		},
-		
 		\"recipes\": [
-			\"copper_ingot\",
-			\"iron_ingot\",
-			\"mezholium_stick\",
-			\"glue\"
+			[\"copper_ingot\", \"iron_ingot\"],
+			[\"lubricant\"]
 		]
 	},
 	\"crafter\": {
@@ -103,7 +97,7 @@ file_contents = "
 		
 		\"upgrade_costs\":{
 			\"1\": [
-				{\"id\": \"diamond\", \"amount\": 10}
+				{\"id\": \"copper_ore\", \"amount\": 10}
 			],
 			\"2\": [
 				{\"id\": \"copper_ore\", \"amount\": 50},
@@ -119,7 +113,7 @@ file_contents = "
 				{\"id\": \"copper_plate\", \"amount\": 2}
 			]
 		},
-		\"crafting_results\": [
+		\"recipes\": [
 			[\"solid_drill\", \"oil_drill\"],
 			[\"crafter\", \"collector\"],
 			[\"smelter\"]

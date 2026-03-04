@@ -1,6 +1,6 @@
 extends Sprite2D
 
-var machine_type: MachineData.MachineType
+var machine_type
 
 @export var invisible_on_start := false
 

@@ -6,6 +6,7 @@ func remove_resources_safe(required_materials) -> bool:
 		var contains_item = item_type in GlobalInventory.inventory
 		if not contains_item: return false
 		GlobalInventory.inventory[item_type] -= item["amount"]
+		GlobalInventory.contents_changed.emit()
 	return true
 	
 func remove_resources_safe_machine(required_materials, machine : Machine) -> bool:

@@ -27,7 +27,9 @@ const ITEM_TEXTURES : Dictionary[GlobalInventory.ItemType, Texture] = {
 	GlobalInventory.ItemType.MezholiumStick: preload("uid://brrd52jgijcgn"),
 	GlobalInventory.ItemType.Glue: preload("res://icons/Glue.png"),
 	GlobalInventory.ItemType.CopperPlate: preload("uid://cnrtaol4r1dli"),
-	GlobalInventory.ItemType.IronPlate: preload("uid://byahnre76jvu5")
+	GlobalInventory.ItemType.IronPlate: preload("uid://byahnre76jvu5"),
+	GlobalInventory.ItemType.Oil: preload("uid://3ogrw4o02cg4"),
+	GlobalInventory.ItemType.Lubricant: preload("uid://bi7kywlei6hej")
 }
 
 const SCN_WELDING = preload("uid://jntm2ufk6b6s")

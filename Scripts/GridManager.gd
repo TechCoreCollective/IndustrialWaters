@@ -33,22 +33,34 @@ func _ready():
 	MachineData.drag_start.connect(start_to_drag)
 	MachineData.drag_end.connect(end_dragging)
 
+var previous_frame_had_display_event := false
+
 func _unhandled_input(event: InputEvent) -> void:
 	if not event.is_pressed(): return
 	handle_zoom_event(event)
 	handle_offset_event()
+
+const minimum_zoom = 0.05
+const maximum_zoom = 5
 
 func handle_zoom_event(event: InputEvent):
 	if not event is InputEventMouseButton: return
 	var previous_zoom = grid_zoom
 	if event.button_index == MOUSE_BUTTON_WHEEL_UP: grid_zoom *= zoom_change
 	if event.button_index == MOUSE_BUTTON_WHEEL_DOWN: grid_zoom /= zoom_change
-	if previous_zoom != grid_zoom: display_scene()
+	grid_zoom = clamp(grid_zoom, minimum_zoom, maximum_zoom)
+	if previous_zoom != grid_zoom:
+		previous_frame_had_display_event = true
+		display_scene()
 
 func terminating_drag_and_drop():
 	return Input.is_action_just_pressed("interact") or Input.is_action_just_pressed("cancel_drop")
 
+var current_frame = 0
+const conway_items_refresh_rate = 2
+
 func _process(delta):
+	current_frame += 1
 	update_window_size()
 	if title_screen_on:
 		logo.size.x = current_window_size.x
@@ -59,13 +71,16 @@ func _process(delta):
 	if previous_window_size != current_window_size: display_scene()
 	dragged_icon.position = get_global_mouse_position()
 	conveyor_root.handle_conveyor_belts()
-	conwayer_items.update_conwayer_items(delta)
+	if current_frame % conway_items_refresh_rate == 0 or previous_frame_had_display_event:
+		conwayer_items.update_conwayer_items(delta)
+	previous_frame_had_display_event = false
 	if terminating_drag_and_drop():
 		end_dragging()
 		MachineData.drag_ended_prematurely = true
 	handle_deletions()
 	if MachineData.dragged_type == MachineData.MachineType.None: return
 	make_affected_tiles_visible()
+	if MachineData.dragged_type == -1: display_machines()
 
 func update_window_size(): current_window_size = DisplayServer.window_get_size()
 
@@ -118,6 +133,7 @@ func handle_offset_event():
 	if offset_change == Vector2.ZERO: return
 	var offset_used_change = offset_change / grid_zoom * offset_change_multiplier
 	grid_offset += offset_used_change
+	previous_frame_had_display_event = true
 	display_scene()
 
 func get_hovered() -> Vector2i:
@@ -130,7 +146,11 @@ func get_hovered() -> Vector2i:
 func start_to_drag():
 	if MachineData.is_ui_open(): return
 	dragged_icon.update_type(MachineData.dragged_type)
-	affected_tiles.show()
+	var hovered_tile = get_hovered()
+	var hovered_conway = MachineData.get_conwayer_at_pos(hovered_tile)
+	var are_affected_hidden = MachineData.dragged_type == -1 and\
+		hovered_conway.machine_type != MachineData.MachineType.None
+	affected_tiles.visible = not are_affected_hidden
 	MachineData.drag_ended_prematurely = false
 	make_affected_tiles_visible()
 
@@ -140,19 +160,21 @@ func end_dragging():
 	if is_placement_invalid() or terminating_drag_and_drop() or\
 		MachineData.drag_ended_prematurely or MachineData.is_ui_open():
 			return
-	var added_machine = Machine.ctor(MachineData.previous_dragged, get_hovered())
-	MachineData.manage_machine_damage_timer(added_machine)
-	MachineData.placed_machines.append(added_machine)
+	if MachineData.previous_dragged >= 0:
+		var added_machine = Machine.ctor(MachineData.previous_dragged, get_hovered())
+		MachineData.manage_machine_damage_timer(added_machine)
+		MachineData.placed_machines.append(added_machine)
 	display_machines()
 
 func make_affected_tiles_visible():
 	update_position_of_texture(Machine.ctor(MachineData.dragged_type, get_hovered()), affected_tiles)
-	affected_tiles.color = invalid_placement_color if is_placement_invalid() else affected_tiles_color
+	var use_invalid_color = is_placement_invalid() or MachineData.dragged_type == -1
+	affected_tiles.color = invalid_placement_color if use_invalid_color else affected_tiles_color
 
 const amount_of_conway_tiles = 6
 
 func update_position_of_texture(machine: Machine, texture):
-	var used_machine_size = MachineData.machine_sizes[machine.machine_type]
+	var used_machine_size = MachineData.machine_sizes.get(machine.machine_type, Vector2.ONE)
 	var upper_left_hovered = machine.place_position - Vector2i(used_machine_size / 2)
 	texture.position = get_world_position(upper_left_hovered)
 	
@@ -172,6 +194,7 @@ func get_world_position(tile_pos) -> Vector2:
 	return result
 
 var machine_arr: Array
+const lubricant_hover_color := Color("ffe79cff")
 
 func display_machines():
 	reset_machine_textures()
@@ -182,6 +205,9 @@ func display_machines():
 			machine_node = Sprite2D.new()
 			machine_node.z_index = -1
 			conveyor_root.display_conveyor_belt(machine, machine_node)
+			var hovered_tile = get_hovered()
+			if hovered_tile == machine.place_position and MachineData.dragged_type == -1:
+				machine_node.modulate = lubricant_hover_color
 		else: update_position_of_texture(machine, machine_node)
 		var warning_node = TextureRect.new()
 		if machine.is_damaged: warning_node.texture = UID.IMG_WARNING
