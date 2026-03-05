@@ -5,7 +5,8 @@ extends Node2D
 @onready var item_count = $ItemCount
 @onready var icon_sprite = $Icon
 
-var machine_type : MachineData.MachineType = -1
+var machine_type := MachineData.MachineType.None
+var item_type := GlobalInventory.ItemType.None
 var mouse_rect: Rect2
 
 func _ready():
@@ -21,17 +22,24 @@ func update_item_count():
 func _process(_delta):
 	modulate = Color.WHITE
 	if MachineData.is_ui_open(): return
-	if not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and machine_type == MachineData.dragged_type:
+	var is_correct_dragged = machine_type == MachineData.dragged_type and item_type == MachineData.dragged_item
+	if not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and is_correct_dragged:
 		MachineData.drag_end.emit()
 		return
 	if is_mouse_not_in_rect():
-		if machine_type == MachineData.hovered_button_machine_type:
+		var is_correct_hovered = machine_type == MachineData.hovered_button_machine_type and\
+			item_type == MachineData.hovered_button_item_type
+		if is_correct_hovered:
 			MachineData.hovered_button_machine_type = MachineData.MachineType.None
+			MachineData.hovered_button_item_type = GlobalInventory.ItemType.None
 		return
 	modulate = Color.SKY_BLUE
 	MachineData.hovered_button_machine_type = machine_type
+	MachineData.hovered_button_item_type = item_type
 	if not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT): return
+	
 	MachineData.dragged_type = machine_type
+	MachineData.dragged_item = item_type
 	MachineData.previous_dragged = machine_type
 	MachineData.drag_start.emit()
 

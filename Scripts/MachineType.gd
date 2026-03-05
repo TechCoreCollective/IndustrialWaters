@@ -35,6 +35,7 @@ var conway_path_index: int
 var is_damaged := false
 var has_been_repaired := false
 var currently_crafting := false
+var conway_speed_multiplier := 1.0
 
 static func ctor(type: MachineData.MachineType, pos: Vector2) -> Machine:
 	var result: Machine = Machine.new()

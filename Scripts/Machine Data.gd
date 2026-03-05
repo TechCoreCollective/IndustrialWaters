@@ -46,10 +46,28 @@ var names = {
 
 signal drag_start
 signal drag_end
+
+const lubricant_convayor_colors := {
+	2: Color("fcd06aff"),
+	5: Color("f5a245ff"),
+	8: Color("f9985cff"),
+	16: Color("f98a5cff")
+}
+
 var dragged_type := MachineType.None
+var dragged_item := GlobalInventory.ItemType.None
 var previous_dragged := MachineType.None
+var previous_dragged_item := GlobalInventory.ItemType.None
 
 var placed_machines: Array[Machine] = [Machine.ctor(MachineType.DrillSolid, Vector2.ONE), Machine.ctor(MachineType.Crafter, Vector2(5, 4))]
+
+func dragging_something():
+	return MachineData.dragged_type != MachineData.MachineType.None or\
+		MachineData.dragged_item != GlobalInventory.ItemType.None
+
+func hovering_icon():
+	return MachineData.hovered_button_machine_type != MachineData.MachineType.None or\
+		MachineData.hovered_button_item_type != GlobalInventory.ItemType.None
 
 func get_texture_from_type(machine_type: MachineType):
 	var resulting_texture = null
@@ -62,6 +80,7 @@ func get_texture_from_type(machine_type: MachineType):
 	return resulting_texture
 
 var hovered_button_machine_type := MachineType.None
+var hovered_button_item_type := GlobalInventory.ItemType.None
 var is_in_minigame := false
 
 func get_clicked_machine_info():

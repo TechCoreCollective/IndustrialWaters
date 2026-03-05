@@ -3,8 +3,7 @@ extends Node2D
 @onready var grid = $".."
 
 func handle_conveyor_belts():
-	var can_place = MachineData.hovered_button_machine_type == MachineData.MachineType.None and\
-		MachineData.dragged_type == MachineData.MachineType.None and not MachineData.is_ui_open()
+	var can_place = not MachineData.dragging_something() and not MachineData.hovering_icon() and not MachineData.is_ui_open()
 	if Input.is_action_pressed("conveyor_place") and can_place: place_conveyor()
 
 func place_conveyor():
@@ -231,3 +230,26 @@ func get_convayers_associated_with_machine(machine: Machine) -> Array[Machine]:
 		var conway_pos = conway.place_position
 		if machine_rect.has_point(conway_pos): result.append(conway)
 	return result
+
+const lubricant_strength = 1
+const lubricant_range = 8
+
+func place_lubricant_to_convayor(placement_pos: Vector2i):
+	place_lubricant_to_self_and_neighbours(placement_pos)
+
+func place_lubricant_to_self_and_neighbours(placement_pos: Vector2i, previous_dir := Vector2i.ZERO, distance_from_source := 0):
+	var source_convayor = MachineData.get_conwayer_at_pos(placement_pos)
+	var dist_from_source_ratio = float(lubricant_range - distance_from_source) / lubricant_range
+	var speed_change = dist_from_source_ratio * lubricant_strength
+	var last_color_index = MachineData.lubricant_convayor_colors.size()-1
+	var multiplier_limit = MachineData.lubricant_convayor_colors.keys()[last_color_index]
+	source_convayor.conway_speed_multiplier += speed_change
+	if source_convayor.conway_speed_multiplier > multiplier_limit:
+		source_convayor.conway_speed_multiplier = multiplier_limit
+	
+	var neighbours_offsets = get_neighbouring_tiles(placement_pos)
+	if distance_from_source >= lubricant_range: return
+	for offset in neighbours_offsets:
+		if offset == -previous_dir: continue
+		var neigh_pos = placement_pos + offset
+		place_lubricant_to_self_and_neighbours(neigh_pos, offset, distance_from_source + 1)

@@ -78,9 +78,8 @@ func _process(delta):
 		end_dragging()
 		MachineData.drag_ended_prematurely = true
 	handle_deletions()
-	if MachineData.dragged_type == MachineData.MachineType.None: return
 	make_affected_tiles_visible()
-	if MachineData.dragged_type == -1: display_machines()
+	if MachineData.dragged_item != GlobalInventory.ItemType.None: display_machines()
 
 func update_window_size(): current_window_size = DisplayServer.window_get_size()
 
@@ -145,30 +144,43 @@ func get_hovered() -> Vector2i:
 
 func start_to_drag():
 	if MachineData.is_ui_open(): return
-	dragged_icon.update_type(MachineData.dragged_type)
-	var hovered_tile = get_hovered()
-	var hovered_conway = MachineData.get_conwayer_at_pos(hovered_tile)
-	var are_affected_hidden = MachineData.dragged_type == -1 and\
-		hovered_conway.machine_type != MachineData.MachineType.None
-	affected_tiles.visible = not are_affected_hidden
+	if MachineData.dragged_item != GlobalInventory.ItemType.None:
+		dragged_icon.texture = UID.ITEM_TEXTURES[MachineData.dragged_item]
+	else: dragged_icon.update_type(MachineData.dragged_type)
+	
 	MachineData.drag_ended_prematurely = false
 	make_affected_tiles_visible()
 
 func end_dragging():
+	MachineData.dragged_type = MachineData.MachineType.None
+	MachineData.dragged_item = GlobalInventory.ItemType.None
 	dragged_icon.update_type(MachineData.MachineType.None)
 	affected_tiles.hide()
-	if is_placement_invalid() or terminating_drag_and_drop() or\
-		MachineData.drag_ended_prematurely or MachineData.is_ui_open():
-			return
-	if MachineData.previous_dragged >= 0:
+	var stop_drag = is_placement_invalid() or terminating_drag_and_drop() or\
+		MachineData.drag_ended_prematurely or MachineData.is_ui_open()
+	
+	if stop_drag:
+		display_machines()
+		return
+	
+	var dragged_machine = MachineData.previous_dragged != MachineData.MachineType.None
+	if dragged_machine:
 		var added_machine = Machine.ctor(MachineData.previous_dragged, get_hovered())
 		MachineData.manage_machine_damage_timer(added_machine)
 		MachineData.placed_machines.append(added_machine)
+	else: conveyor_root.place_lubricant_to_convayor(get_hovered())
+	
 	display_machines()
 
 func make_affected_tiles_visible():
+	var hovering_convayor_belt = MachineData.get_conwayer_at_pos(get_hovered()).machine_type == MachineData.MachineType.ConveyorBelt
+	var dragging_lubricant = MachineData.dragged_item == GlobalInventory.ItemType.Lubricant
+	var dragging_anything = MachineData.dragging_something()
+	var are_affected_visible = (not dragging_lubricant or not hovering_convayor_belt) and dragging_anything
+	
+	affected_tiles.visible = are_affected_visible
 	update_position_of_texture(Machine.ctor(MachineData.dragged_type, get_hovered()), affected_tiles)
-	var use_invalid_color = is_placement_invalid() or MachineData.dragged_type == -1
+	var use_invalid_color = is_placement_invalid() or MachineData.dragged_item != GlobalInventory.ItemType.None
 	affected_tiles.color = invalid_placement_color if use_invalid_color else affected_tiles_color
 
 const amount_of_conway_tiles = 6
@@ -194,7 +206,7 @@ func get_world_position(tile_pos) -> Vector2:
 	return result
 
 var machine_arr: Array
-const lubricant_hover_color := Color("ffe79cff")
+const lubricant_hover_color := Color("58ffd2ff")
 
 func display_machines():
 	reset_machine_textures()
@@ -205,9 +217,7 @@ func display_machines():
 			machine_node = Sprite2D.new()
 			machine_node.z_index = -1
 			conveyor_root.display_conveyor_belt(machine, machine_node)
-			var hovered_tile = get_hovered()
-			if hovered_tile == machine.place_position and MachineData.dragged_type == -1:
-				machine_node.modulate = lubricant_hover_color
+			machine_node.modulate = set_convayor_modulate(machine)
 		else: update_position_of_texture(machine, machine_node)
 		var warning_node = TextureRect.new()
 		if machine.is_damaged: warning_node.texture = UID.IMG_WARNING
@@ -216,18 +226,51 @@ func display_machines():
 		machines_root.add_child(machine_node)
 		machine_arr.append(machine_node)
 
+func set_convayor_modulate(machine: Machine):
+	var hovered_tile = get_hovered()
+	var is_hovering_with_lubricant = hovered_tile == machine.place_position and MachineData.dragged_item == GlobalInventory.ItemType.Lubricant
+	if is_hovering_with_lubricant: return lubricant_hover_color
+	
+	var start_color = Color.WHITE
+	var end_color: Color
+	var start_speed_multiplier = 1
+	var end_speed_multiplier = 0
+	for lubricant_limit in MachineData.lubricant_convayor_colors.keys():
+		var current_color = MachineData.lubricant_convayor_colors[lubricant_limit]
+		end_color = current_color
+		end_speed_multiplier = lubricant_limit
+		if lubricant_limit > machine.conway_speed_multiplier: break
+		start_color = current_color
+		start_speed_multiplier = lubricant_limit
+	
+	var modulate_weight = inverse_lerp(start_speed_multiplier-1, end_speed_multiplier-1, machine.conway_speed_multiplier-1)
+	if start_speed_multiplier == end_speed_multiplier: modulate_weight = 1
+	var result_modulate = start_color.lerp(end_color, modulate_weight)
+	return result_modulate
+
 func reset_machine_textures():
 	for machine in machine_arr:
 		machine.queue_free()
 	machine_arr.clear()
 
 func is_placement_invalid():
+	if MachineData.previous_dragged != MachineData.MachineType.None: return is_machine_placement_invalid()
+	return is_item_placement_invalid()
+
+func is_machine_placement_invalid():
 	var hovered_tile = get_hovered()
 	var hovered_rect = Machine.ctor(MachineData.previous_dragged, hovered_tile).get_rect()
 	for machine: Machine in MachineData.placed_machines:
 		var machine_rect = machine.get_rect()
 		if machine_rect.intersects(hovered_rect): return true
 	return false
+
+func is_item_placement_invalid():
+	var hovered_tile = get_hovered()
+	var hovered_convayor = MachineData.get_conwayer_at_pos(hovered_tile)
+	match MachineData.previous_dragged_item:
+		GlobalInventory.ItemType.Lubricant: return hovered_convayor.machine_type != MachineData.MachineType.ConveyorBelt
+	return true
 
 const allow_deletions = false
 

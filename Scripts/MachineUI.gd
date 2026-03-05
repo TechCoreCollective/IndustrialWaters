@@ -10,15 +10,24 @@ func _ready():
 	GlobalInventory.contents_changed.connect(update_ui)
 
 func end_machine_drag():
-	if MachineData.dragged_type >= 0:
-		var new_machine_count = MachineData.obtainedMachines[MachineData.dragged_type] - 1
-		if grid_root.is_placement_invalid() or MachineData.drag_ended_prematurely:
-			new_machine_count += 1
-		if new_machine_count <= 0: MachineData.obtainedMachines.erase(MachineData.dragged_type)
-		else: MachineData.obtainedMachines[MachineData.dragged_type] = new_machine_count
+	var dragging_machine = MachineData.dragged_type != MachineData.MachineType.None
+	var new_count = MachineData.obtainedMachines[MachineData.dragged_type] - 1 if dragging_machine\
+		else GlobalInventory.inventory[MachineData.dragged_item] - 1
+	
+	if grid_root.is_placement_invalid() or MachineData.drag_ended_prematurely:
+		new_count += 1
+	
+	if dragging_machine:
+		if new_count <= 0: MachineData.obtainedMachines.erase(MachineData.dragged_type)
+		else: MachineData.obtainedMachines[MachineData.dragged_type] = new_count
+	else:
+		if new_count <= 0: GlobalInventory.inventory.erase(MachineData.dragged_item)
+		else: GlobalInventory.inventory[MachineData.dragged_item] = new_count
 	
 	MachineData.previous_dragged = MachineData.dragged_type
+	MachineData.previous_dragged_item = MachineData.dragged_item
 	MachineData.dragged_type = MachineData.MachineType.None
+	MachineData.dragged_item = GlobalInventory.ItemType.None
 	update_ui()
 
 func _process(_delta):
@@ -90,8 +99,11 @@ func handle_items_ui():
 		ui_slot_item.position = Vector2(latest_window_size.x - used_offset, used_offset)
 		ui_slot_item.position.y += used_offset * ui_elements_displayed * ui_item_y_offset_multiplier
 		ui_slot_item.scale = Vector2(items_ui_scale, items_ui_scale)
+		var item_texture = UID.ITEM_TEXTURES[item_in_grid]
 		items.add_child(ui_slot_item)
-		ui_slot_item.icon_sprite.texture = UID.ITEM_TEXTURES[item_in_grid]
+		ui_slot_item.icon_sprite.texture = item_texture
+		ui_slot_item.item_type = item_in_grid
+		
 		ui_slot_item.item_count.text = str(item_amount)
 		ui_slot_item.make_rect()
 		ui_elements_displayed += 1

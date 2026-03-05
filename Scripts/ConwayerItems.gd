@@ -11,7 +11,7 @@ func add_associated_sprite(conway_item: ConwayItem):
 
 func get_texture(conway_item: ConwayItem): return UID.ITEM_TEXTURES[conway_item.item_type]
 
-const one_tile_duration: float = 0.3
+const one_tile_duration: float = 0.25
 
 func get_size_of_path(conway_item: ConwayItem):
 	return MachineData.active_conwayerors[conway_item.conway_path_index].size()
